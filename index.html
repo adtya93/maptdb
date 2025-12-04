@@ -12,7 +12,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
 
     <style>
-        * {
+        *
+        {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -20,14 +21,29 @@
 
         body {
             font-family: 'Source Sans Pro', sans-serif;
-            background: #e8f4f8;
+            background: #fafafa;
+        }
+
+        .header-logo-left {
+            height: 40px; /* sesuaikan kalau perlu */
+            width: auto;
+        }
+
+        .header-logo-right {
+            height: 26px; /* sesuaikan kalau perlu */
+            width: auto;
+            object-fit: contain;
         }
 
         .map-wrapper {
             max-width: 100%;
             margin: 0 auto;
             background: white;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+            box-shadow: 0 8px 32px rgba(255, 255, 255, 0.933);
+
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
         .map-header {
@@ -44,7 +60,7 @@
             font-weight: 700;
             letter-spacing: 0.5px;
             margin-bottom: 8px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            text-shadow: 2px 2px 4px rgba(254, 253, 253, 0.2);
         }
 
         .map-header .subtitle {
@@ -54,8 +70,19 @@
             letter-spacing: 1px;
         }
 
+        .header-logo-left {
+            height: 40px; /* sesuaikan kalau perlu */
+            width: auto;
+        }
+
+        .header-logo-right {
+            height: 26px; /* sesuaikan kalau perlu */
+            width: auto;
+            object-fit: contain;
+        }
+
         #map {
-            height: 1080px;
+            flex: 1; 
             width: 100%;
             position: relative;
             background: #aadaff;
@@ -348,8 +375,6 @@
     border-radius: 2px;
     transform: translate(-50%, -50%);
 }
-
-
         @media (max-width: 768px) {
             .info-overlay {
                 max-width: 280px;
@@ -359,15 +384,117 @@
                 height: 600px;
             }
         }
+
+.main-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 24px;
+    background: #e9f3f9;
+    border-bottom: 2px solid #b91c1c;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+.header-left,
+.header-center,
+.header-right {
+    display: flex;
+    align-items: center;
+}
+
+.header-left-text {
+    margin-left: 8px;
+    line-height: 1.2;
+    font-size: 11px;
+    color: #111827;
+}
+
+.header-ministry {
+    font-weight: 700;
+}
+
+.header-country {
+    font-weight: 600;
+    margin-top: 2px;
+}
+
+.header-map-subtitle {
+    font-size: 11px;
+    margin-top: 4px;
+}
+
+.header-center {
+    flex: 1;
+    justify-content: center;
+    text-align: center;
+}
+
+.header-right {
+    gap: 8px;
+}
+
+.header-right-divider {
+    width: 1px;
+    height: 24px;
+    background: #d1d5db;
+}
+
+.header-logo-left {
+    height: 38px;
+    width: auto;
+}
+
+.header-logo-right {
+    height: 24px;
+    width: auto;
+    object-fit: contain;
+}
+
+@media (max-width: 768px) {
+    .main-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .header-center {
+        justify-content: flex-start;
+    }
+}
+
     </style>
 </head>
 <body>
-    <div class="map-wrapper">
-        <div class="map-header">
-            <h1>PETA RAWAN BENCANA HIDROMETEOROLOGI</h1>
-            <div class="subtitle">PROVINSI ACEH • SUMATERA UTARA • SUMATERA BARAT — NOVEMBER 2025</div>
+    <div class="main-header">
+        <div class="header-left">
+            <img src="Kementerian-DIktisaintek.png"
+                 alt="Kementerian Pendidikan Tinggi, Sains, dan Teknologi"
+                 class="header-logo-left">
+            <div class="header-left-text">
+                <div class="header-ministry">
+                    KEMENTERIAN PENDIDIKAN TINGGI,<br>
+                    SAINS, DAN TEKNOLOGI
+                </div>
+                <div class="header-country">
+                    REPUBLIK INDONESIA
+                </div>
+            </div>
         </div>
 
+        <div class="header-center">
+        <span class="header-title">
+            <span><strong>Tanggap Darurat Bendacana Hidrometeorologi</strong></span> <br> Provinsi Aceh, Sumatera Utara, dan Sumatera Barat
+        </span>
+    </div>
+
+        <div class="header-right">
+            <img src="Risbang.png" alt="Ditjen Risbang" class="header-logo-right">
+            <div class="header-right-divider"></div>
+            <img src="Berdampak.png" alt="Diktisaintek Berdampak" class="header-logo-right">
+        </div>
+    </div>
+
+  <div class="map-wrapper">
         <div id="map">
             <!-- Legend Panel -->
             <div class="info-overlay legend-panel">
