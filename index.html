@@ -327,6 +327,29 @@
             font-weight: 600;
         }
 
+        .no-entry-icon {
+            position: relative;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: #ef4444;          /* merah */
+            border: 2px solid #ffffff;    /* pinggir putih biar lebih “rambu” */
+            box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+        }
+
+.no-entry-icon::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 14px;                  /* panjang strip */
+    height: 4px;                  /* tebal strip */
+    background: #ffffff;
+    border-radius: 2px;
+    transform: translate(-50%, -50%);
+}
+
+
         @media (max-width: 768px) {
             .info-overlay {
                 max-width: 280px;
@@ -368,6 +391,14 @@
                         <div class="legend-color" style="background: #42bd3e;"></div>
                         <span style="color: #160b54;"><strong>Rendah</strong></span>
                     </div>
+                </div>
+
+                <div class="legend-section">
+                    <div class="legend-section-title">Status Infrastruktur Darat</div>
+                    <div class="legend-item">
+                    <div class="no-entry-icon"></div>
+                    <span style="color: #160b54;">Jalan/Jembatan Terputus</span>
+                 </div>
                 </div>
 
                 <div class="legend-section">
@@ -1866,13 +1897,8 @@ fetch(JALAN_JEMBATAN_URL)
       const cause     = item.penyebab || item.cause || "-";
       const source    = item.sumber || item.source || "-";
 
-      const marker = L.circleMarker([lat, lon], {
-        radius: 6,
-        color: "#ef4444",
-        fillColor: "#ef4444",
-        fillOpacity: 0.9,
-        weight: 1
-      }).addTo(infraLayer);
+        const marker = L.marker([lat, lon], { icon: roadClosedIcon })
+        .addTo(infraLayer);
 
       const popupHtml = `
         <div class="popup-title">${nama}</div>
@@ -1971,6 +1997,13 @@ fetch(JALAN_JEMBATAN_URL)
             .addTo(map);
 
         campusMarkers.push({ campus, marker });
+    });
+
+        const roadClosedIcon = L.divIcon({
+        className: 'road-closed-icon-wrapper',
+        html: '<div class="no-entry-icon"></div>',
+        iconSize: [22, 22],
+        iconAnchor: [11, 11]
     });
 
     // =========================
