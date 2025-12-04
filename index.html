@@ -1661,6 +1661,11 @@ function getCampusInfoByRegion(regionName) {
 
     const campusCirclesLayer = L.layerGroup().addTo(map);
 
+    // Layer jalan/jembatan putus (PU)
+    const infraLayer = L.layerGroup().addTo(map);
+    const infraMarkers = []; // untuk filter per provinsi
+
+
     function getSeverityColor(severity) {
         switch (severity) {
             case 'kritis': return '#dc2626';
@@ -1835,6 +1840,93 @@ if (style && campusCount > 0) {   // hanya tampilkan circle kalau ada data
     });
 
     // =========================
+// DATA JALAN / JEMBATAN PUTUS (PU)
+// =========================
+const JALAN_JEMBATAN_URL = "https://raw.githubusercontent.com/adtya93/maptdb/main/jalan_jembatan_putus.json";
+
+fetch(JALAN_JEMBATAN_URL)
+  .then(resp => {
+    if (!resp.ok) throw new Error("HTTP " + resp.status);
+    return resp.json();
+  })
+  .then(data => {
+    data.forEach(item => {
+      const lat = parseFloat(item.lat || item.latitude);
+      const lon = parseFloat(item.lon || item.lng || item.longitude);
+
+      // kalau koordinat tidak valid, skip saja
+      if (!Number.isFinite(lat) || !Number.isFinite(lon)) return;
+
+      const prov = item.provinsi || item.province || "-";
+      const kab  = item.kabupaten || item.kab_kota || item.kab || "-";
+      const nama = item.name || item.lokasi || item.ruas || "Jalan / jembatan putus";
+      const tgl  = item.dt || item.tanggal || "-";
+      const infraType = item.jenis || item.infrastruktur || "-";
+      const kondisi   = item.kondisi || item.status || "-";
+      const cause     = item.penyebab || item.cause || "-";
+      const source    = item.sumber || item.source || "-";
+
+      const marker = L.circleMarker([lat, lon], {
+        radius: 6,
+        color: "#ef4444",
+        fillColor: "#ef4444",
+        fillOpacity: 0.9,
+        weight: 1
+      }).addTo(infraLayer);
+
+      const popupHtml = `
+        <div class="popup-title">${nama}</div>
+        <div class="popup-detail">
+          <span class="popup-label">Provinsi:</span>
+          <span class="popup-value">${prov}</span>
+        </div>
+        <div class="popup-detail">
+          <span class="popup-label">Kab/Kota:</span>
+          <span class="popup-value">${kab}</span>
+        </div>
+        <div class="popup-detail">
+          <span class="popup-label">Jenis Infrastruktur:</span>
+          <span class="popup-value">${infraType}</span>
+        </div>
+        <div class="popup-detail">
+          <span class="popup-label">Kondisi:</span>
+          <span class="popup-value">${kondisi}</span>
+        </div>
+        <div class="popup-detail">
+          <span class="popup-label">Penyebab:</span>
+          <span class="popup-value">${cause}</span>
+        </div>
+        <div class="popup-detail">
+          <span class="popup-label">Tanggal Kejadian:</span>
+          <span class="popup-value">${tgl}</span>
+        </div>
+        <div class="popup-detail">
+          <span class="popup-label">Sumber:</span>
+          <span class="popup-value">${source}</span>
+        </div>
+      `;
+
+      marker.bindPopup(popupHtml);
+
+      marker.bindTooltip(
+        `<div><strong>${kab}</strong><br>${nama}</div>`,
+        { direction: "top", offset: [0, -4], permanent: false }
+      );
+
+      // simpan untuk filter provinsi
+      infraMarkers.push({
+        province: prov,
+        marker: marker
+      });
+    });
+
+    console.log("✅ Data jalan/jembatan putus PU ter-load:", data.length, "record");
+  })
+  .catch(err => {
+    console.error("❌ Gagal memuat data jalan_jembatan_putus.json:", err);
+  });
+
+    // =========================
     // MARKER KAMPUS POSKO
     // =========================
     const campusMarkers = [];
@@ -1988,7 +2080,17 @@ if (style && campusCount > 0) {   // hanya tampilkan circle kalau ada data
             }
         });
 
-        // 4) Sesuaikan viewport jika bukan All
+        // 4) Marker jalan/jembatan putus (PU)
+        infraMarkers.forEach(({ province: p, marker }) => {
+            if (province === 'All' || p === province) {
+                if (!map.hasLayer(marker)) map.addLayer(marker);
+            } else {
+                if (map.hasLayer(marker)) map.removeLayer(marker);
+            }
+        });
+
+
+        // 5) Sesuaikan viewport jika bukan All
         if (province !== 'All') {
             const layersForProvince = regencyLayers
                 .filter(item => item.province === province)
@@ -2034,8 +2136,3 @@ if (style && campusCount > 0) {   // hanya tampilkan circle kalau ada data
 </body>
 
 </html>
-
-
-
-
-
