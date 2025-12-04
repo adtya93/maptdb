@@ -1604,19 +1604,32 @@ function getCampusInfoByRegion(regionName) {
             { name: "Universitas Muhammadiyah Mahakarya Aceh", province: "Aceh", city: "Kab. Bireun", status: "PTS", lat: 5.2008139640941655, lng: 96.70265124141672 },
             { name: "Politeknik Negeri Lhokseumawe", province: "Aceh", city: "Kota Lhokseumawe", status: "PTN", lat: 5.119343, lng: 97.156274 },
             { name: "Universitas Samudra", province: "Aceh", city: "Kota Langsa", status: "PTN", lat: 4.457623, lng: 97.971968 },
+            { name: "Universitas Almuslim", province: "Aceh", city: "Kab. Bireuen", status: "PTS", lat: 5.177296, lng: 97.1301345497458 },
+            { name: "Universitas Jabal Ghafur", province: "Aceh", city: "Kab. Pidie", status: "PTS", lat: 5.294952, lng: 95.922122 },
             
             // SUMATERA BARAT
             { name: "Universitas Andalas", province: "Sumatera Barat", city: "Kota Padang", status: "PTN", lat: -0.874301, lng: 100.458865 },
             { name: "Universitas Negeri Padang", province: "Sumatera Barat", city: "Kota Padang", status: "PTN", lat: -0.925328, lng: 100.463769 },
             { name: "Politeknik Negeri Padang", province: "Sumatera Barat", city: "Kota Padang", status: "PTN", lat: -0.913586, lng: 100.466376 },
             { name: "Institut Seni Indonesia Padang Panjang", province: "Sumatera Barat", city: "Kota Padang Panjang", status: "PTN", lat: -0.459029, lng: 100.403327 },
+            { name: "Universitas Baiturrahmah", province: "Sumatera Barat", city: "Kota Padang", status: "PTS", lat: -0.87, lng: 100.3836111111 },
+            { name: "Universitas Mohammad Natsir Bukittinggi", province: "Sumatera Barat", city: "Kota Bukittinggi", status: "PTS", lat: -0.3114315967188026, lng: 100.37023179348662 }, // alamat Tan Malaka, tapi tanpa koordinat eksplisit :contentReference[oaicite:3]{index=3}
+            { name: "Universitas Muhammadiyah Sumatera Barat", province: "Sumatera Barat", city: "Kota Padang", status: "PTS", lat: -0.855413750373765, lng: 100.33297799904211}, // perlu ambil manual
+            { name: "Universitas Putra Indonesia YPTK Padang", province: "Sumatera Barat", city: "Kota Padang", status: "PTS", lat: -0.958183462353094, lng: 100.39659183951997 }, // alamat jelas, koordinat tidak tertulis :contentReference[oaicite:4]{index=4}
             
             // SUMATERA UTARA
             { name: "Universitas Negeri Medan", province: "Sumatera Utara", city: "Kota Medan", status: "PTN", lat: 3.489123, lng: 98.678912 },
             { name: "Politeknik Negeri Medan", province: "Sumatera Utara", city: "Kota Medan", status: "PTN", lat: 3.562829, lng: 98.653523 },
             { name: "Universitas Sumatera Utara", province: "Sumatera Utara", city: "Kota Medan", status: "PTN", lat: 3.561515, lng: 98.656428 },
             { name: "Politeknik Pertanian Negeri Payakumbuh", province: "Sumatera Barat", city: "Kab. Lima Puluh Kota", status: "PTN", lat: -0.16945368771192676, lng: 100.66465275862649 },
-
+            { name: "Universitas Aufa Royhan", province: "Sumatera Utara", city: "Kota Padang Sidempuan", status: "PTS", lat: 1.4186042730323654, lng: 99.28858245485394 }, // alamat Batunadua Ujung Gurap Baruas :contentReference[oaicite:5]{index=5}
+            { name: "Universitas Graha Nusantara", province: "Sumatera Utara", city: "Kota Padang Sidempuan", status: "PTS", lat: 1.3475782604471327, lng: 99.3007482445913 }, // Jl. Sutan Soripada Mulia No.17 :contentReference[oaicite:6]{index=6}
+            { name: "Universitas Islam Sumatera Utara", province: "Sumatera Utara", city: "Kota Medan", status: "PTS", lat: 3.5622421234785904, lng: 98.69393344135692 }, // hanya alamat, tidak ada koordinat eksplisit :contentReference[oaicite:7]{index=7}
+            { name: "Universitas Medan Area", province: "Sumatera Utara", city: "Kota Medan", status: "PTS", lat: 3.60219795, lng: 98.7187093120759 }, // koordinat kampus dari coordinatesfinder :contentReference[oaicite:8]{index=8}
+            { name: "Universitas Muhammadiyah Sumatera Utara", province: "Sumatera Utara", city: "Kota Medan", status: "PTS", lat: 3.6150763687993854, lng: 98.67498490068378 }, // alamat Jl. Kapt. Mukhtar Basri, koordinat tidak tertulis :contentReference[oaicite:9]{index=9}
+            { name: "Universitas Muhammadiyah Tapanuli Selatan", province: "Sumatera Utara", city: "Kab. Tapanuli Selatan", status: "PTS", lat: 1.391414749951966, lng: 99.27125701252572 }, // perlu ambil manual
+            { name: "Universitas Pembangunan Panca Budi", province: "Sumatera Utara", city: "Kota Medan", status: "PTS", lat: 3.58999, lng: 98.64472 }, // titik dari worldplaces :contentReference[oaicite:10]{index=10}
+            { name: "Universitas Prima Indonesia", province: "Sumatera Utara", city: "Kota Medan", status: "PTS", lat: 3.5984746, lng: 98.6524197240786 },
             // JAMBI
             { name: "Univeritas Jambi", province: "Jambi", city: "Kota Jambi", status: "PTN", lat: -1.610761595641745, lng: 103.51691506902127 }
         ];
@@ -1633,8 +1646,8 @@ function getCampusInfoByRegion(regionName) {
     const map = L.map('map', {
         center: [2.5, 98.5],
         zoom: 7,
-        minZoom: 4,
-        maxZoom: 12,
+        minZoom: 1,
+        maxZoom: 50,
         zoomSnap: 0.5,
         zoomDelta: 0.5,
         scrollWheelZoom: true
@@ -2021,4 +2034,5 @@ if (style && campusCount > 0) {   // hanya tampilkan circle kalau ada data
 </body>
 
 </html>
+
 
