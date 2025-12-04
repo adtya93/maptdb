@@ -1,0 +1,2022 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peta Rawan Bencana Banjir - Aceh, Sumatera Utara, Sumatera Barat</title>
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            background: #e8f4f8;
+        }
+
+        .map-wrapper {
+            max-width: 100%;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+        }
+
+        .map-header {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            color: white;
+            padding: 25px 40px;
+            text-align: center;
+            border-bottom: 4px solid #1e40af;
+        }
+
+        .map-header h1 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .map-header .subtitle {
+            font-size: 15px;
+            opacity: 0.95;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        #map {
+            height: 1080px;
+            width: 100%;
+            position: relative;
+            background: #aadaff;
+        }
+
+        .info-overlay {
+            position: absolute;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid #1e40af;
+            border-radius: 8px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+            max-width: 350px;
+            backdrop-filter: blur(10px);
+        }
+
+        .stats-panel {
+            top: 20px;
+            left: 20px;
+            padding: 20px;
+        }
+
+        .stats-title {
+            font-family: 'Crimson Pro', serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: #1e3a8a;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3b82f6;
+        }
+
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 14px;
+        }
+
+        .stat-item:last-child {
+            border-bottom: none;
+        }
+
+        .stat-label {
+            font-weight: 600;
+            color: #4b5563;
+        }
+
+        .stat-value {
+            font-weight: 700;
+            color: #dc2626;
+            font-size: 15px;
+        }
+
+        .legend-panel {
+            bottom: 20px;
+            right: 20px;
+            padding: 20px;
+        }
+
+        .legend-title {
+            font-family: 'Crimson Pro', serif;
+            font-size: 16px;
+            font-weight: 700;
+            color: #1e3a8a;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #3b82f6;
+        }
+
+        .legend-section {
+            margin-bottom: 15px;
+        }
+
+        .legend-section-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: #1e3a8a;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+
+        .legend-color {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid rgba(0,0,0,0.2);
+            flex-shrink: 0;
+        }
+
+        .legend-circle {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid;
+            flex-shrink: 0;
+            opacity: 0.6;
+        }
+
+        .footer-info {
+            background: #f9fafb;
+            padding: 20px 40px;
+            border-top: 2px solid #1e40af;
+            font-size: 12px;
+            color: #4b5563;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .footer-info strong {
+            color: #1e3a8a;
+        }
+
+        .leaflet-popup-content-wrapper {
+            border-radius: 8px;
+            border: 2px solid #dc2626;
+        }
+
+        .leaflet-popup-content {
+            margin: 15px;
+            font-family: 'Source Sans Pro', sans-serif;
+            min-width: 200px;
+        }
+
+        .popup-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1e3a8a;
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #dc2626;
+        }
+
+        .popup-detail {
+            font-size: 13px;
+            margin-bottom: 6px;
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .popup-label {
+            font-weight: 600;
+            color: #4b5563;
+        }
+
+        .popup-value {
+            font-weight: 700;
+            color: #dc2626;
+        }
+
+        .severity-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 8px;
+        }
+
+        .severity-kritis {
+            background: #dc2626;
+            color: white;
+        }
+
+        .severity-tinggi {
+            background: #f97316;
+            color: white;
+        }
+
+        .severity-sedang {
+            background: #fbbf24;
+            color: #1a1a1a;
+        }
+
+        .severity-rendah {
+            background: #42bd3e;
+            color: #1a1a1a;
+        }
+
+        .search-panel {
+            top: 20px;
+            right: 20px;
+            padding: 16px;
+            width: 300px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 8px 10px;
+            border-radius: 6px;
+            border: 1px solid #d1d5db;
+            font-size: 13px;
+            outline: none;
+            margin-bottom: 8px;
+        }
+
+        .search-input:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.4);
+        }
+
+        .search-results {
+            max-height: 260px;
+            overflow-y: auto;
+            margin-top: 4px;
+        }
+
+        .search-result-item {
+            padding: 6px 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-bottom: 4px;
+            border: 1px solid transparent;
+            background: white;
+        }
+
+        .search-result-item:hover {
+            background: #eff6ff;
+            border-color: #bfdbfe;
+        }
+
+        .search-result-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: #1f2933;
+        }
+
+        .search-result-meta {
+            font-size: 11px;
+            color: #6b7280;
+        }
+
+        .search-result-empty {
+            font-size: 12px;
+            color: #9ca3af;
+            text-align: center;
+            padding: 8px 0;
+        }
+
+        .popup-coverage {
+            font-size: 12px;
+            margin-top: 4px;
+            color: #374151;
+        }
+
+        .campus-circle-tooltip {
+            background: rgba(15, 23, 42, 0.9);
+            color: #f9fafb;
+            border-radius: 0px;
+            padding: 4px 10px;
+            border: 0px solid rgba(15, 23, 42, 0.9);
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .info-overlay {
+                max-width: 280px;
+            }
+
+            #map {
+                height: 600px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="map-wrapper">
+        <div class="map-header">
+            <h1>PETA RAWAN BENCANA HIDROMETEOROLOGI</h1>
+            <div class="subtitle">PROVINSI ACEH • SUMATERA UTARA • SUMATERA BARAT — NOVEMBER 2025</div>
+        </div>
+
+        <div id="map">
+            <!-- Legend Panel -->
+            <div class="info-overlay legend-panel">
+                <div class="legend-title">Legenda</div>
+
+                <div class="legend-section">
+                    <div class="legend-section-title">Tingkat Keparahan Bencana</div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #dc2626;"></div>
+                        <span style="color: #160b54;"><strong>Kritis</strong></span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #f97316;"></div>
+                        <span style="color: #160b54;"><strong>Tinggi</strong></span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #fbbf24;"></div>
+                        <span style="color: #160b54;"><strong>Sedang</strong></span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #42bd3e;"></div>
+                        <span style="color: #160b54;"><strong>Rendah</strong></span>
+                    </div>
+                </div>
+
+                <div class="legend-section">
+                    <div class="legend-section-title">Jumlah Kontribusi Kampus Posko</div>
+                    <div class="legend-item" style="align-items:flex-start;">
+                        <div class="legend-circle" style="border-color:#0ea5e9; background: rgba(14,165,233,0.08);"></div>
+                        <span style="color: #160b54;">Setiap lingkaran berwarna biru mengindikasikan daerah dengan dukungan Kampus Posko</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-custom-campus-icon" style="width: 18px; height: 18px; background: #160b54; border: 1px solid white; box-shadow: 0 1px 2px rgba(0,0,0,0.4);"></div>
+                        <span style="color: #160b54;"><strong>Kampus Posko</strong></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Search Panel -->
+            <div class="info-overlay search-panel">
+                <input
+                    id="campus-search-input"
+                    class="search-input"
+                    type="text"
+                    placeholder="Cari kampus posko (nama, kota, provinsi)...">
+                <div id="campus-search-results" class="search-results"></div>
+            </div>
+
+            <!-- Province Filter Panel -->
+            <div class="info-overlay" style="top: 100px; left: 20px; padding: 16px; width: 260px;">
+                <div class="legend-section-title" style="margin-bottom:6px;">
+                    Filter Provinsi
+                </div>
+                <select id="province-filter-select"
+                        style="width:100%; padding:6px 8px; font-size:13px; border-radius:6px; border:1px solid #d1d5db;">
+                    <option value="All">Semua Provinsi</option>
+                    <option value="Aceh">Aceh</option>
+                    <option value="Sumatera Utara">Sumatera Utara</option>
+                    <option value="Sumatera Barat">Sumatera Barat</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="footer-info">
+            <div>
+                <strong>Sumber Data:</strong> BNPB, BPBD Aceh, BPBD Sumatera Utara, BPBD Sumatera Barat |
+                <strong>Periode:</strong> 4 Desember 2025
+            </div>
+            <div>
+                <strong>Update Terakhir:</strong> 4 Des 2025, 10:00 WIB
+            </div>
+        </div>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <script>
+    // =========================
+    // DATA LOKASI BENCANA
+    // =========================
+    const disasterLocations = [
+      {
+        name: "Kab. Bireuen",
+        province: "Aceh",
+        lat: 5.203,
+        lng: 96.701,
+        incidentType: "Banjir",
+        date: "4-12-2025",
+        deaths: 20,
+        missing: 7,
+        injured: 2,
+        displaced: 33601,
+        affected: 3869,
+        severity: "kritis",
+        details: {
+          kecamatanTerdampak: 17,
+          gampongTerdampak: 609,
+        },
+      },
+      {
+        name: "Kab. Aceh Tamiang",
+        province: "Aceh",
+        lat: 4.2325,
+        lng: 97.958,
+        incidentType: "Banjir",
+        date: "4-12-2025",
+        deaths: 42,
+        missing: 0,
+        injured: 3,
+        displaced: 278079,
+        affected: 310480,
+        severity: "kritis",
+        details: {
+          kecamatanTerdampak: 12,
+          gampongTerdampak: 216,
+        },
+      },
+      {
+        name: "Kab. Aceh Timur",
+        province: "Aceh",
+        lat: 4.7396,
+        lng: 97.8544,
+        incidentType: "Banjir",
+        date: "4-12-2025",
+        deaths: 32,
+        missing: 2,
+        injured: 0,
+        displaced: 123461,
+        affected: 175061,
+        severity: "kritis",
+        details: {
+          kecamatanTerdampak: 24,
+          gampongTerdampak: 515,
+        },
+      },
+      {
+        name: "Kota Lhokseumawe",
+        province: "Aceh",
+        lat: 5.1833,
+        lng: 97.15,
+        incidentType: "Banjir & Longsor",
+        date: "4-12-2025",
+        deaths: 4,
+        missing: 3,
+        injured: 4,
+        displaced: 23388,
+        affected: 197339,
+        severity: "kritis",
+        details: {
+          kecamatanTerdampak: 4,
+          gampongTerdampak: 48,
+        },
+      },
+      {
+        name: "Kota Langsa",
+        province: "Aceh",
+        lat: 4.4683,
+        lng: 97.9683,
+        incidentType: "Longsor",
+        date: "4-12-2025",
+        deaths: 5,
+        missing: 0,
+        injured: 0,
+        displaced: 353634,
+        affected: 160812,
+        severity: "kritis",
+        details: {
+          kecamatanTerdampak: 5,
+          gampongTerdampak: 66,
+        },
+      },
+      {
+        name: "Kab. Aceh Utara",
+        province: "Aceh",
+        lat: 5.0167,
+        lng: 97.3333,
+        incidentType: "Banjir",
+        date: "4-12-2025",
+        deaths: 123,
+        missing: 90,
+        injured: 66,
+        displaced: 200117,
+        affected: 215057,
+        severity: "kritis",
+        details: {
+          kecamatanTerdampak: 27,
+          gampongTerdampak: 852,
+        },
+      },
+      {
+        name: "Kab. Gayo Lues",
+        province: "Aceh",
+        lat: 3.955,
+        lng: 97.351,
+        incidentType: "Banjir & Longsor",
+        date: "4-12-2025",
+        deaths: 4,
+        missing: 2,
+        injured: 0,
+        displaced: 18094,
+        affected: 112563,
+        severity: "kritis",
+        details: {
+          kecamatanTerdampak: 11,
+          desaNagariTerdampak: 65,
+        },
+      },
+      {
+        name: "Kab. Aceh Tengah",
+        province: "Aceh",
+        lat: 4.448,
+        lng: 96.8351,
+        incidentType: "Banjir & Longsor",
+        date: "4-12-2025",
+        deaths: 22,
+        missing: 23,
+        injured: 28,
+        displaced: 10153,
+        affected: 54199,
+        severity: "kritis",
+        details: {
+          kecamatanTerdampak: 14,
+          jiwaTerdampak: 295,
+        },
+      },
+      {
+        name: "Kota Subulussalam",
+        province: "Aceh",
+        lat: 2.6442,
+        lng: 97.9754,
+        incidentType: "Banjir",
+        date: "4-12-2025",
+        deaths: 1,
+        missing: 0,
+        injured: 0,
+        displaced: 1854,
+        affected: 11807,
+        severity: "kritis",
+        details: {
+          kecamatanTerdampak: 5,
+          desaKelurahanGampongTerdampak: 28,
+        },
+      },
+      {
+        name: "Kab. Bener Meriah",
+        province: "Aceh",
+        lat: 4.76,
+        lng: 96.8333,
+        incidentType: "Banjir & Longsor",
+        date: "4-12-2025",
+        deaths: 34,
+        missing: 28,
+        injured: 8,
+        displaced: 38294,
+        affected: 177517,
+        severity: "kritis",
+        details: {
+          kecamatanTerdampak: 10,
+          gampongTerdampak: 232,
+        },
+      },
+      {
+        name: "Kab. Nagan Raya",
+        province: "Aceh",
+        lat: 4.18,
+        lng: 96.509,
+        incidentType: "Banjir & Longsor",
+        date: "4-12-2025",
+        deaths: 1,
+        missing: 3,
+        injured: 0,
+        displaced: 8325,
+        affected: 25608,
+        severity: "kritis",
+        details: {
+          kecamatanTerdampak: 4,
+          gampongTerdampak: 25,
+        },
+      },
+      {
+        name: "Kab. Aceh Singkil",
+        province: "Aceh",
+        lat: 2.358,
+        lng: 97.905,
+        incidentType: "Banjir",
+        date: "4-12-2025",
+        deaths: 0,
+        missing: 0,
+        injured: 0,
+        displaced: 21143,
+        affected: 36683,
+        severity: "tinggi",
+        details: {
+          kecamatanTerdampak: 9,
+          desaKelurahanGampongTerdampak: 64,
+        },
+      },
+      {
+        name: "Kab. Aceh Barat",
+        province: "Aceh",
+        lat: 4.45,
+        lng: 96.1167,
+        incidentType: "Banjir",
+        date: "4-12-2025",
+        deaths: 0,
+        missing: 0,
+        injured: 0,
+        displaced: 4929,
+        affected: 33820,
+        severity: "sedang",
+        details: {
+          kecamatanTerdampak: 10,
+          gampongTerdampak: 121,
+        },
+      },
+      {
+        name: "Kab. Pidie Jaya",
+        province: "Aceh",
+        lat: 5.1552,
+        lng: 96.1951,
+        incidentType: "Banjir",
+        date: "4-12-2025",
+        deaths: 23,
+        missing: 8,
+        injured: 1821,
+        displaced: 11999,
+        affected: 11999,
+        severity: "kritis",
+        details: {
+          kecamatanTerdampak: 8,
+          gampongTerdampak: 222,
+        },
+      },
+      {
+        name: "Kab. Pidie",
+        province: "Aceh",
+        lat: 5.3833,
+        lng: 95.95,
+        incidentType: "Banjir",
+        date: "4-12-2025",
+        deaths: 1,
+        missing: 0,
+        injured: 0,
+        displaced: 24369,
+        affected: 43538,
+        severity: "tinggi",
+        details: {
+          kecamatanTerdampak: 22,
+          gampongTerdampak: null,
+        },
+      },
+      {
+        name: "Kab. Aceh Besar",
+        province: "Aceh",
+        lat: 5.5095,
+        lng: 95.358,
+        incidentType: "Banjir",
+        date: "4-12-2025",
+        deaths: 0,
+        missing: 0,
+        injured: 0,
+        displaced: 824,
+        affected: 3054,
+        severity: "sedang",
+        details: {
+          kecamatanTerdampak: 23,
+          gampongTerdampak: 21,
+        },
+      },
+      {
+        name: "Kab. Aceh Selatan",
+        province: "Aceh",
+        lat: 3.0951,
+        lng: 97.351,
+        incidentType: "Banjir",
+        date: "4-12-2025",
+        deaths: 0,
+        missing: 0,
+        injured: 0,
+        displaced: 611,
+        affected: 5940,
+        severity: "sedang",
+        details: {
+          kecamatanTerdampak: 6,
+          gampongTerdampak: 12,
+        },
+      },
+      {
+        name: "Kab. Aceh Tenggara",
+        province: "Aceh",
+        lat: 3.185,
+        lng: 97.6982,
+        incidentType: "Banjir",
+        date: "4-12-2025",
+        deaths: 13,
+        missing: 4,
+        injured: 3,
+        displaced: 5772,
+        affected: 17885,
+        severity: "kritis",
+        details: {
+          kecamatanTerdampak: 16,
+          jiwaMengungsi: 20,
+        },
+      },
+
+      // SUMATERA UTARA
+      {
+        name: "Kab. Pakpak Bharat",
+        province: "Sumatera Utara",
+        lat: 2.552,
+        lng: 98.27,
+        incidentType: "Banjir & Longsor",
+        date: "4-12-2025",
+        deaths: 2,
+        missing: 0,
+        injured: 0,
+        displaced: 0,
+        affected: 1835,
+        severity: "sedang",
+      },
+      {
+        name: "Kab. Humbang Hasundutan",
+        province: "Sumatera Utara",
+        lat: 2.1973,
+        lng: 98.5369,
+        incidentType: "Banjir Bandang",
+        date: "4-12-2025",
+        deaths: 9,
+        missing: 0,
+        injured: 0,
+        displaced: 6580,
+        affected: 6580,
+        severity: "tinggi",
+      },
+      {
+        name: "Kab. Tapanuli Utara",
+        province: "Sumatera Utara",
+        lat: 2.0444,
+        lng: 98.9322,
+        incidentType: "Banjir & Longsor",
+        date: "4-12-2025",
+        deaths: 34,
+        missing: 0,
+        injured: 0,
+        displaced: 15765,
+        affected: 15765,
+        severity: "kritis",
+      },
+      {
+        name: "Kab. Tapanuli Tengah",
+        province: "Sumatera Utara",
+        lat: 1.729,
+        lng: 98.785,
+        incidentType: "Banjir & Longsor",
+        date: "4-12-2025",
+        deaths: 86,
+        missing: 0,
+        injured: 0,
+        displaced: 296454,
+        affected: 296454,
+        severity: "kritis",
+      },
+      {
+        name: "Kab. Nias Selatan",
+        province: "Sumatera Utara",
+        lat: -0.708,
+        lng: 97.828,
+        incidentType: "Longsor & Cuaca Ekstrem",
+        date: "4-12-2025",
+        deaths: 1,
+        missing: 0,
+        injured: 0,
+        displaced: 0,
+        affected: 0,
+        severity: "sedang",
+      },
+      {
+        name: "Kota Medan",
+        province: "Sumatera Utara",
+        lat: 3.5952,
+        lng: 98.6722,
+        incidentType: "Banjir",
+        date: "4-12-2025",
+        deaths: 7,
+        missing: 0,
+        injured: 0,
+        displaced: 46587,
+        affected: 46587,
+        severity: "sedang",
+      },
+      {
+        name: "Kab. Deli Serdang",
+        province: "Sumatera Utara",
+        lat: 3.6952,
+        lng: 98.7722,
+        incidentType: "Banjir",
+        date: "4-12-2025",
+        deaths: 17,
+        missing: 0,
+        injured: 0,
+        displaced: null,
+        affected: 242894,
+        severity: "kritis",
+      },
+      {
+        name: "Kab. Langkat",
+        province: "Sumatera Utara",
+        lat: 3.837,
+        lng: 98.331,
+        incidentType: "Banjir",
+        date: "4-12-2025",
+        deaths: 11,
+        missing: 0,
+        injured: 0,
+        displaced: 502440,
+        affected: 502440,
+        severity: "kritis",
+      },
+      {
+        name: "Kota Binjai",
+        province: "Sumatera Utara",
+        lat: 3.6,
+        lng: 98.5,
+        incidentType: "Banjir",
+        date: "4-12-2025",
+        deaths: 0,
+        missing: 0,
+        injured: 0,
+        displaced: 24961,
+        affected: 24961,
+        severity: "kritis",
+      },
+      {
+        name: "Kab. Asahan",
+        province: "Sumatera Utara",
+        lat: 2.87,
+        lng: 99.65,
+        incidentType: "Banjir",
+        date: "4-12-2025",
+        deaths: 0,
+        missing: 0,
+        injured: 0,
+        displaced: null,
+        affected: 2922,
+        severity: "tinggi",
+      },
+      {
+        name: "Kab. Serdang Bedagai",
+        province: "Sumatera Utara",
+        lat: 3.3326,
+        lng: 99.0577,
+        incidentType: "Banjir",
+        date: "4-12-2025",
+        deaths: 0,
+        missing: 0,
+        injured: 0,
+        displaced: null,
+        affected: 72216,
+        severity: "tinggi",
+      },
+      {
+        name: "Kota Tebing Tinggi",
+        province: "Sumatera Utara",
+        lat: 3.327,
+        lng: 99.162,
+        incidentType: "Banjir",
+        date: "4-12-2025",
+        deaths: 0,
+        missing: 0,
+        injured: 0,
+        displaced: null,
+        affected: 24332,
+        severity: "tinggi",
+      },
+      {
+        name: "Kota Padang Sidempuan",
+        province: "Sumatera Utara",
+        lat: 1.3795,
+        lng: 99.2732,
+        incidentType: "Banjir Bandang",
+        date: "4-12-2025",
+        deaths: 1,
+        missing: 0,
+        injured: 0,
+        displaced: null,
+        affected: 1700,
+        severity: "sedang",
+      },
+      {
+        name: "Kab. Tapanuli Selatan",
+        province: "Sumatera Utara",
+        lat: 1.6094,
+        lng: 99.273,
+        incidentType: "Banjir & Longsor",
+        date: "4-12-2025",
+        deaths: 79,
+        missing: 0,
+        injured: 0,
+        displaced: null,
+        affected: 279974,
+        severity: "kritis",
+      },
+      {
+        name: "Kota Sibolga",
+        province: "Sumatera Utara",
+        lat: 1.742,
+        lng: 98.779,
+        incidentType: "Banjir & Longsor",
+        date: "4-12-2025",
+        deaths: 52,
+        missing: 33,
+        injured: 0,
+        displaced: null,
+        affected: null,
+        severity: "kritis",
+      },
+      {
+        name: "Kab. Batu Bara",
+        province: "Sumatera Utara",
+        lat: 3.174,
+        lng: 99.5,
+        incidentType: "Banjir",
+        date: "4-12-2025",
+        deaths: 0,
+        missing: 0,
+        injured: 0,
+        displaced: null,
+        affected: 52064,
+        severity: "tinggi",
+      },
+      {
+        name: "Kab. Mandailing Natal",
+        province: "Sumatera Utara",
+        lat: 0.7539,
+        lng: 99.254,
+        incidentType: "Banjir & Longsor",
+        date: "4-12-2025",
+        deaths: 0,
+        missing: 0,
+        injured: 0,
+        displaced: null,
+        affected: 65,
+        severity: "sedang",
+      },
+
+      // SUMATERA BARAT
+      {
+        name: "Kab. Agam",
+        province: "Sumatera Barat",
+        lat: -0.22,
+        lng: 100.17,
+        incidentType: "Banjir",
+        date: "4-12-2025",
+        deaths: 147,
+        missing: 4,
+        injured: 0,
+        displaced: null,
+        affected: 688,
+        severity: "kritis",
+      },
+      {
+        name: "Kab. Pasaman Barat",
+        province: "Sumatera Barat",
+        lat: 0.12,
+        lng: 99.66,
+        incidentType: "Banjir",
+        date: "4-12-2025",
+        deaths: 3,
+        missing: 0,
+        injured: 0,
+        displaced: null,
+        affected: 57948,
+        severity: "sedang",
+      },
+      {
+        name: "Kab. Lima Puluh Kota",
+        province: "Sumatera Barat",
+        lat: -0.01,
+        lng: 100.65,
+        incidentType: "Banjir",
+        date: "24-11-2025",
+        deaths: 0,
+        missing: 0,
+        injured: 0,
+        displaced: 0,
+        affected: 437,
+        severity: "sedang",
+      },
+      {
+        name: "Kota Bukittinggi",
+        province: "Sumatera Barat",
+        lat: -0.3058,
+        lng: 100.3692,
+        incidentType: "Banjir",
+        date: "4-12-2025",
+        deaths: 0,
+        missing: 0,
+        injured: 0,
+        displaced: 68,
+        affected: 68,
+        severity: "sedang",
+      },
+      {
+        name: "Kab. Padang Pariaman",
+        province: "Sumatera Barat",
+        lat: -0.5515,
+        lng: 100.2151,
+        incidentType: "Banjir & Longsor",
+        date: "4-12-2025",
+        deaths: 22,
+        missing: 0,
+        injured: 0,
+        displaced: 0,
+        affected: 15382,
+        severity: "kritis",
+      },
+      {
+        name: "Kab. Padang Panjang",
+        province: "Sumatera Barat",
+        lat: -0.4707,
+        lng: 100.4059,
+        incidentType: "Banjir",
+        date: "4-12-2025",
+        deaths: 17,
+        missing: 0,
+        injured: 7,
+        displaced: 0,
+        affected: 0,
+        severity: "kritis",
+      },
+      {
+        name: "Kab. Pesisir Selatan",
+        province: "Sumatera Barat",
+        lat: -1.3380833650479302,
+        lng: 100.56872628138287,
+        incidentType: "Banjir",
+        date: "23-11-2025",
+        deaths: 0,
+        missing: 0,
+        injured: 0,
+        displaced: 0,
+        affected: 599,
+        severity: "sedang",
+      },
+      {
+        name: "Kab. Tanah Datar",
+        province: "Sumatera Barat",
+        lat: -0.47,
+        lng: 100.62,
+        incidentType: "Longsor",
+        date: "4-12-2025",
+        deaths: 0,
+        missing: 0,
+        injured: 0,
+        displaced: 0,
+        affected: 4745,
+        severity: "sedang",
+      },
+      {
+        name: "Kab. Kepulauan Mentawai",
+        province: "Sumatera Barat",
+        lat: -2.08,
+        lng: 99.62,
+        incidentType: "Banjir",
+        date: "4-12-2025",
+        deaths: 0,
+        missing: 0,
+        injured: 0,
+        displaced: 0,
+        affected: 236,
+        severity: "sedang",
+      },
+      {
+        name: "Kota Padang",
+        province: "Sumatera Barat",
+        lat: -0.9492,
+        lng: 100.3548,
+        incidentType: "Banjir",
+        date: "4-12-2025",
+        deaths: 11,
+        missing: 0,
+        injured: 0,
+        displaced: 0,
+        affected: 0,
+        severity: "kritis",
+      },
+      {
+        name: "Kota Solok",
+        province: "Sumatera Barat",
+        lat: -0.8,
+        lng: 100.65,
+        incidentType: "Banjir",
+        date: "4-12-2025",
+        deaths: 0,
+        missing: 0,
+        injured: 0,
+        displaced: 0,
+        affected: 9375,
+        severity: "sedang",
+      },
+      {
+        name: "Kota Pariaman",
+        province: "Sumatera Barat",
+        lat: -0.61,
+        lng: 100.14,
+        incidentType: "Banjir",
+        date: "4-12-2025",
+        deaths: 0,
+        missing: 0,
+        injured: 0,
+        displaced: 0,
+        affected: 8021,
+        severity: "sedang",
+      },
+      {
+        name: "Kab. Pasaman",
+        province: "Sumatera Barat",
+        lat: 0.43,
+        lng: 100.1,
+        incidentType: "Banjir",
+        date: "4-12-2025",
+        deaths: 0,
+        missing: 0,
+        injured: 0,
+        displaced: 0,
+        affected: 0,
+        severity: "sedang",
+      },
+      {
+        name: "Kab. Solok",
+        province: "Sumatera Barat",
+        lat: -0.87,
+        lng: 100.67,
+        incidentType: "Banjir",
+        date: "4-12-2025",
+        deaths: 0,
+        missing: 0,
+        injured: 0,
+        displaced: 0,
+        affected: 14966,
+        severity: "sedang",
+      },
+      {
+        name: "Kab. Solok Selatan",
+        province: "Sumatera Barat",
+        lat: -1.44,
+        lng: 101.04,
+        incidentType: "Banjir",
+        date: "4-12-2025",
+        deaths: 0,
+        missing: 0,
+        injured: 0,
+        displaced: 0,
+        affected: 0,
+        severity: "sedang",
+      },
+    ];
+
+    // =========================
+    // KONFIGURASI POLIGON KAB/KOTA
+    // =========================
+    const regencyPolygonsConfig = [
+      // Aceh
+      { name: "SIMEULUE", province: "Aceh", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1101.geojson" },
+      { name: "ACEH SINGKIL", province: "Aceh", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1102.geojson" },
+      { name: "ACEH SELATAN", province: "Aceh", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1103.geojson" },
+      { name: "ACEH TENGGARA", province: "Aceh", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1104.geojson" },
+      { name: "ACEH TIMUR", province: "Aceh", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1105.geojson" },
+      { name: "ACEH TENGAH", province: "Aceh", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1106.geojson" },
+      { name: "ACEH BARAT", province: "Aceh", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1107.geojson" },
+      { name: "ACEH BESAR", province: "Aceh", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1108.geojson" },
+      { name: "PIDIE", province: "Aceh", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1109.geojson" },
+      { name: "BIREUEN", province: "Aceh", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1110.geojson" },
+      { name: "ACEH UTARA", province: "Aceh", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1111.geojson" },
+      { name: "ACEH BARAT DAYA", province: "Aceh", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1112.geojson" },
+      { name: "GAYO LUES", province: "Aceh", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1113.geojson" },
+      { name: "ACEH TAMIANG", province: "Aceh", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1114.geojson" },
+      { name: "NAGAN RAYA", province: "Aceh", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1115.geojson" },
+      { name: "ACEH JAYA", province: "Aceh", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1116.geojson" },
+      { name: "BENER MERIAH", province: "Aceh", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1117.geojson" },
+
+      { name: "BANDA ACEH", province: "Aceh", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1171.geojson" },
+      { name: "SABANG", province: "Aceh", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1172.geojson" },
+      { name: "LANGSA", province: "Aceh", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1173.geojson" },
+      { name: "LHOKSEUMAWE", province: "Aceh", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1174.geojson" },
+
+      // Sumatera Utara
+      { name: "NIAS", province: "Sumatera Utara", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1201.geojson" },
+      { name: "MANDAILING NATAL", province: "Sumatera Utara", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1202.geojson" },
+      { name: "TAPANULI SELATAN", province: "Sumatera Utara", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1203.geojson" },
+      { name: "TAPANULI TENGAH", province: "Sumatera Utara", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1204.geojson" },
+      { name: "TAPANULI UTARA", province: "Sumatera Utara", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1205.geojson" },
+      { name: "TOBA SAMOSIR", province: "Sumatera Utara", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1206.geojson" },
+      { name: "LABUHAN BATU", province: "Sumatera Utara", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1207.geojson" },
+      { name: "ASAHAN", province: "Sumatera Utara", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1208.geojson" },
+      { name: "SIMALUNGUN", province: "Sumatera Utara", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1209.geojson" },
+      { name: "DAIRI", province: "Sumatera Utara", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1210.geojson" },
+      { name: "KARO", province: "Sumatera Utara", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1211.geojson" },
+      { name: "DELI SERDANG", province: "Sumatera Utara", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1212.geojson" },
+      { name: "LANGKAT", province: "Sumatera Utara", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1213.geojson" },
+      { name: "NIAS SELATAN", province: "Sumatera Utara", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1214.geojson" },
+      { name: "HUMBANG HASUNDUTAN", province: "Sumatera Utara", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1215.geojson" },
+      { name: "PAKPAK BHARAT", province: "Sumatera Utara", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1216.geojson" },
+      { name: "SAMOSIR", province: "Sumatera Utara", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1217.geojson" },
+      { name: "SERDANG BEDAGAI", province: "Sumatera Utara", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1218.geojson" },
+
+      { name: "SIBOLGA", province: "Sumatera Utara", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1271.geojson" },
+      { name: "TANJUNG BALAI", province: "Sumatera Utara", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1272.geojson" },
+      { name: "PEMATANG SIANTAR", province: "Sumatera Utara", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1273.geojson" },
+      { name: "TEBING TINGGI", province: "Sumatera Utara", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1274.geojson" },
+      { name: "MEDAN", province: "Sumatera Utara", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1275.geojson" },
+      { name: "BINJAI", province: "Sumatera Utara", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1276.geojson" },
+      { name: "KOTA PADANG SIDEMPUAN", province: "Sumatera Utara", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1277.geojson" },
+
+      // Sumatera Barat
+      { name: "KEPULAUAN MENTAWAI", province: "Sumatera Barat", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1301.geojson" },
+      { name: "PESISIR SELATAN", province: "Sumatera Barat", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1302.geojson" },
+      { name: "SOLOK", province: "Sumatera Barat", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1303.geojson" },
+      { name: "SIJUNJUNG", province: "Sumatera Barat", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1304.geojson" },
+      { name: "TANAH DATAR", province: "Sumatera Barat", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1305.geojson" },
+      { name: "PADANG PARIAMAN", province: "Sumatera Barat", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1306.geojson" },
+      { name: "AGAM", province: "Sumatera Barat", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1307.geojson" },
+      { name: "LIMA PULUH KOTA", province: "Sumatera Barat", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1308.geojson" },
+      { name: "PASAMAN", province: "Sumatera Barat", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1309.geojson" },
+      { name: "SOLOK SELATAN", province: "Sumatera Barat", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1310.geojson" },
+      { name: "DHARMASRAYA", province: "Sumatera Barat", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1311.geojson" },
+      { name: "PASAMAN BARAT", province: "Sumatera Barat", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1312.geojson" },
+
+      { name: "PADANG", province: "Sumatera Barat", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1371.geojson" },
+      { name: "SOLOK", province: "Sumatera Barat", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1372.geojson" },
+      { name: "SAWAH LUNTO", province: "Sumatera Barat", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1373.geojson" },
+      { name: "PADANG PANJANG", province: "Sumatera Barat", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1374.geojson" },
+      { name: "BUKITTINGGI", province: "Sumatera Barat", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1375.geojson" },
+      { name: "PAYAKUMBUH", province: "Sumatera Barat", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1376.geojson" },
+      { name: "PARIAMAN", province: "Sumatera Barat", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1377.geojson" }
+    ];
+
+// =========================
+// DATA KAMPUS POSKO
+// =========================
+const campusContribution = {
+  "ACEH BARAT": {
+    total: 1,
+    universities: {
+      "UNIVERSITAS TEUKU UMAR": 1
+    }
+  },
+  "ACEH SINGKIL": {
+    total: 1,
+    universities: {
+      "UNIVERSITAS TEUKU UMAR": 1
+    }
+  },
+  "ACEH TAMIANG": {
+    total: 5,
+    universities: {
+      "UNIVERSITAS PRIMA INDONESIA": 1,
+      "UNIVERSITAS SAMUDRA": 3,
+      "UNIVERSITAS SYIAH KUALA": 1
+    }
+  },
+  "ACEH TENGAH": {
+    total: 1,
+    universities: {
+      "UNIVERSITAS SYIAH KUALA": 1
+    }
+  },
+  "ACEH UTARA": {
+    total: 7,
+    universities: {
+      "POLITEKNIK NEGERI LHOKSEUMAWE": 2,
+      "UNIVERSITAS MALIKUSSALEH": 5
+    }
+  },
+  "AGAM": {
+    total: 14,
+    universities: {
+      "POLITEKNIK NEGERI PADANG": 3,
+      "POLITEKNIK PERTANIAN NEGERI PAYAKUMBUH": 1,
+      "UNIVERSITAS ANDALAS": 3,
+      "UNIVERSITAS BAITURRAHMAH": 3,
+      "UNIVERSITAS JAMBI": 1,
+      "UNIVERSITAS NEGERI PADANG": 3,
+      "UNIVERSITAS MUHAMMADIYAH SUMATERA BARAT": 1,
+      "INSTITUT SENI INDONESIA PADANG PANJANG": 1,
+      "UNIVERSITAS MOHAMMAD NATSIR BUKITTINGGI": 1
+    }
+  },
+  "BENER MERIAH": {
+    total: 2,
+    universities: {
+      "UNIVERSITAS SYIAH KUALA": 1,
+      "UNIVERSITAS TEUKU UMAR": 1
+    }
+  },
+  "BIREUEN": {
+    total: 7,
+    universities: {
+      "UNIVERSITAS ALMUSLIM": 6,
+      "UNIVERSITAS SYIAH KUALA": 1
+    }
+  },
+  "BUKITTINGGI": {
+    total: 1,
+    universities: {
+      "UNIVERSITAS MUHAMMADIYAH SUMATERA BARAT": 1
+    }
+  },
+  "DELI SERDANG": {
+    total: 5,
+    universities: {
+      "UNIVERSITAS MEDAN AREA": 3,
+      "UNIVERSITAS ISLAM SUMATERA UTARA": 1,
+      "POLITEKNIK NEGERI MEDAN": 1
+    }
+  },
+  "HUMBANG HASUDUTAN": {
+    total: 1,
+    universities: {
+      "UNIVERSITAS PRIMA INDONESIA": 1
+    }
+  },
+  "LANGKAT": {
+    total: 12,
+    universities: {
+      "UNIVERSITAS NEGERI MEDAN": 4,
+      "UNIVERSITAS PEMBANGUNAN PANCA BUDI": 1,
+      "UNIVERSITAS PRIMA INDONESIA": 3,
+      "UNIVERSITAS ISLAM SUMATERA UTARA": 2,
+      "UNIVERSITAS SUMATERA UTARA": 2
+    }
+  },
+  "LANGSA": {
+    total: 2,
+    universities: {
+      "UNIVERSITAS SAMUDRA": 2
+    }
+  },
+  "LHOKSEUMAWE": {
+    total: 7,
+    universities: {
+      "UNIVERSITAS MALIKUSSALEH": 7,
+      "POLITEKNIK NEGERI LHOKSEUMAWE": 3
+    }
+  },
+  "MEDAN": {
+    total: 7,
+    universities: {
+      "UNIVERSITAS MUHAMMADIYAH SUMATERA UTARA": 4,
+      "UNIVERSITAS PRIMA INDONESIA": 1,
+      "UNIVERSITAS SUMATERA UTARA": 1,
+      "UNIVERSITAS NEGERI MEDAN": 1
+    }
+  },
+  "NAGAN RAYA": {
+    total: 1,
+    universities: {
+      "UNIVERSITAS TEUKU UMAR": 1
+    }
+  },
+  "PADANG": {
+    total: 21,
+    universities: {
+      "UNIVERSITAS BAITURRAHMAH": 10,
+      "UNIVERSITAS MUHAMMADIYAH SUMATERA BARAT": 1,
+      "UNIVERSITAS NEGERI PADANG": 2,
+      "POLITEKNIK NEGERI PADANG": 4,
+      "UNIVERSITAS ANDALAS": 5,
+      "UNIVERSITAS JAMBI": 2,
+      "UNIVERSITAS PUTRA INDONESIA YPTK PADANG": 2
+    }
+  },
+  "PADANG PANJANG": {
+    total: 3,
+    universities: {
+      "UNIVERSITAS BAITURRAHMAH": 2,
+      "INSTITUT SENI INDONESIA PADANG PANJANG": 1
+    }
+  },
+  "PADANG PARIAMAN": {
+    total: 3,
+    universities: {
+      "UNIVERSITAS ANDALAS": 3,
+      "UNIVERSITAS BAITURRAHMAH": 1
+    }
+  },
+  "PADANGSIDIMPUAN": {
+    total: 1,
+    universities: {
+      "UNIVERSITAS GRAHA NUSANTARA": 1
+    }
+  },
+  "PIDIE": {
+    total: 1,
+    universities: {
+      "UNIVERSITAS JABAL GHAFUR": 1
+    }
+  },
+  "PIDIE JAYA": {
+    total: 6,
+    universities: {
+      "UNIVERSITAS SYIAH KUALA": 6
+    }
+  },
+  "SERDANG BEDAGAI": {
+    total: 1,
+    universities: {
+      "UNIVERSITAS MEDAN AREA": 1
+    }
+  },
+  "SIBOLGA": {
+    total: 1,
+    universities: {
+      "UNIVERSITAS ISLAM SUMATERA UTARA": 1
+    }
+  },
+  "SILAING BAWAH": {
+    total: 1,
+    universities: {
+      "UNIVERSITAS BAITURRAHMAH": 1
+    }
+  },
+  "SILAREH AIA": {
+    total: 1,
+    universities: {
+      "INSTITUT SENI INDONESIA PADANG PANJANG": 1
+    }
+  },
+  "SINGKIL": {
+    total: 1,
+    universities: {
+      "UNIVERSITAS TEUKU UMAR": 1
+    }
+  },
+  "SOLOK": {
+    total: 4,
+    universities: {
+      "INSTITUT SENI INDONESIA PADANG PANJANG": 3,
+      "UNIVERSITAS NEGERI PADANG": 1
+    }
+  },
+  "SUBULUSSALAM": {
+    total: 1,
+    universities: {
+      "UNIVERSITAS TEUKU UMAR": 1
+    }
+  },
+  "TANAH DATAR": {
+    total: 1,
+    universities: {
+      "UNIVERSITAS MOHAMMAD NATSIR BUKITTINGGI": 1
+    }
+  },
+  "TAPANULI SELATAN": {
+    total: 17,
+    universities: {
+      "UNIVERSITAS AUFA ROYHAN": 5,
+      "UNIVERSITAS GRAHA NUSANTARA": 4,
+      "UNIVERSITAS ISLAM SUMATERA UTARA": 2,
+      "UNIVERSITAS MUHAMMADIYAH TAPANULI SELATAN": 6,
+      "UNIVERSITAS SUMATERA UTARA": 1
+    }
+  },
+  "TAPANULI TENGAH": {
+    total: 4,
+    universities: {
+      "UNIVERSITAS ISLAM SUMATERA UTARA": 1,
+      "UNIVERSITAS SUMATERA UTARA": 2,
+      "UNIVERSITAS PRIMA INDONESIA": 1
+    }
+  }
+};
+
+function toTitleCase(str) {
+    return (str || '')
+        .toLowerCase()
+        .replace(/\b\w/g, c => c.toUpperCase());
+}
+
+function getCampusInfoByRegion(regionName) {
+    if (!regionName) {
+        return {
+            total: 0,
+            detailHtml: '<em>Tidak ada data kampus posko</em>'
+        };
+    }
+
+    const key = regionName.toUpperCase().trim();
+    const info = campusContribution[key];
+
+    if (!info) {
+        return {
+            total: 0,
+            detailHtml: '<em>Tidak ada data kampus posko</em>'
+        };
+    }
+
+    const universities = info.universities || {};
+    const entries = Object.entries(universities);
+
+    const listHtml = entries.length
+        ? `<ul class="campus-univ-list">
+              ${entries.map(([univ, count]) =>
+                  `<li>${toTitleCase(univ)}: ${count}</li>`
+              ).join('')}
+           </ul>`
+        : '<em>Tanpa rincian perguruan tinggi</em>';
+
+    return {
+        total: info.total || 0,
+        detailHtml: listHtml
+    };
+}
+
+    function getCampusCountByRegion(regionName) {
+        if (!regionName) return 0;
+        const key = regionName.toUpperCase().trim();
+
+        if (campusContribution.hasOwnProperty(key)) {
+            return campusContribution[key];
+        }
+
+        const keyNoKota = key.replace(/^KOTA\\s+/, '');
+        if (campusContribution.hasOwnProperty(keyNoKota)) {
+            return campusContribution[keyNoKota];
+        }
+
+        return 0;
+    }
+
+    function getCampusCircleStyle(count) {
+        if (!count || count <= 0) return null;
+
+        const baseRadius = 5000;
+        const extraPerCampus = 1000;
+        const radius = baseRadius + (count * extraPerCampus);
+
+        let color = '#0ea5e9';
+        if (count >= 10) {
+            color = '#1d4ed8';
+        } else if (count >= 5) {
+            color = '#2563eb';
+        }
+
+        return { radius, color };
+    }
+
+        // Data lokasi kampus (contoh posko utama)
+        const campusLocations = [
+            // ACEH
+            { name: "Universitas Muhammadiyah Aceh", province: "Aceh", city: "Kota Banda Aceh", status: "PTS", lat: 5.535384179207771, lng: 95.33228381072688 },
+            { name: "Universitas Syiah Kuala", province: "Aceh", city: "Kota Banda Aceh", status: "PTN", lat: 5.570421, lng: 95.369948 },
+            { name: "Universitas Teuku Umar", province: "Aceh", city: "Kab. Aceh Barat", status: "PTN", lat: 4.143974, lng: 96.202127 },
+            { name: "Universitas Malikussaleh", province: "Aceh", city: "Kab. Aceh Utara", status: "PTN", lat: 5.234293, lng: 96.983868 },
+            { name: "Universitas Muhammadiyah Mahakarya Aceh", province: "Aceh", city: "Kab. Bireun", status: "PTS", lat: 5.2008139640941655, lng: 96.70265124141672 },
+            { name: "Politeknik Negeri Lhokseumawe", province: "Aceh", city: "Kota Lhokseumawe", status: "PTN", lat: 5.119343, lng: 97.156274 },
+            { name: "Universitas Samudra", province: "Aceh", city: "Kota Langsa", status: "PTN", lat: 4.457623, lng: 97.971968 },
+            
+            // SUMATERA BARAT
+            { name: "Universitas Andalas", province: "Sumatera Barat", city: "Kota Padang", status: "PTN", lat: -0.874301, lng: 100.458865 },
+            { name: "Universitas Negeri Padang", province: "Sumatera Barat", city: "Kota Padang", status: "PTN", lat: -0.925328, lng: 100.463769 },
+            { name: "Politeknik Negeri Padang", province: "Sumatera Barat", city: "Kota Padang", status: "PTN", lat: -0.913586, lng: 100.466376 },
+            { name: "Institut Seni Indonesia Padang Panjang", province: "Sumatera Barat", city: "Kota Padang Panjang", status: "PTN", lat: -0.459029, lng: 100.403327 },
+            
+            // SUMATERA UTARA
+            { name: "Universitas Negeri Medan", province: "Sumatera Utara", city: "Kota Medan", status: "PTN", lat: 3.489123, lng: 98.678912 },
+            { name: "Politeknik Negeri Medan", province: "Sumatera Utara", city: "Kota Medan", status: "PTN", lat: 3.562829, lng: 98.653523 },
+            { name: "Universitas Sumatera Utara", province: "Sumatera Utara", city: "Kota Medan", status: "PTN", lat: 3.561515, lng: 98.656428 },
+            { name: "Politeknik Pertanian Negeri Payakumbuh", province: "Sumatera Barat", city: "Kab. Lima Puluh Kota", status: "PTN", lat: -0.16945368771192676, lng: 100.66465275862649 },
+
+            // JAMBI
+            { name: "Univeritas Jambi", province: "Jambi", city: "Kota Jambi", status: "PTN", lat: -1.610761595641745, lng: 103.51691506902127 }
+        ];
+
+    // =========================
+    // PENAMPUNG LAYER UNTUK FILTER
+    // =========================
+    const regencyLayers = [];          // { province, layer }
+    const campusCirclesProvince = [];  // { province, circle }
+
+    // =========================
+    // INISIALISASI PETA
+    // =========================
+    const map = L.map('map', {
+        center: [2.5, 98.5],
+        zoom: 7,
+        minZoom: 4,
+        maxZoom: 12,
+        zoomSnap: 0.5,
+        zoomDelta: 0.5,
+        scrollWheelZoom: true
+    });
+
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; OpenStreetMap contributors & CARTO',
+        maxZoom: 12,
+        minZoom: 4
+    }).addTo(map);
+
+    const campusCirclesLayer = L.layerGroup().addTo(map);
+
+    function getSeverityColor(severity) {
+        switch (severity) {
+            case 'kritis': return '#dc2626';
+            case 'tinggi': return '#f97316';
+            case 'sedang': return '#fbbf24';
+            case 'rendah': return '#42bd3e';
+            default:       return '#6b7280';
+        }
+    }
+
+    function getSeverityLabel(severity) {
+        switch (severity) {
+            case 'kritis': return 'Kritis';
+            case 'tinggi': return 'Tinggi';
+            case 'sedang': return 'Sedang';
+            case 'rendah': return 'Rendah';
+            default:       return 'Tidak diketahui';
+        }
+    }
+
+    function findDisasterForConfig(cfg) {
+        const targetName = (cfg.name || '').toLowerCase();
+        if (!targetName) return null;
+
+        return disasterLocations.find(d => {
+            const dn = d.name.toLowerCase();
+            return dn.includes(targetName) || targetName.includes(dn);
+        }) || null;
+    }
+
+    // =========================
+    // POLIGON KAB/KOTA + CIRCLE KAMPUS
+    // =========================
+    regencyPolygonsConfig.forEach(cfg => {
+        fetch(cfg.url)
+            .then(resp => resp.json())
+            .then(geojson => {
+                const layer = L.geoJSON(geojson, {
+                    style: function(feature) {
+                        const disaster = findDisasterForConfig(cfg);
+                        const severity = disaster ? disaster.severity : null;
+
+                        const color = severity
+                            ? getSeverityColor(severity)
+                            : (cfg.color || '#22c55e');
+
+                        return {
+                            color: color,
+                            weight: 2,
+                            opacity: 0.9,
+                            fillColor: color,
+                            fillOpacity: 0.15
+                        };
+                    },
+                    onEachFeature: function(feature, layer) {
+                        const disaster = findDisasterForConfig(cfg);
+
+                        if (disaster) {
+                            const displacedStr = disaster.displaced != null
+                                ? disaster.displaced.toLocaleString()
+                                : '-';
+                            const affectedStr = disaster.affected != null
+                                ? disaster.affected.toLocaleString()
+                                : '-';
+
+                            const popupHtml = `
+                                <div class="popup-title">${disaster.name}</div>
+                                <div class="popup-detail">
+                                    <span class="popup-label">Provinsi:</span>
+                                    <span class="popup-value">${disaster.province}</span>
+                                </div>
+                                <div class="popup-detail">
+                                    <span class="popup-label">Korban Meninggal:</span>
+                                    <span class="popup-value">${disaster.deaths} jiwa</span>
+                                </div>
+                                <div class="popup-detail">
+                                    <span class="popup-label">Korban Hilang:</span>
+                                    <span class="popup-value">${disaster.missing} jiwa</span>
+                                </div>
+                                <div class="popup-detail">
+                                    <span class="popup-label">Perkiraan Mengungsi:</span>
+                                    <span class="popup-value">${displacedStr} jiwa</span>
+                                </div>
+                                <div class="popup-detail">
+                                    <span class="popup-label">Perkiraan Terdampak:</span>
+                                    <span class="popup-value">${affectedStr} jiwa</span>
+                                </div>
+                                <div class="severity-badge severity-${disaster.severity}">
+                                    ${getSeverityLabel(disaster.severity)}
+                                </div>
+                            `;
+                            layer.bindPopup(popupHtml);
+    } else {
+        const props = feature.properties || {};
+        const name = props.name || cfg.name || 'Kabupaten/Kota';
+
+        // 🔹 Ambil info kampus berdasarkan cfg.name (misalnya "ACEH UTARA", "PADANG")
+        const campusInfo = getCampusInfoByRegion(cfg.name);
+        const campusCount = campusInfo.total;
+        const campusDetailHtml = campusInfo.detailHtml;
+
+        const popupHtml = `
+            <div class="popup-title">${name}</div>
+            <div class="popup-detail">
+                <span class="popup-label">Provinsi:</span>
+                <span class="popup-value">${cfg.province || '-'}</span>
+            </div>
+            <div class="popup-detail">
+                <span class="popup-label">Tipe:</span>
+                <span class="popup-value">Poligon batas kabupaten/kota</span>
+            </div>
+            <div class="popup-detail">
+                <span class="popup-label">Jumlah Kegiatan Kampus Posko:</span>
+                <span class="popup-value">${campusCount}</span>
+            </div>
+            <div class="popup-detail">
+                <span class="popup-label">Perguruan tinggi:</span>
+                <span class="popup-value">
+                    ${campusDetailHtml}
+                </span>
+            </div>
+        `;
+        layer.bindPopup(popupHtml);
+    }
+}
+                }).addTo(map);
+
+                // simpan untuk filter
+                regencyLayers.push({
+                    province: cfg.province,
+                    layer: layer
+                });
+
+const campusInfo = getCampusInfoByRegion(cfg.name);
+const campusCount = campusInfo.total;
+const campusDetailHtml = campusInfo.detailHtml;
+
+const style = getCampusCircleStyle(campusCount);
+if (style && campusCount > 0) {   // hanya tampilkan circle kalau ada data
+    const bounds = layer.getBounds();
+    if (bounds.isValid()) {
+        const center = bounds.getCenter();
+        const circle = L.circle(center, {
+            radius: style.radius,
+            color: style.color,
+            fillColor: style.color,
+            fillOpacity: 0.08,
+            weight: 1
+        }).addTo(campusCirclesLayer);
+
+        circle.bindTooltip(
+            `<div class="campus-circle-tooltip">
+                <div><strong>${cfg.name}</strong></div>
+                <div>Jumlah Kegiatan Kampus Posko: ${campusCount}</div>
+                ${campusDetailHtml}
+             </div>`,
+             { permanent: false, direction: 'top' }
+        );
+
+        campusCirclesProvince.push({
+            province: cfg.province,
+            circle: circle
+        });
+    }
+}
+
+                console.log('✅ Poligon ter-load untuk:', cfg.name);
+            })
+            .catch(err => {
+                console.error('❌ Gagal memuat GeoJSON untuk', cfg.name, err);
+            });
+    });
+
+    // =========================
+    // MARKER KAMPUS POSKO
+    // =========================
+    const campusMarkers = [];
+
+    const campusIcon = L.divIcon({
+        className: 'custom-campus-icon',
+        html: `<div style="
+            width: 12px;
+            height: 12px;
+            background: #111827;
+            border-radius: 2px;
+            border: 1px solid white;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.4);
+            cursor: pointer;
+        "></div>`,
+        iconSize: [16, 16],
+        iconAnchor: [8, 8]
+    });
+
+    campusLocations.forEach((campus, index) => {
+        const popupContent = `
+            <div class="popup-title">${campus.name}</div>
+            <div class="popup-detail">
+                <span class="popup-label">Status:</span>
+                <span class="popup-value">${campus.status}</span>
+            </div>
+            <div class="popup-detail">
+                <span class="popup-label">Kota/Kab:</span>
+                <span class="popup-value">${campus.city}</span>
+            </div>
+            <div class="popup-detail">
+                <span class="popup-label">Provinsi:</span>
+                <span class="popup-value">${campus.province}</span>
+            </div>
+        `;
+
+        const marker = L.marker([campus.lat, campus.lng], { icon: campusIcon })
+            .bindPopup(popupContent, {
+                maxWidth: 360,
+                closeButton: true
+            })
+            .addTo(map);
+
+        campusMarkers.push({ campus, marker });
+    });
+
+    // =========================
+    // PENCARIAN KAMPUS POSKO
+    // =========================
+    const searchInput = document.getElementById('campus-search-input');
+    const searchResultsContainer = document.getElementById('campus-search-results');
+
+    function clearSearchResults() {
+        searchResultsContainer.innerHTML = '';
+    }
+
+    function renderSearchResults(results) {
+        if (!results.length) {
+            searchResultsContainer.innerHTML =
+                '<div class="search-result-item search-result-empty">Tidak ada hasil</div>';
+            return;
+        }
+
+        const html = results.slice(0, 30).map(({ campus, index }) => `
+            <div class="search-result-item" data-index="${index}">
+                <div class="search-result-name">${campus.name}</div>
+                <div class="search-result-meta">
+                    ${campus.city} • ${campus.province} • ${campus.status}
+                </div>
+            </div>
+        `).join('');
+
+        searchResultsContainer.innerHTML = html;
+    }
+
+    if (searchInput && searchResultsContainer) {
+        searchInput.addEventListener('input', (e) => {
+            const q = e.target.value.trim().toLowerCase();
+
+            if (!q) {
+                clearSearchResults();
+                return;
+            }
+
+            const results = campusMarkers
+                .map((item, index) => ({ ...item, index }))
+                .filter(({ campus }) =>
+                    (campus.name && campus.name.toLowerCase().includes(q)) ||
+                    (campus.city && campus.city.toLowerCase().includes(q)) ||
+                    (campus.province && campus.province.toLowerCase().includes(q))
+                );
+
+            renderSearchResults(results);
+        });
+
+        searchResultsContainer.addEventListener('click', (e) => {
+            const itemEl = e.target.closest('.search-result-item');
+            if (!itemEl || itemEl.classList.contains('search-result-empty')) return;
+
+            const index = parseInt(itemEl.dataset.index, 10);
+            const { campus, marker } = campusMarkers[index];
+
+            map.setView([campus.lat, campus.lng], 9);
+            marker.openPopup();
+            clearSearchResults();
+        });
+
+        searchInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                const firstResult = searchResultsContainer.querySelector('.search-result-item:not(.search-result-empty)');
+                if (!firstResult) return;
+
+                const index = parseInt(firstResult.dataset.index, 10);
+                const { campus, marker } = campusMarkers[index];
+
+                map.setView([campus.lat, campus.lng], 9);
+                marker.openPopup();
+                clearSearchResults();
+            }
+        });
+    }
+
+    // =========================
+    // FILTER PROVINSI
+    // =========================
+    function setProvinceFilter(province) {
+        // 1) Poligon kab/kota
+        regencyLayers.forEach(({ province: p, layer }) => {
+            if (province === 'All' || p === province) {
+                if (!map.hasLayer(layer)) map.addLayer(layer);
+            } else {
+                if (map.hasLayer(layer)) map.removeLayer(layer);
+            }
+        });
+
+        // 2) Lingkaran coverage kampus posko
+        campusCirclesProvince.forEach(({ province: p, circle }) => {
+            if (province === 'All' || p === province) {
+                if (!map.hasLayer(circle)) map.addLayer(circle);
+            } else {
+                if (map.hasLayer(circle)) map.removeLayer(circle);
+            }
+        });
+
+        // 3) Marker kampus posko
+        campusMarkers.forEach(({ campus, marker }) => {
+            if (province === 'All' || campus.province === province) {
+                if (!map.hasLayer(marker)) map.addLayer(marker);
+            } else {
+                if (map.hasLayer(marker)) map.removeLayer(marker);
+            }
+        });
+
+        // 4) Sesuaikan viewport jika bukan All
+        if (province !== 'All') {
+            const layersForProvince = regencyLayers
+                .filter(item => item.province === province)
+                .map(item => item.layer);
+
+            if (layersForProvince.length) {
+                let bounds = null;
+                layersForProvince.forEach(l => {
+                    const b = l.getBounds();
+                    if (b.isValid()) {
+                        if (!bounds) bounds = b;
+                        else bounds = bounds.extend(b);
+                    }
+                });
+
+                if (bounds && bounds.isValid()) {
+                    map.fitBounds(bounds, { padding: [50, 50] });
+                }
+            }
+        } else {
+            map.setView([2.5, 98.5], 7);
+        }
+    }
+
+    const provinceSelect = document.getElementById('province-filter-select');
+    if (provinceSelect) {
+        provinceSelect.addEventListener('change', (e) => {
+            const value = e.target.value;
+            setProvinceFilter(value);
+        });
+    }
+
+    L.control.scale({
+        imperial: false,
+        metric: true,
+        position: 'bottomleft'
+    }).addTo(map);
+
+    console.log('✅ Map loaded successfully!');
+    console.log('📍 Markers (bencana):', disasterLocations.length);
+    console.log('🎓 Markers (kampus posko):', campusLocations.length);
+    </script>
+</body>
+</html>
