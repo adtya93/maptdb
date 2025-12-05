@@ -11,458 +11,566 @@
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
 
-    <style>
-        *
-        {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Source Sans Pro', sans-serif;
-            background: #fafafa;
-        }
-
-        .header-logo-left {
-            height: 40px; /* sesuaikan kalau perlu */
-            width: auto;
-        }
-
-        .header-logo-right {
-            height: 26px; /* sesuaikan kalau perlu */
-            width: auto;
-            object-fit: contain;
-        }
-
-        .map-wrapper {
-            max-width: 100%;
-            margin: 0 auto;
-            background: white;
-            box-shadow: 0 8px 32px rgba(255, 255, 255, 0.933);
-
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .map-header {
-            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
-            color: white;
-            padding: 25px 40px;
-            text-align: center;
-            border-bottom: 4px solid #1e40af;
-        }
-
-        .map-header h1 {
-            font-family: 'Crimson Pro', serif;
-            font-size: 32px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            margin-bottom: 8px;
-            text-shadow: 2px 2px 4px rgba(254, 253, 253, 0.2);
-        }
-
-        .map-header .subtitle {
-            font-size: 15px;
-            opacity: 0.95;
-            font-weight: 600;
-            letter-spacing: 1px;
-        }
-
-        .header-logo-left {
-            height: 40px; /* sesuaikan kalau perlu */
-            width: auto;
-        }
-
-        .header-logo-right {
-            height: 26px; /* sesuaikan kalau perlu */
-            width: auto;
-            object-fit: contain;
-        }
-
-        #map {
-            flex: 1; 
-            width: 100%;
-            position: relative;
-            background: #aadaff;
-        }
-
-        .info-overlay {
-            position: absolute;
-            z-index: 1000;
-            background: rgba(255, 255, 255, 0.95);
-            border: 2px solid #1e40af;
-            border-radius: 8px;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.3);
-            max-width: 350px;
-            backdrop-filter: blur(10px);
-        }
-
-        .stats-panel {
-            top: 20px;
-            left: 20px;
-            padding: 20px;
-        }
-
-        .stats-title {
-            font-family: 'Crimson Pro', serif;
-            font-size: 18px;
-            font-weight: 700;
-            color: #1e3a8a;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #3b82f6;
-        }
-
-        .stat-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px solid #e5e7eb;
-            font-size: 14px;
-        }
-
-        .stat-item:last-child {
-            border-bottom: none;
-        }
-
-        .stat-label {
-            font-weight: 600;
-            color: #4b5563;
-        }
-
-        .stat-value {
-            font-weight: 700;
-            color: #dc2626;
-            font-size: 15px;
-        }
-
-        .legend-panel {
-            bottom: 20px;
-            right: 20px;
-            padding: 20px;
-        }
-
-        .legend-title {
-            font-family: 'Crimson Pro', serif;
-            font-size: 16px;
-            font-weight: 700;
-            color: #1e3a8a;
-            margin-bottom: 15px;
-            padding-bottom: 8px;
-            border-bottom: 2px solid #3b82f6;
-        }
-
-        .legend-section {
-            margin-bottom: 15px;
-        }
-
-        .legend-section-title {
-            font-size: 12px;
-            font-weight: 700;
-            color: #1e3a8a;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 8px;
-            font-size: 13px;
-        }
-
-        .legend-color {
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            border: 2px solid rgba(0,0,0,0.2);
-            flex-shrink: 0;
-        }
-
-        .legend-circle {
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            border: 2px solid;
-            flex-shrink: 0;
-            opacity: 0.6;
-        }
-
-        .footer-info {
-            background: #f9fafb;
-            padding: 20px 40px;
-            border-top: 2px solid #1e40af;
-            font-size: 12px;
-            color: #4b5563;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .footer-info strong {
-            color: #1e3a8a;
-        }
-
-        .leaflet-popup-content-wrapper {
-            border-radius: 8px;
-            border: 2px solid #dc2626;
-        }
-
-        .leaflet-popup-content {
-            margin: 15px;
-            font-family: 'Source Sans Pro', sans-serif;
-            min-width: 200px;
-        }
-
-        .popup-title {
-            font-size: 16px;
-            font-weight: 700;
-            color: #1e3a8a;
-            margin-bottom: 10px;
-            padding-bottom: 8px;
-            border-bottom: 2px solid #dc2626;
-        }
-
-        .popup-detail {
-            font-size: 13px;
-            margin-bottom: 6px;
-            display: flex;
-            justify-content: space-between;
-            gap: 15px;
-        }
-
-        .popup-label {
-            font-weight: 600;
-            color: #4b5563;
-        }
-
-        .popup-value {
-            font-weight: 700;
-            color: #dc2626;
-        }
-
-        .severity-badge {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-top: 8px;
-        }
-
-        .severity-kritis {
-            background: #dc2626;
-            color: white;
-        }
-
-        .severity-tinggi {
-            background: #f97316;
-            color: white;
-        }
-
-        .severity-sedang {
-            background: #fbbf24;
-            color: #1a1a1a;
-        }
-
-        .severity-rendah {
-            background: #42bd3e;
-            color: #1a1a1a;
-        }
-
-        .search-panel {
-            top: 20px;
-            right: 20px;
-            padding: 16px;
-            width: 300px;
-        }
-
-        .search-input {
-            width: 100%;
-            padding: 8px 10px;
-            border-radius: 6px;
-            border: 1px solid #d1d5db;
-            font-size: 13px;
-            outline: none;
-            margin-bottom: 8px;
-        }
-
-        .search-input:focus {
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.4);
-        }
-
-        .search-results {
-            max-height: 260px;
-            overflow-y: auto;
-            margin-top: 4px;
-        }
-
-        .search-result-item {
-            padding: 6px 8px;
-            border-radius: 6px;
-            cursor: pointer;
-            margin-bottom: 4px;
-            border: 1px solid transparent;
-            background: white;
-        }
-
-        .search-result-item:hover {
-            background: #eff6ff;
-            border-color: #bfdbfe;
-        }
-
-        .search-result-name {
-            font-size: 13px;
-            font-weight: 600;
-            color: #1f2933;
-        }
-
-        .search-result-meta {
-            font-size: 11px;
-            color: #6b7280;
-        }
-
-        .search-result-empty {
-            font-size: 12px;
-            color: #9ca3af;
-            text-align: center;
-            padding: 8px 0;
-        }
-
-        .popup-coverage {
-            font-size: 12px;
-            margin-top: 4px;
-            color: #374151;
-        }
-
-        .campus-circle-tooltip {
-            background: rgba(15, 23, 42, 0.9);
-            color: #f9fafb;
-            border-radius: 0px;
-            padding: 4px 10px;
-            border: 0px solid rgba(15, 23, 42, 0.9);
-            font-size: 11px;
-            font-weight: 600;
-        }
-
-        .no-entry-icon {
-            position: relative;
-            width: 22px;
-            height: 22px;
-            border-radius: 50%;
-            background: #ef4444;          /* merah */
-            border: 2px solid #ffffff;    /* pinggir putih biar lebih “rambu” */
-            box-shadow: 0 1px 3px rgba(0,0,0,0.4);
-        }
-
-.no-entry-icon::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 14px;                  /* panjang strip */
-    height: 4px;                  /* tebal strip */
-    background: #ffffff;
-    border-radius: 2px;
-    transform: translate(-50%, -50%);
-}
-        @media (max-width: 768px) {
-            .info-overlay {
-                max-width: 280px;
-            }
-
-            #map {
-                height: 600px;
-            }
-        }
-
-.main-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 8px 24px;
-    background: #e9f3f9;
-    border-bottom: 2px solid #b91c1c;
-    font-family: 'Source Sans Pro', sans-serif;
-}
-
-.header-left,
-.header-center,
-.header-right {
-    display: flex;
-    align-items: center;
-}
-
-.header-left-text {
-    margin-left: 8px;
-    line-height: 1.2;
-    font-size: 11px;
-    color: #111827;
-}
-
-.header-ministry {
-    font-weight: 700;
-}
-
-.header-country {
-    font-weight: 600;
-    margin-top: 2px;
-}
-
-.header-map-subtitle {
-    font-size: 11px;
-    margin-top: 4px;
-}
-
-.header-center {
-    flex: 1;
-    justify-content: center;
-    text-align: center;
-}
-
-.header-right {
-    gap: 8px;
-}
-
-.header-right-divider {
-    width: 1px;
-    height: 24px;
-    background: #d1d5db;
-}
-
-.header-logo-left {
-    height: 38px;
-    width: auto;
-}
-
-.header-logo-right {
-    height: 24px;
-    width: auto;
-    object-fit: contain;
-}
-
-@media (max-width: 768px) {
-    .main-header {
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Source Sans Pro', sans-serif;
+        background: #fafafa;
+    }
+
+    /* =========================
+       WRAPPER & MAP
+       ========================= */
+    .map-wrapper {
+        max-width: 100%;
+        margin: 0 auto;
+        background: #ffffff;
+        box-shadow: 0 8px 32px rgba(255, 255, 255, 0.933);
+        min-height: 100vh;
+        display: flex;
         flex-direction: column;
-        align-items: flex-start;
-        gap: 8px;
+    }
+
+    #map {
+        flex: 1;
+        width: 100%;
+        position: relative;
+        background: #aadaff;
+    }
+
+    /* =========================
+       HEADER ATAS (MAIN HEADER)
+       ========================= */
+    .main-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 8px 24px;
+        background: #e9f3f9;
+        border-bottom: 2px solid #b91c1c;
+        font-family: 'Source Sans Pro', sans-serif;
+    }
+
+    .header-left,
+    .header-center,
+    .header-right {
+        display: flex;
+        align-items: center;
+    }
+
+    .header-left-text {
+        margin-left: 8px;
+        line-height: 1.2;
+        font-size: 11px;
+        color: #111827;
+    }
+
+    .header-ministry {
+        font-weight: 700;
+    }
+
+    .header-country {
+        font-weight: 600;
+        margin-top: 2px;
+    }
+
+    .header-map-subtitle {
+        font-size: 11px;
+        margin-top: 4px;
     }
 
     .header-center {
-        justify-content: flex-start;
+        flex: 1;
+        justify-content: center;
+        text-align: center;
     }
-}
 
-    </style>
+    .header-right {
+        gap: 8px;
+    }
+
+    .header-right-divider {
+        width: 1px;
+        height: 24px;
+        background: #d1d5db;
+    }
+
+    .header-logo-left {
+        height: 38px;
+        width: auto;
+    }
+
+    .header-logo-right {
+        height: 24px;
+        width: auto;
+        object-fit: contain;
+    }
+
+    /* =========================
+       (MASIH) MAP-HEADER LAMA (JIKA DIPAKAI)
+       ========================= */
+    .map-header {
+        background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+        color: #ffffff;
+        padding: 25px 40px;
+        text-align: center;
+        border-bottom: 4px solid #1e40af;
+    }
+
+    .map-header h1 {
+        font-family: 'Crimson Pro', serif;
+        font-size: 32px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        margin-bottom: 8px;
+        text-shadow: 2px 2px 4px rgba(254, 253, 253, 0.2);
+    }
+
+    .map-header .subtitle {
+        font-size: 15px;
+        opacity: 0.95;
+        font-weight: 600;
+        letter-spacing: 1px;
+    }
+
+    /* =========================
+       PANEL INFO / LEGEND / SEARCH
+       ========================= */
+    .info-overlay {
+        position: absolute;
+        z-index: 1000;
+        background: rgba(255, 255, 255, 0.95);
+        border: 2px solid #1e40af;
+        border-radius: 8px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+        max-width: 350px;
+        backdrop-filter: blur(10px);
+    }
+
+    .stats-panel {
+        top: 20px;
+        left: 20px;
+        padding: 20px;
+    }
+
+    .stats-title {
+        font-family: 'Crimson Pro', serif;
+        font-size: 18px;
+        font-weight: 700;
+        color: #1e3a8a;
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #3b82f6;
+    }
+
+    .stat-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 0;
+        border-bottom: 1px solid #e5e7eb;
+        font-size: 14px;
+    }
+
+    .stat-item:last-child {
+        border-bottom: none;
+    }
+
+    .stat-label {
+        font-weight: 600;
+        color: #4b5563;
+    }
+
+    .stat-value {
+        font-weight: 700;
+        color: #dc2626;
+        font-size: 15px;
+    }
+
+    .legend-panel {
+        bottom: 20px;
+        right: 20px;
+        padding: 20px;
+    }
+
+    .legend-title {
+        font-family: 'Crimson Pro', serif;
+        font-size: 16px;
+        font-weight: 700;
+        color: #1e3a8a;
+        margin-bottom: 15px;
+        padding-bottom: 8px;
+        border-bottom: 2px solid #3b82f6;
+    }
+
+    .legend-section {
+        margin-bottom: 15px;
+    }
+
+    .legend-section-title {
+        font-size: 12px;
+        font-weight: 700;
+        color: #1e3a8a;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 8px;
+        font-size: 13px;
+    }
+
+    .legend-color {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        border: 2px solid rgba(0, 0, 0, 0.2);
+        flex-shrink: 0;
+    }
+
+    .legend-circle {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        border: 2px solid;
+        flex-shrink: 0;
+        opacity: 0.6;
+    }
+
+    /* =========================
+       FOOTER
+       ========================= */
+    .footer-info {
+        background: #f9fafb;
+        padding: 20px 40px;
+        border-top: 2px solid #1e40af;
+        font-size: 12px;
+        color: #4b5563;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .footer-info strong {
+        color: #1e3a8a;
+    }
+
+    /* =========================
+       POPUP LEAFLET
+       ========================= */
+    .leaflet-popup-content-wrapper {
+        border-radius: 8px;
+        border: 2px solid #dc2626;
+    }
+
+    .leaflet-popup-content {
+        margin: 15px;
+        font-family: 'Source Sans Pro', sans-serif;
+        min-width: 200px;
+    }
+
+    .popup-title {
+        font-size: 16px;
+        font-weight: 700;
+        color: #1e3a8a;
+        margin-bottom: 10px;
+        padding-bottom: 8px;
+        border-bottom: 2px solid #dc2626;
+    }
+
+    .popup-detail {
+        font-size: 13px;
+        margin-bottom: 6px;
+        display: flex;
+        justify-content: space-between;
+        gap: 15px;
+    }
+
+    .popup-label {
+        font-weight: 600;
+        color: #4b5563;
+    }
+
+    .popup-value {
+        font-weight: 700;
+        color: #dc2626;
+    }
+
+    .severity-badge {
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: 12px;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-top: 8px;
+    }
+
+    .severity-kritis {
+        background: #dc2626;
+        color: #ffffff;
+    }
+
+    .severity-tinggi {
+        background: #f97316;
+        color: #ffffff;
+    }
+
+    .severity-sedang {
+        background: #fbbf24;
+        color: #1a1a1a;
+    }
+
+    .severity-rendah {
+        background: #42bd3e;
+        color: #1a1a1a;
+    }
+
+    /* =========================
+       SEARCH PANEL
+       ========================= */
+    .search-panel {
+        top: 20px;
+        right: 20px;
+        padding: 16px;
+        width: 300px;
+    }
+
+    .search-input {
+        width: 100%;
+        padding: 8px 10px;
+        border-radius: 6px;
+        border: 1px solid #d1d5db;
+        font-size: 13px;
+        outline: none;
+        margin-bottom: 8px;
+    }
+
+    .search-input:focus {
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.4);
+    }
+
+    .search-results {
+        max-height: 260px;
+        overflow-y: auto;
+        margin-top: 4px;
+    }
+
+    .search-result-item {
+        padding: 6px 8px;
+        border-radius: 6px;
+        cursor: pointer;
+        margin-bottom: 4px;
+        border: 1px solid transparent;
+        background: #ffffff;
+    }
+
+    .search-result-item:hover {
+        background: #eff6ff;
+        border-color: #bfdbfe;
+    }
+
+    .search-result-name {
+        font-size: 13px;
+        font-weight: 600;
+        color: #1f2933;
+    }
+
+    .search-result-meta {
+        font-size: 11px;
+        color: #6b7280;
+    }
+
+    .search-result-empty {
+        font-size: 12px;
+        color: #9ca3af;
+        text-align: center;
+        padding: 8px 0;
+    }
+
+    .popup-coverage {
+        font-size: 12px;
+        margin-top: 4px;
+        color: #374151;
+    }
+
+    .campus-circle-tooltip {
+        background: rgba(15, 23, 42, 0.9);
+        color: #f9fafb;
+        border-radius: 0;
+        padding: 4px 10px;
+        border: 0 solid rgba(15, 23, 42, 0.9);
+        font-size: 11px;
+        font-weight: 600;
+    }
+
+    /* =========================
+       ICON STATUS INFRASTRUKTUR DARAT
+       ========================= */
+    .no-entry-icon {
+        position: relative;
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        background: #ef4444;      /* merah */
+        border: 1px solid #ffffff; /* pinggir putih */
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+    }
+
+    .no-entry-icon::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 14px;
+        height: 4px;
+        background: #ffffff;
+        border-radius: 2px;
+        transform: translate(-50%, -50%);
+    }
+
+    .no-entry-icon-limited {
+        position: relative;
+        width: 22px;
+        height: 22px;
+        background: #f59e0b;      /* oranye */
+        border: 1px solid #ffffff;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+        clip-path: polygon(50% 5%, 5% 95%, 95% 95%);
+    }
+
+    .no-entry-icon-limited::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 3px;
+        height: 8px;
+        background: #211f1f;
+        border-radius: 2px;
+        transform: translate(-50%, -50%);
+    }
+
+    .no-entry-icon-limited::after {
+        content: "";
+        position: absolute;
+        top: 70%;
+        left: 50%;
+        width: 3px;
+        height: 3px;
+        background: #211f1f;
+        border-radius: 2px;
+        transform: translate(-50%, -50%);
+    }
+
+    .no-entry-icon-flooded {
+        position: relative;
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        background: #0d6ad5;      /* biru */
+        border: 1px solid #ffffff;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+    }
+
+    .no-entry-icon-flooded::before {
+        content: "";
+        position: absolute;
+        inset: 2px;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+        background-image: url("data:image/svg+xml;utf8,\
+        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'>\
+        <path d='M0 8c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2 2-2 4-2' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round'/>\
+        <path d='M0 12c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2 2-2 4-2' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round'/>\
+        <path d='M0 16c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2 2-2 4-2' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round'/>\
+        </svg>");
+    }
+
+    /* =========================
+       ICON TITIK PENGUNGSIAN
+       ========================= */
+    .shelter-icon {
+        width: 28px;
+        height: 28px;
+        background: #059669;
+        border-radius: 4px;
+        border: 2px solid #ffffff;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+        position: relative;
+    }
+
+    .shelter-icon-inner {
+        width: 100%;
+        height: 100%;
+        font-size: 15px;
+        color: #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+    }
+
+    .shelter-icon::before,
+    .shelter-icon::after {
+        content: "";
+        position: absolute;
+        border-style: solid;
+        border-color: #ffffff transparent transparent transparent;
+    }
+
+    .shelter-icon::before {
+        top: -4px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-width: 6px 4px 0 4px;
+    }
+
+    .shelter-icon::after {
+        bottom: -4px;
+        left: 50%;
+        transform: translateX(-50%) rotate(180deg);
+        border-width: 6px 4px 0 4px;
+    }
+
+    /* =========================
+       RESPONSIVE
+       ========================= */
+    @media (max-width: 768px) {
+        .info-overlay {
+            max-width: 280px;
+        }
+
+        #map {
+            height: 600px;
+        }
+
+        .main-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        .header-center {
+            justify-content: flex-start;
+            text-align: left;
+        }
+    }
+</style>
+
 </head>
 <body>
     <div class="main-header">
@@ -482,10 +590,11 @@
         </div>
 
         <div class="header-center">
-        <span class="header-title">
-            <span><strong>Tanggap Darurat Bendacana Hidrometeorologi</strong></span> <br> Provinsi Aceh, Sumatera Utara, dan Sumatera Barat
-        </span>
-    </div>
+            <span class="header-title">
+                <span><strong>Tanggap Darurat Bencana Hidrometeorologi</strong></span> <br>
+                Provinsi Aceh, Sumatera Utara, dan Sumatera Barat
+            </span>
+        </div>
 
         <div class="header-right">
             <img src="Risbang.png" alt="Ditjen Risbang" class="header-logo-right">
@@ -494,7 +603,7 @@
         </div>
     </div>
 
-  <div class="map-wrapper">
+    <div class="map-wrapper">
         <div id="map">
             <!-- Legend Panel -->
             <div class="info-overlay legend-panel">
@@ -523,9 +632,17 @@
                 <div class="legend-section">
                     <div class="legend-section-title">Status Infrastruktur Darat</div>
                     <div class="legend-item">
-                    <div class="no-entry-icon"></div>
-                    <span style="color: #160b54;">Jalan/Jembatan Terputus</span>
-                 </div>
+                        <div class="no-entry-icon"></div>
+                        <span style="color: #160b54;">Jalan/Jembatan Akses Terputus</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="no-entry-icon-limited"></div>
+                        <span style="color: #160b54;">Jalan/Jembatan Terputus Sebagian</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="no-entry-icon-flooded"></div>
+                        <span style="color: #160b54;">Akses Terputus Akibat Banjir</span>
+                    </div>
                 </div>
 
                 <div class="legend-section">
@@ -569,10 +686,10 @@
         <div class="footer-info">
             <div>
                 <strong>Sumber Data:</strong> BNPB, BPBD Aceh, BPBD Sumatera Utara, BPBD Sumatera Barat |
-                <strong>Periode:</strong> 4 Desember 2025
+                <strong>Periode:</strong> 5 Desember 2025
             </div>
             <div>
-                <strong>Update Terakhir:</strong> 4 Des 2025, 10:00 WIB
+                <strong>Update Terakhir:</strong> 5 Des 2025, 10:00 WIB
             </div>
         </div>
     </div>
@@ -582,7 +699,7 @@
 
     <script>
     // =========================
-    // DATA LOKASI BENCANA
+    // DATA LOKASI BENCANA (untuk shading kab/kota)
     // =========================
     const disasterLocations = [
       {
@@ -591,7 +708,7 @@
         lat: 5.203,
         lng: 96.701,
         incidentType: "Banjir",
-        date: "4-12-2025",
+        date: "5-12-2025",
         deaths: 20,
         missing: 7,
         injured: 2,
@@ -609,7 +726,7 @@
         lat: 4.2325,
         lng: 97.958,
         incidentType: "Banjir",
-        date: "4-12-2025",
+        date: "5-12-2025",
         deaths: 42,
         missing: 0,
         injured: 3,
@@ -627,7 +744,7 @@
         lat: 4.7396,
         lng: 97.8544,
         incidentType: "Banjir",
-        date: "4-12-2025",
+        date: "5-12-2025",
         deaths: 32,
         missing: 2,
         injured: 0,
@@ -645,7 +762,7 @@
         lat: 5.1833,
         lng: 97.15,
         incidentType: "Banjir & Longsor",
-        date: "4-12-2025",
+        date: "5-12-2025",
         deaths: 4,
         missing: 3,
         injured: 4,
@@ -663,7 +780,7 @@
         lat: 4.4683,
         lng: 97.9683,
         incidentType: "Longsor",
-        date: "4-12-2025",
+        date: "5-12-2025",
         deaths: 5,
         missing: 0,
         injured: 0,
@@ -681,7 +798,7 @@
         lat: 5.0167,
         lng: 97.3333,
         incidentType: "Banjir",
-        date: "4-12-2025",
+        date: "5-12-2025",
         deaths: 123,
         missing: 90,
         injured: 66,
@@ -699,7 +816,7 @@
         lat: 3.955,
         lng: 97.351,
         incidentType: "Banjir & Longsor",
-        date: "4-12-2025",
+        date: "5-12-2025",
         deaths: 4,
         missing: 2,
         injured: 0,
@@ -717,7 +834,7 @@
         lat: 4.448,
         lng: 96.8351,
         incidentType: "Banjir & Longsor",
-        date: "4-12-2025",
+        date: "5-12-2025",
         deaths: 22,
         missing: 23,
         injured: 28,
@@ -735,7 +852,7 @@
         lat: 2.6442,
         lng: 97.9754,
         incidentType: "Banjir",
-        date: "4-12-2025",
+        date: "5-12-2025",
         deaths: 1,
         missing: 0,
         injured: 0,
@@ -753,7 +870,7 @@
         lat: 4.76,
         lng: 96.8333,
         incidentType: "Banjir & Longsor",
-        date: "4-12-2025",
+        date: "5-12-2025",
         deaths: 34,
         missing: 28,
         injured: 8,
@@ -771,7 +888,7 @@
         lat: 4.18,
         lng: 96.509,
         incidentType: "Banjir & Longsor",
-        date: "4-12-2025",
+        date: "5-12-2025",
         deaths: 1,
         missing: 3,
         injured: 0,
@@ -789,7 +906,7 @@
         lat: 2.358,
         lng: 97.905,
         incidentType: "Banjir",
-        date: "4-12-2025",
+        date: "5-12-2025",
         deaths: 0,
         missing: 0,
         injured: 0,
@@ -807,7 +924,7 @@
         lat: 4.45,
         lng: 96.1167,
         incidentType: "Banjir",
-        date: "4-12-2025",
+        date: "5-12-2025",
         deaths: 0,
         missing: 0,
         injured: 0,
@@ -825,7 +942,7 @@
         lat: 5.1552,
         lng: 96.1951,
         incidentType: "Banjir",
-        date: "4-12-2025",
+        date: "5-12-2025",
         deaths: 23,
         missing: 8,
         injured: 1821,
@@ -843,7 +960,7 @@
         lat: 5.3833,
         lng: 95.95,
         incidentType: "Banjir",
-        date: "4-12-2025",
+        date: "5-12-2025",
         deaths: 1,
         missing: 0,
         injured: 0,
@@ -861,7 +978,7 @@
         lat: 5.5095,
         lng: 95.358,
         incidentType: "Banjir",
-        date: "4-12-2025",
+        date: "5-12-2025",
         deaths: 0,
         missing: 0,
         injured: 0,
@@ -879,7 +996,7 @@
         lat: 3.0951,
         lng: 97.351,
         incidentType: "Banjir",
-        date: "4-12-2025",
+        date: "5-12-2025",
         deaths: 0,
         missing: 0,
         injured: 0,
@@ -897,7 +1014,7 @@
         lat: 3.185,
         lng: 97.6982,
         incidentType: "Banjir",
-        date: "4-12-2025",
+        date: "5-12-2025",
         deaths: 13,
         missing: 4,
         injured: 3,
@@ -917,7 +1034,7 @@
         lat: 2.552,
         lng: 98.27,
         incidentType: "Banjir & Longsor",
-        date: "4-12-2025",
+        date: "5-12-2025",
         deaths: 2,
         missing: 0,
         injured: 0,
@@ -931,7 +1048,7 @@
         lat: 2.1973,
         lng: 98.5369,
         incidentType: "Banjir Bandang",
-        date: "4-12-2025",
+        date: "5-12-2025",
         deaths: 9,
         missing: 0,
         injured: 0,
@@ -945,7 +1062,7 @@
         lat: 2.0444,
         lng: 98.9322,
         incidentType: "Banjir & Longsor",
-        date: "4-12-2025",
+        date: "5-12-2025",
         deaths: 34,
         missing: 0,
         injured: 0,
@@ -959,7 +1076,7 @@
         lat: 1.729,
         lng: 98.785,
         incidentType: "Banjir & Longsor",
-        date: "4-12-2025",
+        date: "5-12-2025",
         deaths: 86,
         missing: 0,
         injured: 0,
@@ -973,7 +1090,7 @@
         lat: -0.708,
         lng: 97.828,
         incidentType: "Longsor & Cuaca Ekstrem",
-        date: "4-12-2025",
+        date: "5-12-2025",
         deaths: 1,
         missing: 0,
         injured: 0,
@@ -987,7 +1104,7 @@
         lat: 3.5952,
         lng: 98.6722,
         incidentType: "Banjir",
-        date: "4-12-2025",
+        date: "5-12-2025",
         deaths: 7,
         missing: 0,
         injured: 0,
@@ -1001,7 +1118,7 @@
         lat: 3.6952,
         lng: 98.7722,
         incidentType: "Banjir",
-        date: "4-12-2025",
+        date: "5-12-2025",
         deaths: 17,
         missing: 0,
         injured: 0,
@@ -1015,7 +1132,7 @@
         lat: 3.837,
         lng: 98.331,
         incidentType: "Banjir",
-        date: "4-12-2025",
+        date: "5-12-2025",
         deaths: 11,
         missing: 0,
         injured: 0,
@@ -1029,7 +1146,7 @@
         lat: 3.6,
         lng: 98.5,
         incidentType: "Banjir",
-        date: "4-12-2025",
+        date: "5-12-2025",
         deaths: 0,
         missing: 0,
         injured: 0,
@@ -1043,7 +1160,7 @@
         lat: 2.87,
         lng: 99.65,
         incidentType: "Banjir",
-        date: "4-12-2025",
+        date: "5-12-2025",
         deaths: 0,
         missing: 0,
         injured: 0,
@@ -1057,7 +1174,7 @@
         lat: 3.3326,
         lng: 99.0577,
         incidentType: "Banjir",
-        date: "4-12-2025",
+        date: "5-12-2025",
         deaths: 0,
         missing: 0,
         injured: 0,
@@ -1071,7 +1188,7 @@
         lat: 3.327,
         lng: 99.162,
         incidentType: "Banjir",
-        date: "4-12-2025",
+        date: "5-12-2025",
         deaths: 0,
         missing: 0,
         injured: 0,
@@ -1085,7 +1202,7 @@
         lat: 1.3795,
         lng: 99.2732,
         incidentType: "Banjir Bandang",
-        date: "4-12-2025",
+        date: "5-12-2025",
         deaths: 1,
         missing: 0,
         injured: 0,
@@ -1099,7 +1216,7 @@
         lat: 1.6094,
         lng: 99.273,
         incidentType: "Banjir & Longsor",
-        date: "4-12-2025",
+        date: "5-12-2025",
         deaths: 79,
         missing: 0,
         injured: 0,
@@ -1113,7 +1230,7 @@
         lat: 1.742,
         lng: 98.779,
         incidentType: "Banjir & Longsor",
-        date: "4-12-2025",
+        date: "5-12-2025",
         deaths: 52,
         missing: 33,
         injured: 0,
@@ -1127,7 +1244,7 @@
         lat: 3.174,
         lng: 99.5,
         incidentType: "Banjir",
-        date: "4-12-2025",
+        date: "5-12-2025",
         deaths: 0,
         missing: 0,
         injured: 0,
@@ -1141,7 +1258,7 @@
         lat: 0.7539,
         lng: 99.254,
         incidentType: "Banjir & Longsor",
-        date: "4-12-2025",
+        date: "5-12-2025",
         deaths: 0,
         missing: 0,
         injured: 0,
@@ -1157,7 +1274,7 @@
         lat: -0.22,
         lng: 100.17,
         incidentType: "Banjir",
-        date: "4-12-2025",
+        date: "5-12-2025",
         deaths: 147,
         missing: 4,
         injured: 0,
@@ -1171,7 +1288,7 @@
         lat: 0.12,
         lng: 99.66,
         incidentType: "Banjir",
-        date: "4-12-2025",
+        date: "5-12-2025",
         deaths: 3,
         missing: 0,
         injured: 0,
@@ -1185,7 +1302,7 @@
         lat: -0.01,
         lng: 100.65,
         incidentType: "Banjir",
-        date: "24-11-2025",
+        date: "5-12-2025",
         deaths: 0,
         missing: 0,
         injured: 0,
@@ -1199,7 +1316,7 @@
         lat: -0.3058,
         lng: 100.3692,
         incidentType: "Banjir",
-        date: "4-12-2025",
+        date: "5-12-2025",
         deaths: 0,
         missing: 0,
         injured: 0,
@@ -1213,7 +1330,7 @@
         lat: -0.5515,
         lng: 100.2151,
         incidentType: "Banjir & Longsor",
-        date: "4-12-2025",
+        date: "5-12-2025",
         deaths: 22,
         missing: 0,
         injured: 0,
@@ -1227,7 +1344,7 @@
         lat: -0.4707,
         lng: 100.4059,
         incidentType: "Banjir",
-        date: "4-12-2025",
+        date: "5-12-2025",
         deaths: 17,
         missing: 0,
         injured: 7,
@@ -1241,7 +1358,7 @@
         lat: -1.3380833650479302,
         lng: 100.56872628138287,
         incidentType: "Banjir",
-        date: "23-11-2025",
+        date: "5-12-2025",
         deaths: 0,
         missing: 0,
         injured: 0,
@@ -1255,7 +1372,7 @@
         lat: -0.47,
         lng: 100.62,
         incidentType: "Longsor",
-        date: "4-12-2025",
+        date: "5-12-2025",
         deaths: 0,
         missing: 0,
         injured: 0,
@@ -1269,7 +1386,7 @@
         lat: -2.08,
         lng: 99.62,
         incidentType: "Banjir",
-        date: "4-12-2025",
+        date: "5-12-2025",
         deaths: 0,
         missing: 0,
         injured: 0,
@@ -1283,7 +1400,7 @@
         lat: -0.9492,
         lng: 100.3548,
         incidentType: "Banjir",
-        date: "4-12-2025",
+        date: "5-12-2025",
         deaths: 11,
         missing: 0,
         injured: 0,
@@ -1297,7 +1414,7 @@
         lat: -0.8,
         lng: 100.65,
         incidentType: "Banjir",
-        date: "4-12-2025",
+        date: "5-12-2025",
         deaths: 0,
         missing: 0,
         injured: 0,
@@ -1311,7 +1428,7 @@
         lat: -0.61,
         lng: 100.14,
         incidentType: "Banjir",
-        date: "4-12-2025",
+        date: "5-12-2025",
         deaths: 0,
         missing: 0,
         injured: 0,
@@ -1325,7 +1442,7 @@
         lat: 0.43,
         lng: 100.1,
         incidentType: "Banjir",
-        date: "4-12-2025",
+        date: "5-12-2025",
         deaths: 0,
         missing: 0,
         injured: 0,
@@ -1339,7 +1456,7 @@
         lat: -0.87,
         lng: 100.67,
         incidentType: "Banjir",
-        date: "4-12-2025",
+        date: "5-12-2025",
         deaths: 0,
         missing: 0,
         injured: 0,
@@ -1353,7 +1470,7 @@
         lat: -1.44,
         lng: 101.04,
         incidentType: "Banjir",
-        date: "4-12-2025",
+        date: "5-12-2025",
         deaths: 0,
         missing: 0,
         injured: 0,
@@ -1442,282 +1559,282 @@
       { name: "PARIAMAN", province: "Sumatera Barat", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1377.geojson" }
     ];
 
-// =========================
-// DATA KAMPUS POSKO
-// =========================
-const campusContribution = {
-  "ACEH BARAT": {
-    total: 1,
-    universities: {
-      "UNIVERSITAS TEUKU UMAR": 1
-    }
-  },
-  "ACEH SINGKIL": {
-    total: 1,
-    universities: {
-      "UNIVERSITAS TEUKU UMAR": 1
-    }
-  },
-  "ACEH TAMIANG": {
-    total: 5,
-    universities: {
-      "UNIVERSITAS PRIMA INDONESIA": 1,
-      "UNIVERSITAS SAMUDRA": 3,
-      "UNIVERSITAS SYIAH KUALA": 1
-    }
-  },
-  "ACEH TENGAH": {
-    total: 1,
-    universities: {
-      "UNIVERSITAS SYIAH KUALA": 1
-    }
-  },
-  "ACEH UTARA": {
-    total: 7,
-    universities: {
-      "POLITEKNIK NEGERI LHOKSEUMAWE": 2,
-      "UNIVERSITAS MALIKUSSALEH": 5
-    }
-  },
-  "AGAM": {
-    total: 14,
-    universities: {
-      "POLITEKNIK NEGERI PADANG": 3,
-      "POLITEKNIK PERTANIAN NEGERI PAYAKUMBUH": 1,
-      "UNIVERSITAS ANDALAS": 3,
-      "UNIVERSITAS BAITURRAHMAH": 3,
-      "UNIVERSITAS JAMBI": 1,
-      "UNIVERSITAS NEGERI PADANG": 3,
-      "UNIVERSITAS MUHAMMADIYAH SUMATERA BARAT": 1,
-      "INSTITUT SENI INDONESIA PADANG PANJANG": 1,
-      "UNIVERSITAS MOHAMMAD NATSIR BUKITTINGGI": 1
-    }
-  },
-  "BENER MERIAH": {
-    total: 2,
-    universities: {
-      "UNIVERSITAS SYIAH KUALA": 1,
-      "UNIVERSITAS TEUKU UMAR": 1
-    }
-  },
-  "BIREUEN": {
-    total: 7,
-    universities: {
-      "UNIVERSITAS ALMUSLIM": 6,
-      "UNIVERSITAS SYIAH KUALA": 1
-    }
-  },
-  "BUKITTINGGI": {
-    total: 1,
-    universities: {
-      "UNIVERSITAS MUHAMMADIYAH SUMATERA BARAT": 1
-    }
-  },
-  "DELI SERDANG": {
-    total: 5,
-    universities: {
-      "UNIVERSITAS MEDAN AREA": 3,
-      "UNIVERSITAS ISLAM SUMATERA UTARA": 1,
-      "POLITEKNIK NEGERI MEDAN": 1
-    }
-  },
-  "HUMBANG HASUDUTAN": {
-    total: 1,
-    universities: {
-      "UNIVERSITAS PRIMA INDONESIA": 1
-    }
-  },
-  "LANGKAT": {
-    total: 12,
-    universities: {
-      "UNIVERSITAS NEGERI MEDAN": 4,
-      "UNIVERSITAS PEMBANGUNAN PANCA BUDI": 1,
-      "UNIVERSITAS PRIMA INDONESIA": 3,
-      "UNIVERSITAS ISLAM SUMATERA UTARA": 2,
-      "UNIVERSITAS SUMATERA UTARA": 2
-    }
-  },
-  "LANGSA": {
-    total: 2,
-    universities: {
-      "UNIVERSITAS SAMUDRA": 2
-    }
-  },
-  "LHOKSEUMAWE": {
-    total: 7,
-    universities: {
-      "UNIVERSITAS MALIKUSSALEH": 7,
-      "POLITEKNIK NEGERI LHOKSEUMAWE": 3
-    }
-  },
-  "MEDAN": {
-    total: 7,
-    universities: {
-      "UNIVERSITAS MUHAMMADIYAH SUMATERA UTARA": 4,
-      "UNIVERSITAS PRIMA INDONESIA": 1,
-      "UNIVERSITAS SUMATERA UTARA": 1,
-      "UNIVERSITAS NEGERI MEDAN": 1
-    }
-  },
-  "NAGAN RAYA": {
-    total: 1,
-    universities: {
-      "UNIVERSITAS TEUKU UMAR": 1
-    }
-  },
-  "PADANG": {
-    total: 21,
-    universities: {
-      "UNIVERSITAS BAITURRAHMAH": 10,
-      "UNIVERSITAS MUHAMMADIYAH SUMATERA BARAT": 1,
-      "UNIVERSITAS NEGERI PADANG": 2,
-      "POLITEKNIK NEGERI PADANG": 4,
-      "UNIVERSITAS ANDALAS": 5,
-      "UNIVERSITAS JAMBI": 2,
-      "UNIVERSITAS PUTRA INDONESIA YPTK PADANG": 2
-    }
-  },
-  "PADANG PANJANG": {
-    total: 3,
-    universities: {
-      "UNIVERSITAS BAITURRAHMAH": 2,
-      "INSTITUT SENI INDONESIA PADANG PANJANG": 1
-    }
-  },
-  "PADANG PARIAMAN": {
-    total: 3,
-    universities: {
-      "UNIVERSITAS ANDALAS": 3,
-      "UNIVERSITAS BAITURRAHMAH": 1
-    }
-  },
-  "PADANGSIDIMPUAN": {
-    total: 1,
-    universities: {
-      "UNIVERSITAS GRAHA NUSANTARA": 1
-    }
-  },
-  "PIDIE": {
-    total: 1,
-    universities: {
-      "UNIVERSITAS JABAL GHAFUR": 1
-    }
-  },
-  "PIDIE JAYA": {
-    total: 6,
-    universities: {
-      "UNIVERSITAS SYIAH KUALA": 6
-    }
-  },
-  "SERDANG BEDAGAI": {
-    total: 1,
-    universities: {
-      "UNIVERSITAS MEDAN AREA": 1
-    }
-  },
-  "SIBOLGA": {
-    total: 1,
-    universities: {
-      "UNIVERSITAS ISLAM SUMATERA UTARA": 1
-    }
-  },
-  "SILAING BAWAH": {
-    total: 1,
-    universities: {
-      "UNIVERSITAS BAITURRAHMAH": 1
-    }
-  },
-  "SILAREH AIA": {
-    total: 1,
-    universities: {
-      "INSTITUT SENI INDONESIA PADANG PANJANG": 1
-    }
-  },
-  "SINGKIL": {
-    total: 1,
-    universities: {
-      "UNIVERSITAS TEUKU UMAR": 1
-    }
-  },
-  "SOLOK": {
-    total: 4,
-    universities: {
-      "INSTITUT SENI INDONESIA PADANG PANJANG": 3,
-      "UNIVERSITAS NEGERI PADANG": 1
-    }
-  },
-  "SUBULUSSALAM": {
-    total: 1,
-    universities: {
-      "UNIVERSITAS TEUKU UMAR": 1
-    }
-  },
-  "TANAH DATAR": {
-    total: 1,
-    universities: {
-      "UNIVERSITAS MOHAMMAD NATSIR BUKITTINGGI": 1
-    }
-  },
-  "TAPANULI SELATAN": {
-    total: 17,
-    universities: {
-      "UNIVERSITAS AUFA ROYHAN": 5,
-      "UNIVERSITAS GRAHA NUSANTARA": 4,
-      "UNIVERSITAS ISLAM SUMATERA UTARA": 2,
-      "UNIVERSITAS MUHAMMADIYAH TAPANULI SELATAN": 6,
-      "UNIVERSITAS SUMATERA UTARA": 1
-    }
-  },
-  "TAPANULI TENGAH": {
-    total: 4,
-    universities: {
-      "UNIVERSITAS ISLAM SUMATERA UTARA": 1,
-      "UNIVERSITAS SUMATERA UTARA": 2,
-      "UNIVERSITAS PRIMA INDONESIA": 1
-    }
-  }
-};
-
-function toTitleCase(str) {
-    return (str || '')
-        .toLowerCase()
-        .replace(/\b\w/g, c => c.toUpperCase());
-}
-
-function getCampusInfoByRegion(regionName) {
-    if (!regionName) {
-        return {
-            total: 0,
-            detailHtml: '<em>Tidak ada data kampus posko</em>'
-        };
-    }
-
-    const key = regionName.toUpperCase().trim();
-    const info = campusContribution[key];
-
-    if (!info) {
-        return {
-            total: 0,
-            detailHtml: '<em>Tidak ada data kampus posko</em>'
-        };
-    }
-
-    const universities = info.universities || {};
-    const entries = Object.entries(universities);
-
-    const listHtml = entries.length
-        ? `<ul class="campus-univ-list">
-              ${entries.map(([univ, count]) =>
-                  `<li>${toTitleCase(univ)}: ${count}</li>`
-              ).join('')}
-           </ul>`
-        : '<em>Tanpa rincian perguruan tinggi</em>';
-
-    return {
-        total: info.total || 0,
-        detailHtml: listHtml
+    // =========================
+    // DATA KAMPUS POSKO
+    // =========================
+    const campusContribution = {
+      "ACEH BARAT": {
+        total: 1,
+        universities: {
+          "UNIVERSITAS TEUKU UMAR": 1
+        }
+      },
+      "ACEH SINGKIL": {
+        total: 1,
+        universities: {
+          "UNIVERSITAS TEUKU UMAR": 1
+        }
+      },
+      "ACEH TAMIANG": {
+        total: 5,
+        universities: {
+          "UNIVERSITAS PRIMA INDONESIA": 1,
+          "UNIVERSITAS SAMUDRA": 3,
+          "UNIVERSITAS SYIAH KUALA": 1
+        }
+      },
+      "ACEH TENGAH": {
+        total: 1,
+        universities: {
+          "UNIVERSITAS SYIAH KUALA": 1
+        }
+      },
+      "ACEH UTARA": {
+        total: 7,
+        universities: {
+          "POLITEKNIK NEGERI LHOKSEUMAWE": 2,
+          "UNIVERSITAS MALIKUSSALEH": 5
+        }
+      },
+      "AGAM": {
+        total: 14,
+        universities: {
+          "POLITEKNIK NEGERI PADANG": 3,
+          "POLITEKNIK PERTANIAN NEGERI PAYAKUMBUH": 1,
+          "UNIVERSITAS ANDALAS": 3,
+          "UNIVERSITAS BAITURRAHMAH": 3,
+          "UNIVERSITAS JAMBI": 1,
+          "UNIVERSITAS NEGERI PADANG": 3,
+          "UNIVERSITAS MUHAMMADIYAH SUMATERA BARAT": 1,
+          "INSTITUT SENI INDONESIA PADANG PANJANG": 1,
+          "UNIVERSITAS MOHAMMAD NATSIR BUKITTINGGI": 1
+        }
+      },
+      "BENER MERIAH": {
+        total: 2,
+        universities: {
+          "UNIVERSITAS SYIAH KUALA": 1,
+          "UNIVERSITAS TEUKU UMAR": 1
+        }
+      },
+      "BIREUEN": {
+        total: 7,
+        universities: {
+          "UNIVERSITAS ALMUSLIM": 6,
+          "UNIVERSITAS SYIAH KUALA": 1
+        }
+      },
+      "BUKITTINGGI": {
+        total: 1,
+        universities: {
+          "UNIVERSITAS MUHAMMADIYAH SUMATERA BARAT": 1
+        }
+      },
+      "DELI SERDANG": {
+        total: 5,
+        universities: {
+          "UNIVERSITAS MEDAN AREA": 3,
+          "UNIVERSITAS ISLAM SUMATERA UTARA": 1,
+          "POLITEKNIK NEGERI MEDAN": 1
+        }
+      },
+      "HUMBANG HASUDUTAN": {
+        total: 1,
+        universities: {
+          "UNIVERSITAS PRIMA INDONESIA": 1
+        }
+      },
+      "LANGKAT": {
+        total: 12,
+        universities: {
+          "UNIVERSITAS NEGERI MEDAN": 4,
+          "UNIVERSITAS PEMBANGUNAN PANCA BUDI": 1,
+          "UNIVERSITAS PRIMA INDONESIA": 3,
+          "UNIVERSITAS ISLAM SUMATERA UTARA": 2,
+          "UNIVERSITAS SUMATERA UTARA": 2
+        }
+      },
+      "LANGSA": {
+        total: 2,
+        universities: {
+          "UNIVERSITAS SAMUDRA": 2
+        }
+      },
+      "LHOKSEUMAWE": {
+        total: 7,
+        universities: {
+          "UNIVERSITAS MALIKUSSALEH": 7,
+          "POLITEKNIK NEGERI LHOKSEUMAWE": 3
+        }
+      },
+      "MEDAN": {
+        total: 7,
+        universities: {
+          "UNIVERSITAS MUHAMMADIYAH SUMATERA UTARA": 4,
+          "UNIVERSITAS PRIMA INDONESIA": 1,
+          "UNIVERSITAS SUMATERA UTARA": 1,
+          "UNIVERSITAS NEGERI MEDAN": 1
+        }
+      },
+      "NAGAN RAYA": {
+        total: 1,
+        universities: {
+          "UNIVERSITAS TEUKU UMAR": 1
+        }
+      },
+      "PADANG": {
+        total: 21,
+        universities: {
+          "UNIVERSITAS BAITURRAHMAH": 10,
+          "UNIVERSITAS MUHAMMADIYAH SUMATERA BARAT": 1,
+          "UNIVERSITAS NEGERI PADANG": 2,
+          "POLITEKNIK NEGERI PADANG": 4,
+          "UNIVERSITAS ANDALAS": 5,
+          "UNIVERSITAS JAMBI": 2,
+          "UNIVERSITAS PUTRA INDONESIA YPTK PADANG": 2
+        }
+      },
+      "PADANG PANJANG": {
+        total: 3,
+        universities: {
+          "UNIVERSITAS BAITURRAHMAH": 2,
+          "INSTITUT SENI INDONESIA PADANG PANJANG": 1
+        }
+      },
+      "PADANG PARIAMAN": {
+        total: 3,
+        universities: {
+          "UNIVERSITAS ANDALAS": 3,
+          "UNIVERSITAS BAITURRAHMAH": 1
+        }
+      },
+      "PADANGSIDIMPUAN": {
+        total: 1,
+        universities: {
+          "UNIVERSITAS GRAHA NUSANTARA": 1
+        }
+      },
+      "PIDIE": {
+        total: 1,
+        universities: {
+          "UNIVERSITAS JABAL GHAFUR": 1
+        }
+      },
+      "PIDIE JAYA": {
+        total: 6,
+        universities: {
+          "UNIVERSITAS SYIAH KUALA": 6
+        }
+      },
+      "SERDANG BEDAGAI": {
+        total: 1,
+        universities: {
+          "UNIVERSITAS MEDAN AREA": 1
+        }
+      },
+      "SIBOLGA": {
+        total: 1,
+        universities: {
+          "UNIVERSITAS ISLAM SUMATERA UTARA": 1
+        }
+      },
+      "SILAING BAWAH": {
+        total: 1,
+        universities: {
+          "UNIVERSITAS BAITURRAHMAH": 1
+        }
+      },
+      "SILAREH AIA": {
+        total: 1,
+        universities: {
+          "INSTITUT SENI INDONESIA PADANG PANJANG": 1
+        }
+      },
+      "SINGKIL": {
+        total: 1,
+        universities: {
+          "UNIVERSITAS TEUKU UMAR": 1
+        }
+      },
+      "SOLOK": {
+        total: 4,
+        universities: {
+          "INSTITUT SENI INDONESIA PADANG PANJANG": 3,
+          "UNIVERSITAS NEGERI PADANG": 1
+        }
+      },
+      "SUBULUSSALAM": {
+        total: 1,
+        universities: {
+          "UNIVERSITAS TEUKU UMAR": 1
+        }
+      },
+      "TANAH DATAR": {
+        total: 1,
+        universities: {
+          "UNIVERSITAS MOHAMMAD NATSIR BUKITTINGGI": 1
+        }
+      },
+      "TAPANULI SELATAN": {
+        total: 17,
+        universities: {
+          "UNIVERSITAS AUFA ROYHAN": 5,
+          "UNIVERSITAS GRAHA NUSANTARA": 4,
+          "UNIVERSITAS ISLAM SUMATERA UTARA": 2,
+          "UNIVERSITAS MUHAMMADIYAH TAPANULI SELATAN": 6,
+          "UNIVERSITAS SUMATERA UTARA": 1
+        }
+      },
+      "TAPANULI TENGAH": {
+        total: 4,
+        universities: {
+          "UNIVERSITAS ISLAM SUMATERA UTARA": 1,
+          "UNIVERSITAS SUMATERA UTARA": 2,
+          "UNIVERSITAS PRIMA INDONESIA": 1
+        }
+      }
     };
-}
+
+    function toTitleCase(str) {
+        return (str || '')
+            .toLowerCase()
+            .replace(/\b\w/g, c => c.toUpperCase());
+    }
+
+    function getCampusInfoByRegion(regionName) {
+        if (!regionName) {
+            return {
+                total: 0,
+                detailHtml: '<em>Tidak ada data kampus posko</em>'
+            };
+        }
+
+        const key = regionName.toUpperCase().trim();
+        const info = campusContribution[key];
+
+        if (!info) {
+            return {
+                total: 0,
+                detailHtml: '<em>Tidak ada data kampus posko</em>'
+            };
+        }
+
+        const universities = info.universities || {};
+        const entries = Object.entries(universities);
+
+        const listHtml = entries.length
+            ? `<ul class="campus-univ-list">
+                  ${entries.map(([univ, count]) =>
+                      `<li>${toTitleCase(univ)}: ${count}</li>`
+                  ).join('')}
+               </ul>`
+            : '<em>Tanpa rincian perguruan tinggi</em>';
+
+        return {
+            total: info.total || 0,
+            detailHtml: listHtml
+        };
+    }
 
     function getCampusCountByRegion(regionName) {
         if (!regionName) return 0;
@@ -1727,7 +1844,7 @@ function getCampusInfoByRegion(regionName) {
             return campusContribution[key];
         }
 
-        const keyNoKota = key.replace(/^KOTA\\s+/, '');
+        const keyNoKota = key.replace(/^KOTA\s+/, '');
         if (campusContribution.hasOwnProperty(keyNoKota)) {
             return campusContribution[keyNoKota];
         }
@@ -1752,51 +1869,56 @@ function getCampusInfoByRegion(regionName) {
         return { radius, color };
     }
 
-        // Data lokasi kampus (contoh posko utama)
-        const campusLocations = [
-            // ACEH
-            { name: "Universitas Muhammadiyah Aceh", province: "Aceh", city: "Kota Banda Aceh", status: "PTS", lat: 5.535384179207771, lng: 95.33228381072688 },
-            { name: "Universitas Syiah Kuala", province: "Aceh", city: "Kota Banda Aceh", status: "PTN", lat: 5.570421, lng: 95.369948 },
-            { name: "Universitas Teuku Umar", province: "Aceh", city: "Kab. Aceh Barat", status: "PTN", lat: 4.143974, lng: 96.202127 },
-            { name: "Universitas Malikussaleh", province: "Aceh", city: "Kab. Aceh Utara", status: "PTN", lat: 5.234293, lng: 96.983868 },
-            { name: "Universitas Muhammadiyah Mahakarya Aceh", province: "Aceh", city: "Kab. Bireun", status: "PTS", lat: 5.2008139640941655, lng: 96.70265124141672 },
-            { name: "Politeknik Negeri Lhokseumawe", province: "Aceh", city: "Kota Lhokseumawe", status: "PTN", lat: 5.119343, lng: 97.156274 },
-            { name: "Universitas Samudra", province: "Aceh", city: "Kota Langsa", status: "PTN", lat: 4.457623, lng: 97.971968 },
-            { name: "Universitas Almuslim", province: "Aceh", city: "Kab. Bireuen", status: "PTS", lat: 5.177296, lng: 97.1301345497458 },
-            { name: "Universitas Jabal Ghafur", province: "Aceh", city: "Kab. Pidie", status: "PTS", lat: 5.294952, lng: 95.922122 },
-            
-            // SUMATERA BARAT
-            { name: "Universitas Andalas", province: "Sumatera Barat", city: "Kota Padang", status: "PTN", lat: -0.874301, lng: 100.458865 },
-            { name: "Universitas Negeri Padang", province: "Sumatera Barat", city: "Kota Padang", status: "PTN", lat: -0.925328, lng: 100.463769 },
-            { name: "Politeknik Negeri Padang", province: "Sumatera Barat", city: "Kota Padang", status: "PTN", lat: -0.913586, lng: 100.466376 },
-            { name: "Institut Seni Indonesia Padang Panjang", province: "Sumatera Barat", city: "Kota Padang Panjang", status: "PTN", lat: -0.459029, lng: 100.403327 },
-            { name: "Universitas Baiturrahmah", province: "Sumatera Barat", city: "Kota Padang", status: "PTS", lat: -0.87, lng: 100.3836111111 },
-            { name: "Universitas Mohammad Natsir Bukittinggi", province: "Sumatera Barat", city: "Kota Bukittinggi", status: "PTS", lat: -0.3114315967188026, lng: 100.37023179348662 }, // alamat Tan Malaka, tapi tanpa koordinat eksplisit :contentReference[oaicite:3]{index=3}
-            { name: "Universitas Muhammadiyah Sumatera Barat", province: "Sumatera Barat", city: "Kota Padang", status: "PTS", lat: -0.855413750373765, lng: 100.33297799904211}, // perlu ambil manual
-            { name: "Universitas Putra Indonesia YPTK Padang", province: "Sumatera Barat", city: "Kota Padang", status: "PTS", lat: -0.958183462353094, lng: 100.39659183951997 }, // alamat jelas, koordinat tidak tertulis :contentReference[oaicite:4]{index=4}
-            
-            // SUMATERA UTARA
-            { name: "Universitas Negeri Medan", province: "Sumatera Utara", city: "Kota Medan", status: "PTN", lat: 3.6085535132358246, lng: 98.71496752913352 },
-            { name: "Politeknik Negeri Medan", province: "Sumatera Utara", city: "Kota Medan", status: "PTN", lat: 3.562829, lng: 98.653523 },
-            { name: "Universitas Sumatera Utara", province: "Sumatera Utara", city: "Kota Medan", status: "PTN", lat: 3.561515, lng: 98.656428 },
-            { name: "Politeknik Pertanian Negeri Payakumbuh", province: "Sumatera Barat", city: "Kab. Lima Puluh Kota", status: "PTN", lat: -0.16945368771192676, lng: 100.66465275862649 },
-            { name: "Universitas Aufa Royhan", province: "Sumatera Utara", city: "Kota Padang Sidempuan", status: "PTS", lat: 1.4186042730323654, lng: 99.28858245485394 }, // alamat Batunadua Ujung Gurap Baruas :contentReference[oaicite:5]{index=5}
-            { name: "Universitas Graha Nusantara", province: "Sumatera Utara", city: "Kota Padang Sidempuan", status: "PTS", lat: 1.3475782604471327, lng: 99.3007482445913 }, // Jl. Sutan Soripada Mulia No.17 :contentReference[oaicite:6]{index=6}
-            { name: "Universitas Islam Sumatera Utara", province: "Sumatera Utara", city: "Kota Medan", status: "PTS", lat: 3.5622421234785904, lng: 98.69393344135692 }, // hanya alamat, tidak ada koordinat eksplisit :contentReference[oaicite:7]{index=7}
-            { name: "Universitas Medan Area", province: "Sumatera Utara", city: "Kota Medan", status: "PTS", lat: 3.60219795, lng: 98.7187093120759 }, // koordinat kampus dari coordinatesfinder :contentReference[oaicite:8]{index=8}
-            { name: "Universitas Muhammadiyah Sumatera Utara", province: "Sumatera Utara", city: "Kota Medan", status: "PTS", lat: 3.6150763687993854, lng: 98.67498490068378 }, // alamat Jl. Kapt. Mukhtar Basri, koordinat tidak tertulis :contentReference[oaicite:9]{index=9}
-            { name: "Universitas Muhammadiyah Tapanuli Selatan", province: "Sumatera Utara", city: "Kab. Tapanuli Selatan", status: "PTS", lat: 1.391414749951966, lng: 99.27125701252572 }, // perlu ambil manual
-            { name: "Universitas Pembangunan Panca Budi", province: "Sumatera Utara", city: "Kota Medan", status: "PTS", lat: 3.58999, lng: 98.64472 }, // titik dari worldplaces :contentReference[oaicite:10]{index=10}
-            { name: "Universitas Prima Indonesia", province: "Sumatera Utara", city: "Kota Medan", status: "PTS", lat: 3.5984746, lng: 98.6524197240786 },
-            // JAMBI
-            { name: "Univeritas Jambi", province: "Jambi", city: "Kota Jambi", status: "PTN", lat: -1.610761595641745, lng: 103.51691506902127 }
-        ];
+    // =========================
+    // DATA LOKASI KAMPUS POSKO
+    // =========================
+    const campusLocations = [
+        // ACEH
+        { name: "Universitas Muhammadiyah Aceh", province: "Aceh", city: "Kota Banda Aceh", status: "PTS", lat: 5.535384179207771, lng: 95.33228381072688 },
+        { name: "Universitas Syiah Kuala", province: "Aceh", city: "Kota Banda Aceh", status: "PTN", lat: 5.570421, lng: 95.369948 },
+        { name: "Universitas Teuku Umar", province: "Aceh", city: "Kab. Aceh Barat", status: "PTN", lat: 4.143974, lng: 96.202127 },
+        { name: "Universitas Malikussaleh", province: "Aceh", city: "Kab. Aceh Utara", status: "PTN", lat: 5.234293, lng: 96.983868 },
+        { name: "Universitas Muhammadiyah Mahakarya Aceh", province: "Aceh", city: "Kab. Bireun", status: "PTS", lat: 5.2008139640941655, lng: 96.70265124141672 },
+        { name: "Politeknik Negeri Lhokseumawe", province: "Aceh", city: "Kota Lhokseumawe", status: "PTN", lat: 5.119343, lng: 97.156274 },
+        { name: "Universitas Samudra", province: "Aceh", city: "Kota Langsa", status: "PTN", lat: 4.457623, lng: 97.971968 },
+        { name: "Universitas Almuslim", province: "Aceh", city: "Kab. Bireuen", status: "PTS", lat: 5.177296, lng: 97.1301345497458 },
+        { name: "Universitas Jabal Ghafur", province: "Aceh", city: "Kab. Pidie", status: "PTS", lat: 5.294952, lng: 95.922122 },
+
+        // SUMATERA BARAT
+        { name: "Universitas Andalas", province: "Sumatera Barat", city: "Kota Padang", status: "PTN", lat: -0.874301, lng: 100.458865 },
+        { name: "Universitas Negeri Padang", province: "Sumatera Barat", city: "Kota Padang", status: "PTN", lat: -0.925328, lng: 100.463769 },
+        { name: "Politeknik Negeri Padang", province: "Sumatera Barat", city: "Kota Padang", status: "PTN", lat: -0.913586, lng: 100.466376 },
+        { name: "Institut Seni Indonesia Padang Panjang", province: "Sumatera Barat", city: "Kota Padang Panjang", status: "PTN", lat: -0.459029, lng: 100.403327 },
+        { name: "Universitas Baiturrahmah", province: "Sumatera Barat", city: "Kota Padang", status: "PTS", lat: -0.87, lng: 100.3836111111 },
+        { name: "Universitas Mohammad Natsir Bukittinggi", province: "Sumatera Barat", city: "Kota Bukittinggi", status: "PTS", lat: -0.3114315967188026, lng: 100.37023179348662 },
+        { name: "Universitas Muhammadiyah Sumatera Barat", province: "Sumatera Barat", city: "Kota Padang", status: "PTS", lat: -0.855413750373765, lng: 100.33297799904211},
+        { name: "Universitas Putra Indonesia YPTK Padang", province: "Sumatera Barat", city: "Kota Padang", status: "PTS", lat: -0.958183462353094, lng: 100.39659183951997 },
+
+        // SUMATERA UTARA
+        { name: "Universitas Negeri Medan", province: "Sumatera Utara", city: "Kota Medan", status: "PTN", lat: 3.6085535132358246, lng: 98.71496752913352 },
+        { name: "Politeknik Negeri Medan", province: "Sumatera Utara", city: "Kota Medan", status: "PTN", lat: 3.562829, lng: 98.653523 },
+        { name: "Universitas Sumatera Utara", province: "Sumatera Utara", city: "Kota Medan", status: "PTN", lat: 3.561515, lng: 98.656428 },
+        { name: "Politeknik Pertanian Negeri Payakumbuh", province: "Sumatera Barat", city: "Kab. Lima Puluh Kota", status: "PTN", lat: -0.16945368771192676, lng: 100.66465275862649 },
+        { name: "Universitas Aufa Royhan", province: "Sumatera Utara", city: "Kota Padang Sidempuan", status: "PTS", lat: 1.4186042730323654, lng: 99.28858245485394 },
+        { name: "Universitas Graha Nusantara", province: "Sumatera Utara", city: "Kota Padang Sidempuan", status: "PTS", lat: 1.3475782604471327, lng: 99.3007482445913 },
+        { name: "Universitas Islam Sumatera Utara", province: "Sumatera Utara", city: "Kota Medan", status: "PTS", lat: 3.5622421234785904, lng: 98.69393344135692 },
+        { name: "Universitas Medan Area", province: "Sumatera Utara", city: "Kota Medan", status: "PTS", lat: 3.60219795, lng: 98.7187093120759 },
+        { name: "Universitas Muhammadiyah Sumatera Utara", province: "Sumatera Utara", city: "Kota Medan", status: "PTS", lat: 3.6150763687993854, lng: 98.67498490068378 },
+        { name: "Universitas Muhammadiyah Tapanuli Selatan", province: "Sumatera Utara", city: "Kab. Tapanuli Selatan", status: "PTS", lat: 1.391414749951966, lng: 99.27125701252572 },
+        { name: "Universitas Pembangunan Panca Budi", province: "Sumatera Utara", city: "Kota Medan", status: "PTS", lat: 3.58999, lng: 98.64472 },
+        { name: "Universitas Prima Indonesia", province: "Sumatera Utara", city: "Kota Medan", status: "PTS", lat: 3.5984746, lng: 98.6524197240786 },
+
+        // JAMBI (ikut, walau di luar 3 provinsi utama)
+        { name: "Univeritas Jambi", province: "Jambi", city: "Kota Jambi", status: "PTN", lat: -1.610761595641745, lng: 103.51691506902127 }
+    ];
 
     // =========================
-    // PENAMPUNG LAYER UNTUK FILTER
+    // PENAMPUNG LAYER & MARKER
     // =========================
     const regencyLayers = [];          // { province, layer }
     const campusCirclesProvince = [];  // { province, circle }
+    const infraMarkers = [];           // { province, marker }
+    const campusMarkers = [];          // { campus, marker }
 
     // =========================
     // INISIALISASI PETA
@@ -1818,12 +1940,12 @@ function getCampusInfoByRegion(regionName) {
     }).addTo(map);
 
     const campusCirclesLayer = L.layerGroup().addTo(map);
-
-    // Layer jalan/jembatan putus (PU)
     const infraLayer = L.layerGroup().addTo(map);
-    const infraMarkers = []; // untuk filter per provinsi
+    const shelterLayer = L.layerGroup().addTo(map);
 
-
+    // =========================
+    // HELPER SEVERITY
+    // =========================
     function getSeverityColor(severity) {
         switch (severity) {
             case 'kritis': return '#dc2626';
@@ -1853,6 +1975,52 @@ function getCampusInfoByRegion(regionName) {
             return dn.includes(targetName) || targetName.includes(dn);
         }) || null;
     }
+
+    // =========================
+    // ICON DEFINITIONS
+    // =========================
+    const roadClosedIcon = L.divIcon({
+        className: 'road-closed-icon-wrapper',
+        html: '<div class="no-entry-icon"></div>',
+        iconSize: [22, 22],
+        iconAnchor: [11, 11]
+    });
+
+    const roadLimitedIcon = L.divIcon({
+        className: 'road-limited-icon-wrapper',
+        html: '<div class="no-entry-icon-limited"></div>',
+        iconSize: [22, 22],
+        iconAnchor: [11, 11]
+    });
+
+    const roadFloodedIcon = L.divIcon({
+        className: 'road-flooded-icon-wrapper',
+        html: '<div class="no-entry-icon-flooded"></div>',
+        iconSize: [22, 22],
+        iconAnchor: [11, 11]
+    });
+
+    const shelterIcon = L.divIcon({
+        className: 'shelter-icon-wrapper',
+        html: '<div class="shelter-icon"><div class="shelter-icon-inner">👥</div></div>',
+        iconSize: [28, 28],
+        iconAnchor: [14, 14]
+    });
+
+    const campusIcon = L.divIcon({
+        className: 'custom-campus-icon',
+        html: `<div style="
+            width: 12px;
+            height: 12px;
+            background: #111827;
+            border-radius: 2px;
+            border: 1px solid white;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.4);
+            cursor: pointer;
+        "></div>`,
+        iconSize: [16, 16],
+        iconAnchor: [8, 8]
+    });
 
     // =========================
     // POLIGON KAB/KOTA + CIRCLE KAMPUS
@@ -1916,79 +2084,78 @@ function getCampusInfoByRegion(regionName) {
                                 </div>
                             `;
                             layer.bindPopup(popupHtml);
-    } else {
-        const props = feature.properties || {};
-        const name = props.name || cfg.name || 'Kabupaten/Kota';
+                        } else {
+                            const props = feature.properties || {};
+                            const name = props.name || cfg.name || 'Kabupaten/Kota';
 
-        // 🔹 Ambil info kampus berdasarkan cfg.name (misalnya "ACEH UTARA", "PADANG")
-        const campusInfo = getCampusInfoByRegion(cfg.name);
-        const campusCount = campusInfo.total;
-        const campusDetailHtml = campusInfo.detailHtml;
+                            const campusInfo = getCampusInfoByRegion(cfg.name);
+                            const campusCount = campusInfo.total;
+                            const campusDetailHtml = campusInfo.detailHtml;
 
-        const popupHtml = `
-            <div class="popup-title">${name}</div>
-            <div class="popup-detail">
-                <span class="popup-label">Provinsi:</span>
-                <span class="popup-value">${cfg.province || '-'}</span>
-            </div>
-            <div class="popup-detail">
-                <span class="popup-label">Tipe:</span>
-                <span class="popup-value">Poligon batas kabupaten/kota</span>
-            </div>
-            <div class="popup-detail">
-                <span class="popup-label">Jumlah Kegiatan Kampus Posko:</span>
-                <span class="popup-value">${campusCount}</span>
-            </div>
-            <div class="popup-detail">
-                <span class="popup-label">Perguruan tinggi:</span>
-                <span class="popup-value">
-                    ${campusDetailHtml}
-                </span>
-            </div>
-        `;
-        layer.bindPopup(popupHtml);
-    }
-}
+                            const popupHtml = `
+                                <div class="popup-title">${name}</div>
+                                <div class="popup-detail">
+                                    <span class="popup-label">Provinsi:</span>
+                                    <span class="popup-value">${cfg.province || '-'}</span>
+                                </div>
+                                <div class="popup-detail">
+                                    <span class="popup-label">Tipe:</span>
+                                    <span class="popup-value">Poligon batas kabupaten/kota</span>
+                                </div>
+                                <div class="popup-detail">
+                                    <span class="popup-label">Jumlah Kegiatan Kampus Posko:</span>
+                                    <span class="popup-value">${campusCount}</span>
+                                </div>
+                                <div class="popup-detail">
+                                    <span class="popup-label">Perguruan tinggi:</span>
+                                    <span class="popup-value">
+                                        ${campusDetailHtml}
+                                    </span>
+                                </div>
+                            `;
+                            layer.bindPopup(popupHtml);
+                        }
+                    }
                 }).addTo(map);
 
-                // simpan untuk filter
                 regencyLayers.push({
                     province: cfg.province,
                     layer: layer
                 });
 
-const campusInfo = getCampusInfoByRegion(cfg.name);
-const campusCount = campusInfo.total;
-const campusDetailHtml = campusInfo.detailHtml;
+                // Circle coverage kampus
+                const campusInfo = getCampusInfoByRegion(cfg.name);
+                const campusCount = campusInfo.total;
+                const campusDetailHtml = campusInfo.detailHtml;
 
-const style = getCampusCircleStyle(campusCount);
-if (style && campusCount > 0) {   // hanya tampilkan circle kalau ada data
-    const bounds = layer.getBounds();
-    if (bounds.isValid()) {
-        const center = bounds.getCenter();
-        const circle = L.circle(center, {
-            radius: style.radius,
-            color: style.color,
-            fillColor: style.color,
-            fillOpacity: 0.08,
-            weight: 1
-        }).addTo(campusCirclesLayer);
+                const style = getCampusCircleStyle(campusCount);
+                if (style && campusCount > 0) {
+                    const bounds = layer.getBounds();
+                    if (bounds.isValid()) {
+                        const center = bounds.getCenter();
+                        const circle = L.circle(center, {
+                            radius: style.radius,
+                            color: style.color,
+                            fillColor: style.color,
+                            fillOpacity: 0.08,
+                            weight: 1
+                        }).addTo(campusCirclesLayer);
 
-        circle.bindTooltip(
-            `<div class="campus-circle-tooltip">
-                <div><strong>${cfg.name}</strong></div>
-                <div>Jumlah Kegiatan Kampus Posko: ${campusCount}</div>
-                ${campusDetailHtml}
-             </div>`,
-             { permanent: false, direction: 'top' }
-        );
+                        circle.bindTooltip(
+                            `<div class="campus-circle-tooltip">
+                                <div><strong>${cfg.name}</strong></div>
+                                <div>Jumlah Kegiatan Kampus Posko: ${campusCount}</div>
+                                ${campusDetailHtml}
+                             </div>`,
+                             { permanent: false, direction: 'top' }
+                        );
 
-        campusCirclesProvince.push({
-            province: cfg.province,
-            circle: circle
-        });
-    }
-}
+                        campusCirclesProvince.push({
+                            province: cfg.province,
+                            circle: circle
+                        });
+                    }
+                }
 
                 console.log('✅ Poligon ter-load untuk:', cfg.name);
             })
@@ -1997,35 +2164,61 @@ if (style && campusCount > 0) {   // hanya tampilkan circle kalau ada data
             });
     });
 
-    // =========================
-// DATA JALAN / JEMBATAN PUTUS (PU)
 // =========================
-const JALAN_JEMBATAN_URL = "https://raw.githubusercontent.com/adtya93/maptdb/main/jalan_jembatan_putus.json";
+// DATA JALAN / JEMBATAN PUTUS (PU - GEOJSON)
+// =========================
+const JALAN_JEMBATAN_GEOJSON =
+  "https://raw.githubusercontent.com/adtya93/maptdb/refs/heads/main/Jalan%20Jembatan%20Putus%20Akses%20(Map%20Service%20PU).geojson";
 
-fetch(JALAN_JEMBATAN_URL)
-  .then(resp => {
-    if (!resp.ok) throw new Error("HTTP " + resp.status);
-    return resp.json();
-  })
-  .then(data => {
-    data.forEach(item => {
-      const lat = parseFloat(item.lat || item.latitude);
-      const lon = parseFloat(item.lon || item.lng || item.longitude);
+fetch(JALAN_JEMBATAN_GEOJSON)
+  .then(resp => resp.json())
+  .then(geo => {
+    const features = geo.features || [];
 
-      // kalau koordinat tidak valid, skip saja
+    features.forEach(f => {
+      const g = f.geometry || {};
+      if (g.type !== "Point" || !Array.isArray(g.coordinates)) return;
+
+      const [lon, lat] = g.coordinates;
       if (!Number.isFinite(lat) || !Number.isFinite(lon)) return;
 
-      const prov = item.provinsi || item.province || "-";
-      const kab  = item.kabupaten || item.kab_kota || item.kab || "-";
-      const nama = item.name || item.lokasi || item.ruas || "Jalan / jembatan putus";
-      const tgl  = item.dt || item.tanggal || "-";
-      const infraType = item.jenis || item.infrastruktur || "-";
-      const kondisi   = item.kondisi || item.status || "-";
-      const cause     = item.penyebab || item.cause || "-";
-      const source    = item.sumber || item.source || "-";
+      const p = f.properties || {};
 
-        const marker = L.marker([lat, lon], { icon: roadClosedIcon })
-        .addTo(infraLayer);
+      const prov       = p.provinsi  || p.province  || "-";
+      const kab        = p.kabupaten || p.kab_kota  || p.kab || "-";
+      const nama       = p.nama_ruas || p.nama      || p.lokasi || "Jalan / jembatan putus";
+      const infraType  = p.jenis     || p.statusjln || p.infrastruktur || "-";
+      const status1Raw = (p.status1  || p.Status1   || "").trim();
+      const dampak     = p.dampak    || p.keterangan || "-";
+      const penanganan = p.penanganan || "-";
+      const target     = p.target    || p.dt || p.tanggal || "-";
+
+      const sLower = status1Raw.toLowerCase();
+
+      // fokus hanya 3 kategori: Akses Terputus, Terputus Sebagian, dan Pengecekan
+      const isLimited = /pengecekan/i.test(status1Raw) || sLower === "terputus sebagian";
+
+      if (
+        sLower !== "akses terputus" &&
+        sLower !== "terputus sebagian" &&
+        !/pengecekan/i.test(status1Raw)
+      ) {
+        return; // di luar tiga kategori ini, skip
+      }
+
+      // penanda "banjir" di nama/dampak → ikon biru
+      const isFlood = /banjir/i.test(`${nama} ${dampak}`);
+
+      let icon;
+      if (isFlood) {
+        icon = roadFloodedIcon;
+      } else if (isLimited) {
+        icon = roadLimitedIcon;
+      } else {
+        icon = roadClosedIcon;
+      }
+
+      const marker = L.marker([lat, lon], { icon }).addTo(infraLayer);
 
       const popupHtml = `
         <div class="popup-title">${nama}</div>
@@ -2038,24 +2231,24 @@ fetch(JALAN_JEMBATAN_URL)
           <span class="popup-value">${kab}</span>
         </div>
         <div class="popup-detail">
+          <span class="popup-label">Status 1:</span>
+          <span class="popup-value">${status1Raw || "-"}</span>
+        </div>
+        <div class="popup-detail">
           <span class="popup-label">Jenis Infrastruktur:</span>
           <span class="popup-value">${infraType}</span>
         </div>
         <div class="popup-detail">
-          <span class="popup-label">Kondisi:</span>
-          <span class="popup-value">${kondisi}</span>
+          <span class="popup-label">Dampak:</span>
+          <span class="popup-value">${dampak}</span>
         </div>
         <div class="popup-detail">
-          <span class="popup-label">Penyebab:</span>
-          <span class="popup-value">${cause}</span>
+          <span class="popup-label">Penanganan:</span>
+          <span class="popup-value">${penanganan}</span>
         </div>
         <div class="popup-detail">
-          <span class="popup-label">Tanggal Kejadian:</span>
-          <span class="popup-value">${tgl}</span>
-        </div>
-        <div class="popup-detail">
-          <span class="popup-label">Sumber:</span>
-          <span class="popup-value">${source}</span>
+          <span class="popup-label">Target/Tanggal:</span>
+          <span class="popup-value">${target}</span>
         </div>
       `;
 
@@ -2066,39 +2259,22 @@ fetch(JALAN_JEMBATAN_URL)
         { direction: "top", offset: [0, -4], permanent: false }
       );
 
-      // simpan untuk filter provinsi
+      // untuk filter provinsi
       infraMarkers.push({
         province: prov,
         marker: marker
       });
     });
 
-    console.log("✅ Data jalan/jembatan putus PU ter-load:", data.length, "record");
+    console.log("✅ Data jalan/jembatan putus PU (geojson) ter-load:", features.length, "feature");
   })
   .catch(err => {
-    console.error("❌ Gagal memuat data jalan_jembatan_putus.json:", err);
+    console.error("❌ Gagal memuat GEOJSON jalan/jembatan putus:", err);
   });
 
     // =========================
     // MARKER KAMPUS POSKO
     // =========================
-    const campusMarkers = [];
-
-    const campusIcon = L.divIcon({
-        className: 'custom-campus-icon',
-        html: `<div style="
-            width: 12px;
-            height: 12px;
-            background: #111827;
-            border-radius: 2px;
-            border: 1px solid white;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.4);
-            cursor: pointer;
-        "></div>`,
-        iconSize: [16, 16],
-        iconAnchor: [8, 8]
-    });
-
     campusLocations.forEach((campus, index) => {
         const popupContent = `
             <div class="popup-title">${campus.name}</div>
@@ -2124,13 +2300,6 @@ fetch(JALAN_JEMBATAN_URL)
             .addTo(map);
 
         campusMarkers.push({ campus, marker });
-    });
-
-        const roadClosedIcon = L.divIcon({
-        className: 'road-closed-icon-wrapper',
-        html: '<div class="no-entry-icon"></div>',
-        iconSize: [22, 22],
-        iconAnchor: [11, 11]
     });
 
     // =========================
@@ -2210,6 +2379,41 @@ fetch(JALAN_JEMBATAN_URL)
     }
 
     // =========================
+    // TITIK PENGUNGSIAN
+    // =========================
+    fetch('Titik-Pengungsian.geojson')
+      .then(resp => resp.json())
+      .then(geojson => {
+          L.geoJSON(geojson, {
+              pointToLayer: function(feature, latlng) {
+                  return L.marker(latlng, { icon: shelterIcon });
+              },
+              onEachFeature: function (feature, layer) {
+                  const p = feature.properties || {};
+                  const popupHtml = `
+                      <div class="popup-title">${p.titik_pengungsian || 'Titik Pengungsian'}</div>
+                      <div class="popup-detail">
+                          <span class="popup-label">Provinsi:</span>
+                          <span class="popup-value">${p.provinsi || '-'}</span>
+                      </div>
+                      <div class="popup-detail">
+                          <span class="popup-label">Kab/Kota:</span>
+                          <span class="popup-value">${p.kabupaten || '-'}</span>
+                      </div>
+                      <div class="popup-detail">
+                          <span class="popup-label">Kecamatan:</span>
+                          <span class="popup-value">${p.kecamatan || '-'}</span>
+                      </div>
+                  `;
+                  layer.bindPopup(popupHtml);
+              }
+          }).addTo(shelterLayer);
+      })
+      .catch(err => {
+          console.error('❌ Gagal memuat Titik-Pengungsian.geojson', err);
+      });
+
+    // =========================
     // FILTER PROVINSI
     // =========================
     function setProvinceFilter(province) {
@@ -2248,7 +2452,6 @@ fetch(JALAN_JEMBATAN_URL)
                 if (map.hasLayer(marker)) map.removeLayer(marker);
             }
         });
-
 
         // 5) Sesuaikan viewport jika bukan All
         if (province !== 'All') {
@@ -2290,9 +2493,9 @@ fetch(JALAN_JEMBATAN_URL)
     }).addTo(map);
 
     console.log('✅ Map loaded successfully!');
+    console.log('📍 Poligon kab/kota:', regencyPolygonsConfig.length);
     console.log('📍 Markers (bencana):', disasterLocations.length);
     console.log('🎓 Markers (kampus posko):', campusLocations.length);
     </script>
 </body>
-
 </html>
