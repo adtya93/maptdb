@@ -11,565 +11,565 @@
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
 
-<style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
-    body {
-        font-family: 'Source Sans Pro', sans-serif;
-        background: #fafafa;
-    }
-
-    /* =========================
-       WRAPPER & MAP
-       ========================= */
-    .map-wrapper {
-        max-width: 100%;
-        margin: 0 auto;
-        background: #ffffff;
-        box-shadow: 0 8px 32px rgba(255, 255, 255, 0.933);
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-    }
-
-    #map {
-        flex: 1;
-        width: 100%;
-        position: relative;
-        background: #aadaff;
-    }
-
-    /* =========================
-       HEADER ATAS (MAIN HEADER)
-       ========================= */
-    .main-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 8px 24px;
-        background: #e9f3f9;
-        border-bottom: 2px solid #b91c1c;
-        font-family: 'Source Sans Pro', sans-serif;
-    }
-
-    .header-left,
-    .header-center,
-    .header-right {
-        display: flex;
-        align-items: center;
-    }
-
-    .header-left-text {
-        margin-left: 8px;
-        line-height: 1.2;
-        font-size: 11px;
-        color: #111827;
-    }
-
-    .header-ministry {
-        font-weight: 700;
-    }
-
-    .header-country {
-        font-weight: 600;
-        margin-top: 2px;
-    }
-
-    .header-map-subtitle {
-        font-size: 11px;
-        margin-top: 4px;
-    }
-
-    .header-center {
-        flex: 1;
-        justify-content: center;
-        text-align: center;
-    }
-
-    .header-right {
-        gap: 8px;
-    }
-
-    .header-right-divider {
-        width: 1px;
-        height: 24px;
-        background: #d1d5db;
-    }
-
-    .header-logo-left {
-        height: 38px;
-        width: auto;
-    }
-
-    .header-logo-right {
-        height: 24px;
-        width: auto;
-        object-fit: contain;
-    }
-
-    /* =========================
-       (MASIH) MAP-HEADER LAMA (JIKA DIPAKAI)
-       ========================= */
-    .map-header {
-        background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
-        color: #ffffff;
-        padding: 25px 40px;
-        text-align: center;
-        border-bottom: 4px solid #1e40af;
-    }
-
-    .map-header h1 {
-        font-family: 'Crimson Pro', serif;
-        font-size: 32px;
-        font-weight: 700;
-        letter-spacing: 0.5px;
-        margin-bottom: 8px;
-        text-shadow: 2px 2px 4px rgba(254, 253, 253, 0.2);
-    }
-
-    .map-header .subtitle {
-        font-size: 15px;
-        opacity: 0.95;
-        font-weight: 600;
-        letter-spacing: 1px;
-    }
-
-    /* =========================
-       PANEL INFO / LEGEND / SEARCH
-       ========================= */
-    .info-overlay {
-        position: absolute;
-        z-index: 1000;
-        background: rgba(255, 255, 255, 0.95);
-        border: 2px solid #1e40af;
-        border-radius: 8px;
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
-        max-width: 350px;
-        backdrop-filter: blur(10px);
-    }
-
-    .stats-panel {
-        top: 20px;
-        left: 20px;
-        padding: 20px;
-    }
-
-    .stats-title {
-        font-family: 'Crimson Pro', serif;
-        font-size: 18px;
-        font-weight: 700;
-        color: #1e3a8a;
-        margin-bottom: 15px;
-        padding-bottom: 10px;
-        border-bottom: 2px solid #3b82f6;
-    }
-
-    .stat-item {
-        display: flex;
-        justify-content: space-between;
-        padding: 10px 0;
-        border-bottom: 1px solid #e5e7eb;
-        font-size: 14px;
-    }
-
-    .stat-item:last-child {
-        border-bottom: none;
-    }
-
-    .stat-label {
-        font-weight: 600;
-        color: #4b5563;
-    }
-
-    .stat-value {
-        font-weight: 700;
-        color: #dc2626;
-        font-size: 15px;
-    }
-
-    .legend-panel {
-        bottom: 20px;
-        right: 20px;
-        padding: 20px;
-    }
-
-    .legend-title {
-        font-family: 'Crimson Pro', serif;
-        font-size: 16px;
-        font-weight: 700;
-        color: #1e3a8a;
-        margin-bottom: 15px;
-        padding-bottom: 8px;
-        border-bottom: 2px solid #3b82f6;
-    }
-
-    .legend-section {
-        margin-bottom: 15px;
-    }
-
-    .legend-section-title {
-        font-size: 12px;
-        font-weight: 700;
-        color: #1e3a8a;
-        margin-bottom: 8px;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-    }
-
-    .legend-item {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        margin-bottom: 8px;
-        font-size: 13px;
-    }
-
-    .legend-color {
-        width: 24px;
-        height: 24px;
-        border-radius: 50%;
-        border: 2px solid rgba(0, 0, 0, 0.2);
-        flex-shrink: 0;
-    }
-
-    .legend-circle {
-        width: 24px;
-        height: 24px;
-        border-radius: 50%;
-        border: 2px solid;
-        flex-shrink: 0;
-        opacity: 0.6;
-    }
-
-    /* =========================
-       FOOTER
-       ========================= */
-    .footer-info {
-        background: #f9fafb;
-        padding: 20px 40px;
-        border-top: 2px solid #1e40af;
-        font-size: 12px;
-        color: #4b5563;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 10px;
-    }
-
-    .footer-info strong {
-        color: #1e3a8a;
-    }
-
-    /* =========================
-       POPUP LEAFLET
-       ========================= */
-    .leaflet-popup-content-wrapper {
-        border-radius: 8px;
-        border: 2px solid #dc2626;
-    }
-
-    .leaflet-popup-content {
-        margin: 15px;
-        font-family: 'Source Sans Pro', sans-serif;
-        min-width: 200px;
-    }
-
-    .popup-title {
-        font-size: 16px;
-        font-weight: 700;
-        color: #1e3a8a;
-        margin-bottom: 10px;
-        padding-bottom: 8px;
-        border-bottom: 2px solid #dc2626;
-    }
-
-    .popup-detail {
-        font-size: 13px;
-        margin-bottom: 6px;
-        display: flex;
-        justify-content: space-between;
-        gap: 15px;
-    }
-
-    .popup-label {
-        font-weight: 600;
-        color: #4b5563;
-    }
-
-    .popup-value {
-        font-weight: 700;
-        color: #dc2626;
-    }
-
-    .severity-badge {
-        display: inline-block;
-        padding: 4px 12px;
-        border-radius: 12px;
-        font-size: 11px;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        margin-top: 8px;
-    }
-
-    .severity-kritis {
-        background: #dc2626;
-        color: #ffffff;
-    }
-
-    .severity-tinggi {
-        background: #f97316;
-        color: #ffffff;
-    }
-
-    .severity-sedang {
-        background: #fbbf24;
-        color: #1a1a1a;
-    }
-
-    .severity-rendah {
-        background: #42bd3e;
-        color: #1a1a1a;
-    }
-
-    /* =========================
-       SEARCH PANEL
-       ========================= */
-    .search-panel {
-        top: 20px;
-        right: 20px;
-        padding: 16px;
-        width: 300px;
-    }
-
-    .search-input {
-        width: 100%;
-        padding: 8px 10px;
-        border-radius: 6px;
-        border: 1px solid #d1d5db;
-        font-size: 13px;
-        outline: none;
-        margin-bottom: 8px;
-    }
-
-    .search-input:focus {
-        border-color: #3b82f6;
-        box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.4);
-    }
-
-    .search-results {
-        max-height: 260px;
-        overflow-y: auto;
-        margin-top: 4px;
-    }
-
-    .search-result-item {
-        padding: 6px 8px;
-        border-radius: 6px;
-        cursor: pointer;
-        margin-bottom: 4px;
-        border: 1px solid transparent;
-        background: #ffffff;
-    }
-
-    .search-result-item:hover {
-        background: #eff6ff;
-        border-color: #bfdbfe;
-    }
-
-    .search-result-name {
-        font-size: 13px;
-        font-weight: 600;
-        color: #1f2933;
-    }
-
-    .search-result-meta {
-        font-size: 11px;
-        color: #6b7280;
-    }
-
-    .search-result-empty {
-        font-size: 12px;
-        color: #9ca3af;
-        text-align: center;
-        padding: 8px 0;
-    }
-
-    .popup-coverage {
-        font-size: 12px;
-        margin-top: 4px;
-        color: #374151;
-    }
-
-    .campus-circle-tooltip {
-        background: rgba(15, 23, 42, 0.9);
-        color: #f9fafb;
-        border-radius: 0;
-        padding: 4px 10px;
-        border: 0 solid rgba(15, 23, 42, 0.9);
-        font-size: 11px;
-        font-weight: 600;
-    }
-
-    /* =========================
-       ICON STATUS INFRASTRUKTUR DARAT
-       ========================= */
-    .no-entry-icon {
-        position: relative;
-        width: 22px;
-        height: 22px;
-        border-radius: 50%;
-        background: #ef4444;      /* merah */
-        border: 1px solid #ffffff; /* pinggir putih */
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
-    }
-
-    .no-entry-icon::before {
-        content: "";
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 14px;
-        height: 4px;
-        background: #ffffff;
-        border-radius: 2px;
-        transform: translate(-50%, -50%);
-    }
-
-    .no-entry-icon-limited {
-        position: relative;
-        width: 22px;
-        height: 22px;
-        background: #f59e0b;      /* oranye */
-        border: 1px solid #ffffff;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
-        clip-path: polygon(50% 5%, 5% 95%, 95% 95%);
-    }
-
-    .no-entry-icon-limited::before {
-        content: "";
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 3px;
-        height: 8px;
-        background: #211f1f;
-        border-radius: 2px;
-        transform: translate(-50%, -50%);
-    }
-
-    .no-entry-icon-limited::after {
-        content: "";
-        position: absolute;
-        top: 70%;
-        left: 50%;
-        width: 3px;
-        height: 3px;
-        background: #211f1f;
-        border-radius: 2px;
-        transform: translate(-50%, -50%);
-    }
-
-    .no-entry-icon-flooded {
-        position: relative;
-        width: 22px;
-        height: 22px;
-        border-radius: 50%;
-        background: #0d6ad5;      /* biru */
-        border: 1px solid #ffffff;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
-    }
-
-    .no-entry-icon-flooded::before {
-        content: "";
-        position: absolute;
-        inset: 2px;
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: contain;
-        background-image: url("data:image/svg+xml;utf8,\
-        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'>\
-        <path d='M0 8c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2 2-2 4-2' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round'/>\
-        <path d='M0 12c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2 2-2 4-2' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round'/>\
-        <path d='M0 16c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2 2-2 4-2' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round'/>\
-        </svg>");
-    }
-
-    /* =========================
-       ICON TITIK PENGUNGSIAN
-       ========================= */
-    .shelter-icon {
-        width: 28px;
-        height: 28px;
-        background: #059669;
-        border-radius: 4px;
-        border: 2px solid #ffffff;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
-        position: relative;
-    }
-
-    .shelter-icon-inner {
-        width: 100%;
-        height: 100%;
-        font-size: 15px;
-        color: #ffffff;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: 700;
-    }
-
-    .shelter-icon::before,
-    .shelter-icon::after {
-        content: "";
-        position: absolute;
-        border-style: solid;
-        border-color: #ffffff transparent transparent transparent;
-    }
-
-    .shelter-icon::before {
-        top: -4px;
-        left: 50%;
-        transform: translateX(-50%);
-        border-width: 6px 4px 0 4px;
-    }
-
-    .shelter-icon::after {
-        bottom: -4px;
-        left: 50%;
-        transform: translateX(-50%) rotate(180deg);
-        border-width: 6px 4px 0 4px;
-    }
-
-    /* =========================
-       RESPONSIVE
-       ========================= */
-    @media (max-width: 768px) {
-        .info-overlay {
-            max-width: 280px;
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            background: #fafafa;
+        }
+
+        /* =========================
+           WRAPPER & MAP
+           ========================= */
+        .map-wrapper {
+            max-width: 100%;
+            margin: 0 auto;
+            background: #ffffff;
+            box-shadow: 0 8px 32px rgba(255, 255, 255, 0.933);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
         #map {
-            height: 600px;
+            flex: 1;
+            width: 100%;
+            position: relative;
+            background: #aadaff;
         }
 
+        /* =========================
+           HEADER ATAS (MAIN HEADER)
+           ========================= */
         .main-header {
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 24px;
+            background: #e9f3f9;
+            border-bottom: 2px solid #b91c1c;
+            font-family: 'Source Sans Pro', sans-serif;
+        }
+
+        .header-left,
+        .header-center,
+        .header-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-left-text {
+            margin-left: 8px;
+            line-height: 1.2;
+            font-size: 11px;
+            color: #111827;
+        }
+
+        .header-ministry {
+            font-weight: 700;
+        }
+
+        .header-country {
+            font-weight: 600;
+            margin-top: 2px;
+        }
+
+        .header-map-subtitle {
+            font-size: 11px;
+            margin-top: 4px;
         }
 
         .header-center {
-            justify-content: flex-start;
-            text-align: left;
+            flex: 1;
+            justify-content: center;
+            text-align: center;
         }
-    }
-</style>
+
+        .header-right {
+            gap: 8px;
+        }
+
+        .header-right-divider {
+            width: 1px;
+            height: 24px;
+            background: #d1d5db;
+        }
+
+        .header-logo-left {
+            height: 38px;
+            width: auto;
+        }
+
+        .header-logo-right {
+            height: 24px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        /* =========================
+           MAP-HEADER LAMA (OPSIONAL)
+           ========================= */
+        .map-header {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            color: #ffffff;
+            padding: 25px 40px;
+            text-align: center;
+            border-bottom: 4px solid #1e40af;
+        }
+
+        .map-header h1 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            text-shadow: 2px 2px 4px rgba(254, 253, 253, 0.2);
+        }
+
+        .map-header .subtitle {
+            font-size: 15px;
+            opacity: 0.95;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        /* =========================
+           PANEL INFO / LEGEND / SEARCH
+           ========================= */
+        .info-overlay {
+            position: absolute;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid #1e40af;
+            border-radius: 8px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+            max-width: 350px;
+            backdrop-filter: blur(10px);
+        }
+
+        .stats-panel {
+            top: 20px;
+            left: 20px;
+            padding: 20px;
+        }
+
+        .stats-title {
+            font-family: 'Crimson Pro', serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: #1e3a8a;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3b82f6;
+        }
+
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 14px;
+        }
+
+        .stat-item:last-child {
+            border-bottom: none;
+        }
+
+        .stat-label {
+            font-weight: 600;
+            color: #4b5563;
+        }
+
+        .stat-value {
+            font-weight: 700;
+            color: #dc2626;
+            font-size: 15px;
+        }
+
+        .legend-panel {
+            bottom: 20px;
+            right: 20px;
+            padding: 20px;
+        }
+
+        .legend-title {
+            font-family: 'Crimson Pro', serif;
+            font-size: 16px;
+            font-weight: 700;
+            color: #1e3a8a;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #3b82f6;
+        }
+
+        .legend-section {
+            margin-bottom: 15px;
+        }
+
+        .legend-section-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: #1e3a8a;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+
+        .legend-color {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid rgba(0, 0, 0, 0.2);
+            flex-shrink: 0;
+        }
+
+        .legend-circle {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid;
+            flex-shrink: 0;
+            opacity: 0.6;
+        }
+
+        /* =========================
+           FOOTER
+           ========================= */
+        .footer-info {
+            background: #f9fafb;
+            padding: 20px 40px;
+            border-top: 2px solid #1e40af;
+            font-size: 12px;
+            color: #4b5563;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .footer-info strong {
+            color: #1e3a8a;
+        }
+
+        /* =========================
+           POPUP LEAFLET
+           ========================= */
+        .leaflet-popup-content-wrapper {
+            border-radius: 8px;
+            border: 2px solid #dc2626;
+        }
+
+        .leaflet-popup-content {
+            margin: 15px;
+            font-family: 'Source Sans Pro', sans-serif;
+            min-width: 200px;
+        }
+
+        .popup-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1e3a8a;
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #dc2626;
+        }
+
+        .popup-detail {
+            font-size: 13px;
+            margin-bottom: 6px;
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .popup-label {
+            font-weight: 600;
+            color: #4b5563;
+        }
+
+        .popup-value {
+            font-weight: 700;
+            color: #dc2626;
+        }
+
+        .severity-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 8px;
+        }
+
+        .severity-kritis {
+            background: #dc2626;
+            color: #ffffff;
+        }
+
+        .severity-tinggi {
+            background: #f97316;
+            color: #ffffff;
+        }
+
+        .severity-sedang {
+            background: #fbbf24;
+            color: #1a1a1a;
+        }
+
+        .severity-rendah {
+            background: #42bd3e;
+            color: #1a1a1a;
+        }
+
+        /* =========================
+           SEARCH PANEL
+           ========================= */
+        .search-panel {
+            top: 20px;
+            right: 20px;
+            padding: 16px;
+            width: 300px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 8px 10px;
+            border-radius: 6px;
+            border: 1px solid #d1d5db;
+            font-size: 13px;
+            outline: none;
+            margin-bottom: 8px;
+        }
+
+        .search-input:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.4);
+        }
+
+        .search-results {
+            max-height: 260px;
+            overflow-y: auto;
+            margin-top: 4px;
+        }
+
+        .search-result-item {
+            padding: 6px 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-bottom: 4px;
+            border: 1px solid transparent;
+            background: #ffffff;
+        }
+
+        .search-result-item:hover {
+            background: #eff6ff;
+            border-color: #bfdbfe;
+        }
+
+        .search-result-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: #1f2933;
+        }
+
+        .search-result-meta {
+            font-size: 11px;
+            color: #6b7280;
+        }
+
+        .search-result-empty {
+            font-size: 12px;
+            color: #9ca3af;
+            text-align: center;
+            padding: 8px 0;
+        }
+
+        .popup-coverage {
+            font-size: 12px;
+            margin-top: 4px;
+            color: #374151;
+        }
+
+        .campus-circle-tooltip {
+            background: rgba(15, 23, 42, 0.9);
+            color: #f9fafb;
+            border-radius: 0;
+            padding: 4px 10px;
+            border: 0 solid rgba(15, 23, 42, 0.9);
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        /* =========================
+           ICON STATUS INFRASTRUKTUR DARAT
+           ========================= */
+        .no-entry-icon {
+            position: relative;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: #ef4444;
+            border: 1px solid #ffffff;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+        }
+
+        .no-entry-icon::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 14px;
+            height: 4px;
+            background: #ffffff;
+            border-radius: 2px;
+            transform: translate(-50%, -50%);
+        }
+
+        .no-entry-icon-limited {
+            position: relative;
+            width: 22px;
+            height: 22px;
+            background: #f59e0b;
+            border: 1px solid #ffffff;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+            clip-path: polygon(50% 5%, 5% 95%, 95% 95%);
+        }
+
+        .no-entry-icon-limited::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 3px;
+            height: 8px;
+            background: #211f1f;
+            border-radius: 2px;
+            transform: translate(-50%, -50%);
+        }
+
+        .no-entry-icon-limited::after {
+            content: "";
+            position: absolute;
+            top: 70%;
+            left: 50%;
+            width: 3px;
+            height: 3px;
+            background: #211f1f;
+            border-radius: 2px;
+            transform: translate(-50%, -50%);
+        }
+
+        .no-entry-icon-flooded {
+            position: relative;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: #0d6ad5;
+            border: 1px solid #ffffff;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+        }
+
+        .no-entry-icon-flooded::before {
+            content: "";
+            position: absolute;
+            inset: 2px;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+            background-image: url("data:image/svg+xml;utf8,\
+            <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'>\
+            <path d='M0 8c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2 2-2 4-2' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round'/>\
+            <path d='M0 12c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2 2-2 4-2' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round'/>\
+            <path d='M0 16c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2 2-2 4-2' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round'/>\
+            </svg>");
+        }
+
+        /* =========================
+           ICON TITIK PENGUNGSIAN
+           ========================= */
+        .shelter-icon {
+            width: 28px;
+            height: 28px;
+            background: #059669;
+            border-radius: 4px;
+            border: 2px solid #ffffff;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        .shelter-icon-inner {
+            width: 100%;
+            height: 100%;
+            font-size: 15px;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .shelter-icon::before,
+        .shelter-icon::after {
+            content: "";
+            position: absolute;
+            border-style: solid;
+            border-color: #ffffff transparent transparent transparent;
+        }
+
+        .shelter-icon::before {
+            top: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 6px 4px 0 4px;
+        }
+
+        .shelter-icon::after {
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%) rotate(180deg);
+            border-width: 6px 4px 0 4px;
+        }
+
+        /* =========================
+           RESPONSIVE
+           ========================= */
+        @media (max-width: 768px) {
+            .info-overlay {
+                max-width: 280px;
+            }
+
+            #map {
+                height: 600px;
+            }
+
+            .main-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+
+            .header-center {
+                justify-content: flex-start;
+                text-align: left;
+            }
+        }
+    </style>
 
 </head>
 <body>
@@ -637,7 +637,7 @@
                     </div>
                     <div class="legend-item">
                         <div class="no-entry-icon-limited"></div>
-                        <span style="color: #160b54;">Jalan/Jembatan Terputus Sebagian</span>
+                        <span style="color: #160b54;">Jalan/Jembatan Terputus Sebagian / Pengecekan</span>
                     </div>
                     <div class="legend-item">
                         <div class="no-entry-icon-flooded"></div>
@@ -664,7 +664,7 @@
                     id="campus-search-input"
                     class="search-input"
                     type="text"
-                    placeholder="Cari kampus posko (nama, kota, provinsi)...">
+                    placeholder="Cari kampus posko atau kecamatan...">
                 <div id="campus-search-results" class="search-results"></div>
             </div>
 
@@ -680,6 +680,13 @@
                     <option value="Sumatera Utara">Sumatera Utara</option>
                     <option value="Sumatera Barat">Sumatera Barat</option>
                 </select>
+
+                <div style="margin-top:10px; font-size:12px; color:#1f2937;">
+                    <label>
+                        <input type="checkbox" id="toggle-districts" style="margin-right:4px;">
+                        Tampilkan titik kecamatan (Aceh, Sumut, Sumbar)
+                    </label>
+                </div>
             </div>
         </div>
 
@@ -699,786 +706,1605 @@
 
     <script>
     // =========================
-    // DATA LOKASI BENCANA (untuk shading kab/kota)
+    // DATA LOKASI BENCANA
     // =========================
-    const disasterLocations = [
-      {
-        name: "Kab. Bireuen",
-        province: "Aceh",
-        lat: 5.203,
-        lng: 96.701,
-        incidentType: "Banjir",
-        date: "5-12-2025",
-        deaths: 20,
-        missing: 7,
-        injured: 2,
-        displaced: 33601,
-        affected: 3869,
-        severity: "kritis",
-        details: {
-          kecamatanTerdampak: 17,
-          gampongTerdampak: 609,
-        },
-      },
-      {
-        name: "Kab. Aceh Tamiang",
-        province: "Aceh",
-        lat: 4.2325,
-        lng: 97.958,
-        incidentType: "Banjir",
-        date: "5-12-2025",
-        deaths: 42,
-        missing: 0,
-        injured: 3,
-        displaced: 278079,
-        affected: 310480,
-        severity: "kritis",
-        details: {
-          kecamatanTerdampak: 12,
-          gampongTerdampak: 216,
-        },
-      },
-      {
-        name: "Kab. Aceh Timur",
-        province: "Aceh",
-        lat: 4.7396,
-        lng: 97.8544,
-        incidentType: "Banjir",
-        date: "5-12-2025",
-        deaths: 32,
-        missing: 2,
-        injured: 0,
-        displaced: 123461,
-        affected: 175061,
-        severity: "kritis",
-        details: {
-          kecamatanTerdampak: 24,
-          gampongTerdampak: 515,
-        },
-      },
-      {
-        name: "Kota Lhokseumawe",
-        province: "Aceh",
-        lat: 5.1833,
-        lng: 97.15,
-        incidentType: "Banjir & Longsor",
-        date: "5-12-2025",
-        deaths: 4,
-        missing: 3,
-        injured: 4,
-        displaced: 23388,
-        affected: 197339,
-        severity: "kritis",
-        details: {
-          kecamatanTerdampak: 4,
-          gampongTerdampak: 48,
-        },
-      },
-      {
-        name: "Kota Langsa",
-        province: "Aceh",
-        lat: 4.4683,
-        lng: 97.9683,
-        incidentType: "Longsor",
-        date: "5-12-2025",
-        deaths: 5,
-        missing: 0,
-        injured: 0,
-        displaced: 353634,
-        affected: 160812,
-        severity: "kritis",
-        details: {
-          kecamatanTerdampak: 5,
-          gampongTerdampak: 66,
-        },
-      },
-      {
-        name: "Kab. Aceh Utara",
-        province: "Aceh",
-        lat: 5.0167,
-        lng: 97.3333,
-        incidentType: "Banjir",
-        date: "5-12-2025",
-        deaths: 123,
-        missing: 90,
-        injured: 66,
-        displaced: 200117,
-        affected: 215057,
-        severity: "kritis",
-        details: {
-          kecamatanTerdampak: 27,
-          gampongTerdampak: 852,
-        },
-      },
-      {
-        name: "Kab. Gayo Lues",
-        province: "Aceh",
-        lat: 3.955,
-        lng: 97.351,
-        incidentType: "Banjir & Longsor",
-        date: "5-12-2025",
-        deaths: 4,
-        missing: 2,
-        injured: 0,
-        displaced: 18094,
-        affected: 112563,
-        severity: "kritis",
-        details: {
-          kecamatanTerdampak: 11,
-          desaNagariTerdampak: 65,
-        },
-      },
-      {
-        name: "Kab. Aceh Tengah",
-        province: "Aceh",
-        lat: 4.448,
-        lng: 96.8351,
-        incidentType: "Banjir & Longsor",
-        date: "5-12-2025",
-        deaths: 22,
-        missing: 23,
-        injured: 28,
-        displaced: 10153,
-        affected: 54199,
-        severity: "kritis",
-        details: {
-          kecamatanTerdampak: 14,
-          jiwaTerdampak: 295,
-        },
-      },
-      {
-        name: "Kota Subulussalam",
-        province: "Aceh",
-        lat: 2.6442,
-        lng: 97.9754,
-        incidentType: "Banjir",
-        date: "5-12-2025",
-        deaths: 1,
-        missing: 0,
-        injured: 0,
-        displaced: 1854,
-        affected: 11807,
-        severity: "kritis",
-        details: {
-          kecamatanTerdampak: 5,
-          desaKelurahanGampongTerdampak: 28,
-        },
-      },
-      {
-        name: "Kab. Bener Meriah",
-        province: "Aceh",
-        lat: 4.76,
-        lng: 96.8333,
-        incidentType: "Banjir & Longsor",
-        date: "5-12-2025",
-        deaths: 34,
-        missing: 28,
-        injured: 8,
-        displaced: 38294,
-        affected: 177517,
-        severity: "kritis",
-        details: {
-          kecamatanTerdampak: 10,
-          gampongTerdampak: 232,
-        },
-      },
-      {
-        name: "Kab. Nagan Raya",
-        province: "Aceh",
-        lat: 4.18,
-        lng: 96.509,
-        incidentType: "Banjir & Longsor",
-        date: "5-12-2025",
-        deaths: 1,
-        missing: 3,
-        injured: 0,
-        displaced: 8325,
-        affected: 25608,
-        severity: "kritis",
-        details: {
-          kecamatanTerdampak: 4,
-          gampongTerdampak: 25,
-        },
-      },
-      {
-        name: "Kab. Aceh Singkil",
-        province: "Aceh",
-        lat: 2.358,
-        lng: 97.905,
-        incidentType: "Banjir",
-        date: "5-12-2025",
-        deaths: 0,
-        missing: 0,
-        injured: 0,
-        displaced: 21143,
-        affected: 36683,
-        severity: "tinggi",
-        details: {
-          kecamatanTerdampak: 9,
-          desaKelurahanGampongTerdampak: 64,
-        },
-      },
-      {
-        name: "Kab. Aceh Barat",
-        province: "Aceh",
-        lat: 4.45,
-        lng: 96.1167,
-        incidentType: "Banjir",
-        date: "5-12-2025",
-        deaths: 0,
-        missing: 0,
-        injured: 0,
-        displaced: 4929,
-        affected: 33820,
-        severity: "sedang",
-        details: {
-          kecamatanTerdampak: 10,
-          gampongTerdampak: 121,
-        },
-      },
-      {
-        name: "Kab. Pidie Jaya",
-        province: "Aceh",
-        lat: 5.1552,
-        lng: 96.1951,
-        incidentType: "Banjir",
-        date: "5-12-2025",
-        deaths: 23,
-        missing: 8,
-        injured: 1821,
-        displaced: 11999,
-        affected: 11999,
-        severity: "kritis",
-        details: {
-          kecamatanTerdampak: 8,
-          gampongTerdampak: 222,
-        },
-      },
-      {
-        name: "Kab. Pidie",
-        province: "Aceh",
-        lat: 5.3833,
-        lng: 95.95,
-        incidentType: "Banjir",
-        date: "5-12-2025",
-        deaths: 1,
-        missing: 0,
-        injured: 0,
-        displaced: 24369,
-        affected: 43538,
-        severity: "tinggi",
-        details: {
-          kecamatanTerdampak: 22,
-          gampongTerdampak: null,
-        },
-      },
-      {
-        name: "Kab. Aceh Besar",
-        province: "Aceh",
-        lat: 5.5095,
-        lng: 95.358,
-        incidentType: "Banjir",
-        date: "5-12-2025",
-        deaths: 0,
-        missing: 0,
-        injured: 0,
-        displaced: 824,
-        affected: 3054,
-        severity: "sedang",
-        details: {
-          kecamatanTerdampak: 23,
-          gampongTerdampak: 21,
-        },
-      },
-      {
-        name: "Kab. Aceh Selatan",
-        province: "Aceh",
-        lat: 3.0951,
-        lng: 97.351,
-        incidentType: "Banjir",
-        date: "5-12-2025",
-        deaths: 0,
-        missing: 0,
-        injured: 0,
-        displaced: 611,
-        affected: 5940,
-        severity: "sedang",
-        details: {
-          kecamatanTerdampak: 6,
-          gampongTerdampak: 12,
-        },
-      },
-      {
-        name: "Kab. Aceh Tenggara",
-        province: "Aceh",
-        lat: 3.185,
-        lng: 97.6982,
-        incidentType: "Banjir",
-        date: "5-12-2025",
-        deaths: 13,
-        missing: 4,
-        injured: 3,
-        displaced: 5772,
-        affected: 17885,
-        severity: "kritis",
-        details: {
-          kecamatanTerdampak: 16,
-          jiwaMengungsi: 20,
-        },
-      },
-
-      // SUMATERA UTARA
-      {
-        name: "Kab. Pakpak Bharat",
-        province: "Sumatera Utara",
-        lat: 2.552,
-        lng: 98.27,
-        incidentType: "Banjir & Longsor",
-        date: "5-12-2025",
-        deaths: 2,
-        missing: 0,
-        injured: 0,
-        displaced: 0,
-        affected: 1835,
-        severity: "sedang",
-      },
-      {
-        name: "Kab. Humbang Hasundutan",
-        province: "Sumatera Utara",
-        lat: 2.1973,
-        lng: 98.5369,
-        incidentType: "Banjir Bandang",
-        date: "5-12-2025",
-        deaths: 9,
-        missing: 0,
-        injured: 0,
-        displaced: 6580,
-        affected: 6580,
-        severity: "tinggi",
-      },
-      {
-        name: "Kab. Tapanuli Utara",
-        province: "Sumatera Utara",
-        lat: 2.0444,
-        lng: 98.9322,
-        incidentType: "Banjir & Longsor",
-        date: "5-12-2025",
-        deaths: 34,
-        missing: 0,
-        injured: 0,
-        displaced: 15765,
-        affected: 15765,
-        severity: "kritis",
-      },
-      {
-        name: "Kab. Tapanuli Tengah",
-        province: "Sumatera Utara",
-        lat: 1.729,
-        lng: 98.785,
-        incidentType: "Banjir & Longsor",
-        date: "5-12-2025",
-        deaths: 86,
-        missing: 0,
-        injured: 0,
-        displaced: 296454,
-        affected: 296454,
-        severity: "kritis",
-      },
-      {
-        name: "Kab. Nias Selatan",
-        province: "Sumatera Utara",
-        lat: -0.708,
-        lng: 97.828,
-        incidentType: "Longsor & Cuaca Ekstrem",
-        date: "5-12-2025",
-        deaths: 1,
-        missing: 0,
-        injured: 0,
-        displaced: 0,
-        affected: 0,
-        severity: "sedang",
-      },
-      {
-        name: "Kota Medan",
-        province: "Sumatera Utara",
-        lat: 3.5952,
-        lng: 98.6722,
-        incidentType: "Banjir",
-        date: "5-12-2025",
-        deaths: 7,
-        missing: 0,
-        injured: 0,
-        displaced: 46587,
-        affected: 46587,
-        severity: "sedang",
-      },
-      {
-        name: "Kab. Deli Serdang",
-        province: "Sumatera Utara",
-        lat: 3.6952,
-        lng: 98.7722,
-        incidentType: "Banjir",
-        date: "5-12-2025",
-        deaths: 17,
-        missing: 0,
-        injured: 0,
-        displaced: null,
-        affected: 242894,
-        severity: "kritis",
-      },
-      {
-        name: "Kab. Langkat",
-        province: "Sumatera Utara",
-        lat: 3.837,
-        lng: 98.331,
-        incidentType: "Banjir",
-        date: "5-12-2025",
-        deaths: 11,
-        missing: 0,
-        injured: 0,
-        displaced: 502440,
-        affected: 502440,
-        severity: "kritis",
-      },
-      {
-        name: "Kota Binjai",
-        province: "Sumatera Utara",
-        lat: 3.6,
-        lng: 98.5,
-        incidentType: "Banjir",
-        date: "5-12-2025",
-        deaths: 0,
-        missing: 0,
-        injured: 0,
-        displaced: 24961,
-        affected: 24961,
-        severity: "kritis",
-      },
-      {
-        name: "Kab. Asahan",
-        province: "Sumatera Utara",
-        lat: 2.87,
-        lng: 99.65,
-        incidentType: "Banjir",
-        date: "5-12-2025",
-        deaths: 0,
-        missing: 0,
-        injured: 0,
-        displaced: null,
-        affected: 2922,
-        severity: "tinggi",
-      },
-      {
-        name: "Kab. Serdang Bedagai",
-        province: "Sumatera Utara",
-        lat: 3.3326,
-        lng: 99.0577,
-        incidentType: "Banjir",
-        date: "5-12-2025",
-        deaths: 0,
-        missing: 0,
-        injured: 0,
-        displaced: null,
-        affected: 72216,
-        severity: "tinggi",
-      },
-      {
-        name: "Kota Tebing Tinggi",
-        province: "Sumatera Utara",
-        lat: 3.327,
-        lng: 99.162,
-        incidentType: "Banjir",
-        date: "5-12-2025",
-        deaths: 0,
-        missing: 0,
-        injured: 0,
-        displaced: null,
-        affected: 24332,
-        severity: "tinggi",
-      },
-      {
-        name: "Kota Padang Sidempuan",
-        province: "Sumatera Utara",
-        lat: 1.3795,
-        lng: 99.2732,
-        incidentType: "Banjir Bandang",
-        date: "5-12-2025",
-        deaths: 1,
-        missing: 0,
-        injured: 0,
-        displaced: null,
-        affected: 1700,
-        severity: "sedang",
-      },
-      {
-        name: "Kab. Tapanuli Selatan",
-        province: "Sumatera Utara",
-        lat: 1.6094,
-        lng: 99.273,
-        incidentType: "Banjir & Longsor",
-        date: "5-12-2025",
-        deaths: 79,
-        missing: 0,
-        injured: 0,
-        displaced: null,
-        affected: 279974,
-        severity: "kritis",
-      },
-      {
-        name: "Kota Sibolga",
-        province: "Sumatera Utara",
-        lat: 1.742,
-        lng: 98.779,
-        incidentType: "Banjir & Longsor",
-        date: "5-12-2025",
-        deaths: 52,
-        missing: 33,
-        injured: 0,
-        displaced: null,
-        affected: null,
-        severity: "kritis",
-      },
-      {
-        name: "Kab. Batu Bara",
-        province: "Sumatera Utara",
-        lat: 3.174,
-        lng: 99.5,
-        incidentType: "Banjir",
-        date: "5-12-2025",
-        deaths: 0,
-        missing: 0,
-        injured: 0,
-        displaced: null,
-        affected: 52064,
-        severity: "tinggi",
-      },
-      {
-        name: "Kab. Mandailing Natal",
-        province: "Sumatera Utara",
-        lat: 0.7539,
-        lng: 99.254,
-        incidentType: "Banjir & Longsor",
-        date: "5-12-2025",
-        deaths: 0,
-        missing: 0,
-        injured: 0,
-        displaced: null,
-        affected: 65,
-        severity: "sedang",
-      },
-
-      // SUMATERA BARAT
-      {
-        name: "Kab. Agam",
-        province: "Sumatera Barat",
-        lat: -0.22,
-        lng: 100.17,
-        incidentType: "Banjir",
-        date: "5-12-2025",
-        deaths: 147,
-        missing: 4,
-        injured: 0,
-        displaced: null,
-        affected: 688,
-        severity: "kritis",
-      },
-      {
-        name: "Kab. Pasaman Barat",
-        province: "Sumatera Barat",
-        lat: 0.12,
-        lng: 99.66,
-        incidentType: "Banjir",
-        date: "5-12-2025",
-        deaths: 3,
-        missing: 0,
-        injured: 0,
-        displaced: null,
-        affected: 57948,
-        severity: "sedang",
-      },
-      {
-        name: "Kab. Lima Puluh Kota",
-        province: "Sumatera Barat",
-        lat: -0.01,
-        lng: 100.65,
-        incidentType: "Banjir",
-        date: "5-12-2025",
-        deaths: 0,
-        missing: 0,
-        injured: 0,
-        displaced: 0,
-        affected: 437,
-        severity: "sedang",
-      },
-      {
-        name: "Kota Bukittinggi",
-        province: "Sumatera Barat",
-        lat: -0.3058,
-        lng: 100.3692,
-        incidentType: "Banjir",
-        date: "5-12-2025",
-        deaths: 0,
-        missing: 0,
-        injured: 0,
-        displaced: 68,
-        affected: 68,
-        severity: "sedang",
-      },
-      {
-        name: "Kab. Padang Pariaman",
-        province: "Sumatera Barat",
-        lat: -0.5515,
-        lng: 100.2151,
-        incidentType: "Banjir & Longsor",
-        date: "5-12-2025",
-        deaths: 22,
-        missing: 0,
-        injured: 0,
-        displaced: 0,
-        affected: 15382,
-        severity: "kritis",
-      },
-      {
-        name: "Kab. Padang Panjang",
-        province: "Sumatera Barat",
-        lat: -0.4707,
-        lng: 100.4059,
-        incidentType: "Banjir",
-        date: "5-12-2025",
-        deaths: 17,
-        missing: 0,
-        injured: 7,
-        displaced: 0,
-        affected: 0,
-        severity: "kritis",
-      },
-      {
-        name: "Kab. Pesisir Selatan",
-        province: "Sumatera Barat",
-        lat: -1.3380833650479302,
-        lng: 100.56872628138287,
-        incidentType: "Banjir",
-        date: "5-12-2025",
-        deaths: 0,
-        missing: 0,
-        injured: 0,
-        displaced: 0,
-        affected: 599,
-        severity: "sedang",
-      },
-      {
-        name: "Kab. Tanah Datar",
-        province: "Sumatera Barat",
-        lat: -0.47,
-        lng: 100.62,
-        incidentType: "Longsor",
-        date: "5-12-2025",
-        deaths: 0,
-        missing: 0,
-        injured: 0,
-        displaced: 0,
-        affected: 4745,
-        severity: "sedang",
-      },
-      {
-        name: "Kab. Kepulauan Mentawai",
-        province: "Sumatera Barat",
-        lat: -2.08,
-        lng: 99.62,
-        incidentType: "Banjir",
-        date: "5-12-2025",
-        deaths: 0,
-        missing: 0,
-        injured: 0,
-        displaced: 0,
-        affected: 236,
-        severity: "sedang",
-      },
-      {
-        name: "Kota Padang",
-        province: "Sumatera Barat",
-        lat: -0.9492,
-        lng: 100.3548,
-        incidentType: "Banjir",
-        date: "5-12-2025",
-        deaths: 11,
-        missing: 0,
-        injured: 0,
-        displaced: 0,
-        affected: 0,
-        severity: "kritis",
-      },
-      {
-        name: "Kota Solok",
-        province: "Sumatera Barat",
-        lat: -0.8,
-        lng: 100.65,
-        incidentType: "Banjir",
-        date: "5-12-2025",
-        deaths: 0,
-        missing: 0,
-        injured: 0,
-        displaced: 0,
-        affected: 9375,
-        severity: "sedang",
-      },
-      {
-        name: "Kota Pariaman",
-        province: "Sumatera Barat",
-        lat: -0.61,
-        lng: 100.14,
-        incidentType: "Banjir",
-        date: "5-12-2025",
-        deaths: 0,
-        missing: 0,
-        injured: 0,
-        displaced: 0,
-        affected: 8021,
-        severity: "sedang",
-      },
-      {
-        name: "Kab. Pasaman",
-        province: "Sumatera Barat",
-        lat: 0.43,
-        lng: 100.1,
-        incidentType: "Banjir",
-        date: "5-12-2025",
-        deaths: 0,
-        missing: 0,
-        injured: 0,
-        displaced: 0,
-        affected: 0,
-        severity: "sedang",
-      },
-      {
-        name: "Kab. Solok",
-        province: "Sumatera Barat",
-        lat: -0.87,
-        lng: 100.67,
-        incidentType: "Banjir",
-        date: "5-12-2025",
-        deaths: 0,
-        missing: 0,
-        injured: 0,
-        displaced: 0,
-        affected: 14966,
-        severity: "sedang",
-      },
-      {
-        name: "Kab. Solok Selatan",
-        province: "Sumatera Barat",
-        lat: -1.44,
-        lng: 101.04,
-        incidentType: "Banjir",
-        date: "5-12-2025",
-        deaths: 0,
-        missing: 0,
-        injured: 0,
-        displaced: 0,
-        affected: 0,
-        severity: "sedang",
-      },
-    ];
+const disasterLocations = [
+  {
+    "name": "Kab. Solok Selatan",
+    "province": "Sumatera Barat",
+    "lat": -1.3784645314328148,
+    "lng": 101.25868461005973,
+    "incidentType": "Banjir",
+    "date": "29-11-2025",
+    "deaths": 0,
+    "missing": 0,
+    "injured": 0,
+    "displaced": 0,
+    "affected": 312,
+    "severity": "rendah",
+    "details": {
+      "jumlahKejadian": 1,
+      "menderita": 312,
+      "mengungsi": 0,
+      "rumahRusakBerat": 0,
+      "rumahRusakSedang": 0,
+      "rumahRusakRingan": 0,
+      "rumahTerendam": 78,
+      "lahanRusakHektar": 37.0,
+      "rumahRusakTotal": 0,
+      "kronologis": "",
+      "penyebab": "",
+      "kondisiMutakhir": "",
+      "upaya": ""
+    }
+  },
+  {
+    "name": "Kab. Kota Payakumbuh",
+    "province": "Sumatera Barat",
+    "lat": -0.22132987472724608,
+    "lng": 100.6294575938182,
+    "incidentType": "Cuaca ekstrem",
+    "date": "29-11-2025",
+    "deaths": 0,
+    "missing": 0,
+    "injured": 0,
+    "displaced": 0,
+    "affected": 0,
+    "severity": "rendah",
+    "details": {
+      "jumlahKejadian": 1,
+      "menderita": 0,
+      "mengungsi": 0,
+      "rumahRusakBerat": 0,
+      "rumahRusakSedang": 0,
+      "rumahRusakRingan": 0,
+      "rumahTerendam": 0,
+      "lahanRusakHektar": 44.0,
+      "rumahRusakTotal": 0,
+      "kronologis": "",
+      "penyebab": "",
+      "kondisiMutakhir": "",
+      "upaya": ""
+    }
+  },
+  {
+    "name": "Kab. Pasaman",
+    "province": "Sumatera Barat",
+    "lat": 0.3642417793285972,
+    "lng": 100.03384522645717,
+    "incidentType": "Banjir",
+    "date": "29-11-2025",
+    "deaths": 0,
+    "missing": 0,
+    "injured": 0,
+    "displaced": 0,
+    "affected": 0,
+    "severity": "rendah",
+    "details": {
+      "jumlahKejadian": 1,
+      "menderita": 0,
+      "mengungsi": 0,
+      "rumahRusakBerat": 4,
+      "rumahRusakSedang": 4,
+      "rumahRusakRingan": 21,
+      "rumahTerendam": 361,
+      "lahanRusakHektar": 284.0,
+      "rumahRusakTotal": 29,
+      "kronologis": "",
+      "penyebab": "",
+      "kondisiMutakhir": "",
+      "upaya": ""
+    }
+  },
+  {
+    "name": "Kab. Solok",
+    "province": "Sumatera Barat",
+    "lat": -0.9402116416624764,
+    "lng": 100.80323146918752,
+    "incidentType": "Banjir",
+    "date": "27-11-2025",
+    "deaths": 0,
+    "missing": 0,
+    "injured": 96,
+    "displaced": 2592,
+    "affected": 37538,
+    "severity": "tinggi",
+    "details": {
+      "jumlahKejadian": 1,
+      "menderita": 34946,
+      "mengungsi": 2592,
+      "rumahRusakBerat": 207,
+      "rumahRusakSedang": 61,
+      "rumahRusakRingan": 125,
+      "rumahTerendam": 675,
+      "lahanRusakHektar": 1835.0,
+      "rumahRusakTotal": 393,
+      "kronologis": "●\tDipicu oleh tingginya curah hujan di wilayah kab. solok sejak tanggal 24 November sampai dengan 27 november 2025 yang mengakibatkan meluapnya sungai batang gawan, batang sumani, batang lembang dan berdampak pada banjir yang menggenangi pemukiman masyarakat pada seluruh kawasan terdampak di Kab. Solok",
+      "penyebab": "",
+      "kondisiMutakhir": "Sabtu, 29 November 2025 ●\tPada saat ini TRC BPBD Kab. Solok masih melakukan evakuasi masyarakat di beberapa tempat.",
+      "upaya": "●\tBPBD Kab. Solok melakukan koordinasi dengan Bupati solok, wakil bupati, forkopimda, BMKG, BNPB, TNI, Polri Tagana, PMI dan lintas sektor ●\tBPBD Kab. Solok mendirikan Posko Bencana ●\tBPBD Kab. Solok mendirikan dapur umum ●\tBPBD Kab. Solok melakukan pembersihan material  ●\tBPBD Kab. Solok melakukan pendataan korban terdampak bencana ●\tBPBD Kab. Solok membantu pendistribusian logistik kepada masyarakat terdampak ●\tBPBD Kab. Solok evakuasi korban banjir dengan perahu karet"
+    }
+  },
+  {
+    "name": "Kab. Kota Tebing Tinggi",
+    "province": "Sumatera Utara",
+    "lat": 3.3347441420000297,
+    "lng": 99.15718291507144,
+    "incidentType": "Banjir",
+    "date": "27-11-2025",
+    "deaths": 0,
+    "missing": 0,
+    "injured": 0,
+    "displaced": 0,
+    "affected": 24332,
+    "severity": "sedang",
+    "details": {
+      "jumlahKejadian": 1,
+      "menderita": 24332,
+      "mengungsi": 0,
+      "rumahRusakBerat": 0,
+      "rumahRusakSedang": 0,
+      "rumahRusakRingan": 0,
+      "rumahTerendam": 6971,
+      "lahanRusakHektar": 0.0,
+      "rumahRusakTotal": 0,
+      "kronologis": "●\tTerjadinya banjir di kota Tebing Tinggi Prov. Sumatera Utara disebabkan intensitas hujan yang sangat tinggi dari hulu sungai bahilang dan sungai padang yaitu Kab. Simalungun dan Kab. Serdang Bedagai sehingga mengakibatkan meluapnya air sungai padang dan sungai bahilang yang mengakibatkan banjir di berbagai kawasan di Kota Tebing Tinggi. Air naik dan mulai menggenangi wilayah Kota Tebing Tinggi pukul 06.00 Wib.",
+      "penyebab": "",
+      "kondisiMutakhir": "Minggu, 30 November 2025 ●\tKondisi air sungai padang mulai surut ●\tKondisi air sungai bahilang mulai surut ●\tKondisi air sungai sibarau mulai surut ●\tKondisi cuaca saat ini mendung di wilayah Kota Tebing Tinggi ●\tSebagian wilayah Kota Tebing Tinggi masih terendam banjir  Selasa, 02 Desember 2025 ●\tBanjir berangsur surut",
+      "upaya": "●\tKoordinasi dengan Camat, Lurah, Kepala Lingkungan, OPD dan instansi terkait, ●\tMelakukan koordinasi dengan BWSS II melalui PDA di area aliran Sungai Padang dan Sungai Bahilang untuk mengetahui kondisi dan kenaikan  debit air Sungai Padang dan Sungai Bahilang mulai dari daerah hulu sampai ke daerah Hilir sungai Padang (Bendungan Bajayu). ●\tMelakukan koordinasi dengan PDA Sipispis, PDA Bah sumbu, PDA Bah Hilang, PDA Sibarau, PDA Berohol, PDA Tebing tinggi, koordinator operator pintu Bendung bajayu dan koordinator operator pintu Bendung Sibarau ●\tMelakukan koordinasi dengan BPBD Kab. Serdang Bedagai ●\tMemantau informasi dari BMKG mengenai Laporan Cuaca yang diterima secara bertahap ●\tSebagian Personil BPBD melakukan pengecekan debit air sungai dan wilayah2 yg sudah terdampak banjir ●\tPersonil BPBD standby di kantor BPBD Kota Tebing Tinggi."
+    }
+  },
+  {
+    "name": "Kab. Kepulauan Mentawai",
+    "province": "Sumatera Barat",
+    "lat": -2.3105854718055308,
+    "lng": 99.74155605997687,
+    "incidentType": "Banjir",
+    "date": "27-11-2025",
+    "deaths": 0,
+    "missing": 0,
+    "injured": 0,
+    "displaced": 0,
+    "affected": 7170,
+    "severity": "sedang",
+    "details": {
+      "jumlahKejadian": 1,
+      "menderita": 7170,
+      "mengungsi": 0,
+      "rumahRusakBerat": 0,
+      "rumahRusakSedang": 0,
+      "rumahRusakRingan": 0,
+      "rumahTerendam": 2373,
+      "lahanRusakHektar": 14.0,
+      "rumahRusakTotal": 0,
+      "kronologis": "● Dipicu hujan dengan intensitas tinggi pada hari Kamis 27 November 2025 sehingga menyebabkan terjadinya banjir di beberapa daerah Kabupaten Kepulauan Mentawai.",
+      "penyebab": "",
+      "kondisiMutakhir": "Jumat, 28 November 2025 ●\tKondisi cuaca masih hujan dan berpotensi terjadinya peningkatan banjir dan/atau banjir susulan.",
+      "upaya": "●\tBPBD Kab. Kepulauan Mentawai melakukan peninjauan ke lokasi dan berkoordinasi dengan stakeholder terkait ●\tBPBD Kab. Kepulauan Mentawai melakukan evakuasi warga ●\tBPBD Kab. Kepulauan Mentawai melakukan membuat laporan dan dokumentasi"
+    }
+  },
+  {
+    "name": "Kab. Pidie",
+    "province": "Aceh",
+    "lat": 5.1309517039152786,
+    "lng": 96.01343328769494,
+    "incidentType": "Banjir",
+    "date": "27-11-2025",
+    "deaths": 1,
+    "missing": 0,
+    "injured": 0,
+    "displaced": 25824,
+    "affected": 69362,
+    "severity": "tinggi",
+    "details": {
+      "jumlahKejadian": 1,
+      "menderita": 43538,
+      "mengungsi": 25824,
+      "rumahRusakBerat": 14352,
+      "rumahRusakSedang": 0,
+      "rumahRusakRingan": 0,
+      "rumahTerendam": 0,
+      "lahanRusakHektar": 1022.0,
+      "rumahRusakTotal": 14352,
+      "kronologis": "●\tDipicu hujan dengan intensitas tinggi yang melanda beberapa wilayah di Kabupaten Pidie mengakibatkan banjir pada Kamis, 27 November 2025",
+      "penyebab": "",
+      "kondisiMutakhir": "Minggu, 30 November 2025 -\tInstalasi jaringan komunikasi  terganggu dan listrik  mati -\tDari 17 Kecamatan yang terdampak, semuanya sudah surut dan hanya tinggal pembersihan lumpur sepeninggal banjir, hal tersebut menyebabkan banyak masyarakat yang memilih untuk mengungsi di lokasi pengungsian terdekat.",
+      "upaya": "-\tBPBD Kabupaten Pidie melakukan pendataan, dan koordinasi dengan Muspika setempat. -\tPendataan kerusakan dan kerugian serta koordinasi dengan Muspika setempat. -\tPembukaan Posko dan menerima bantuan dari berbagai pihak. -\tEvakuasi warga yang terdampak banjir -\tPendistribusian/ pembagian bantuan -\tKepada masyarakat yang terdampak banjir. -\tPembersihan fasilitas umum dan rumah -\twarga serta pendistribusian air bersih kepada masyarakat terdampak. -\tNormalisasi/ pembersihan DAS."
+    }
+  },
+  {
+    "name": "Kab. Kota Solok",
+    "province": "Sumatera Barat",
+    "lat": -0.7840270986666396,
+    "lng": 100.61811140000003,
+    "incidentType": "Banjir",
+    "date": "27-11-2025",
+    "deaths": 0,
+    "missing": 0,
+    "injured": 0,
+    "displaced": 0,
+    "affected": 9375,
+    "severity": "sedang",
+    "details": {
+      "jumlahKejadian": 1,
+      "menderita": 9375,
+      "mengungsi": 0,
+      "rumahRusakBerat": 2,
+      "rumahRusakSedang": 2,
+      "rumahRusakRingan": 24,
+      "rumahTerendam": 2235,
+      "lahanRusakHektar": 245.0,
+      "rumahRusakTotal": 28,
+      "kronologis": "●\tDipicu hujan yang cukup tinggi dan dalam waktu durasi yang lama mulai tanggal 26 November hingga 27 November, mengakibatkan naiknya debit air aliran Sungai Batang Lembang dan batang gawan, serta adanya banjir kiriman dari daerah tetangga.",
+      "penyebab": "",
+      "kondisiMutakhir": "Minggu, 30 November 2025 ●\tDebit Air Sungai Sudah Menurun ●\tAir sudah tidak menggenangi pemukiman warga ●\tTIM lapangan dalam pembersihan rumah warga terdampak  Senin, 01 Desember 2025 ●\tPengungsi sudah mulai kembali kerumah masing masing  Selasa, 02 Desember 2025 ●\tPengungsi sudah mulai kembali kerumah masing masing ●\tProses belajar mengajar sudah kembali berjalan (Kecuali SD 4 dan SMP 4 dalam Pembersihan)",
+      "upaya": "Upaya:  ●\tBPBD Kota Solok melakukan monitoring dan pemantauan Ke lokasi yang rawan banjir dan terdampak banjir ●\tBPBD Kota Solok berkoordinasi dengan OPD terkait, perangkat kelurahan dan warga sekitar ●\tBPBD Kota Solok melakukan assessment dan pendataan serta evakuasi korban terdampak ●\tBPBD Kota Solok memberikan  himbauan kepada warga untuk terus waspada"
+    }
+  },
+  {
+    "name": "Kab. Serdang Bedagai",
+    "province": "Sumatera Utara",
+    "lat": 3.312348061600029,
+    "lng": 99.06061459465458,
+    "incidentType": "Banjir",
+    "date": "27-11-2025",
+    "deaths": 0,
+    "missing": 0,
+    "injured": 0,
+    "displaced": 100,
+    "affected": 73548,
+    "severity": "tinggi",
+    "details": {
+      "jumlahKejadian": 1,
+      "menderita": 73448,
+      "mengungsi": 100,
+      "rumahRusakBerat": 0,
+      "rumahRusakSedang": 0,
+      "rumahRusakRingan": 0,
+      "rumahTerendam": 16679,
+      "lahanRusakHektar": 3466.0,
+      "rumahRusakTotal": 0,
+      "kronologis": "●\tPada hari Kamis, tanggal 27 November 2025 sekitar Pukul 18.00 WIB. Intensitas curah hujan dalam durasi waktu lama 3 hari terakhir membuat debit air di sungai meluap sehingga menyebabkan banjir di 4 Kecamatan Kabupaten Serdang Bedagai",
+      "penyebab": "",
+      "kondisiMutakhir": "Minggu, 30 November 2025 ●\tDebit air sudah berangsur surut dikarenakan sudah tidak terjadi hujan ●\tPengungsi tersebar di 3 (tiga) lokasi pengungsian, diantaranya: 1.\tKantor Desa Pasarbaru 2.\tRumah Kepala Desa Liberia 3.\tPosko di Ds. Serampah ●\tTMA ± 10 - 60 cm  Selasa, 2 Desember 2025 ●\tKetinggian air masih di antara 10 - 60 cm",
+      "upaya": "●\tBerkoordinasi dengan Pemerintah setempat ●\tMelakukan assessment ke lokasi terdampak ●\tPendirian Posko Tanggap Darurat di Ds. Sarampah"
+    }
+  },
+  {
+    "name": "Kab. Asahan",
+    "province": "Sumatera Utara",
+    "lat": 2.865757771491547,
+    "lng": 99.57995015479663,
+    "incidentType": "Banjir",
+    "date": "27-11-2025",
+    "deaths": 0,
+    "missing": 0,
+    "injured": 0,
+    "displaced": 0,
+    "affected": 3149,
+    "severity": "rendah",
+    "details": {
+      "jumlahKejadian": 1,
+      "menderita": 3149,
+      "mengungsi": 0,
+      "rumahRusakBerat": 0,
+      "rumahRusakSedang": 0,
+      "rumahRusakRingan": 0,
+      "rumahTerendam": 643,
+      "lahanRusakHektar": 0.0,
+      "rumahRusakTotal": 0,
+      "kronologis": "●\tCurah Hujan yang turun pada hari Kamis tanggal 27 November 2025 sekitar pukul  04.00 Wib sampai dengan pukul 17.23 Wib dengan intensitas yang cukup lama berdampak tergenangnya air dibeberapa lokasi Kab. Asahan",
+      "penyebab": "",
+      "kondisiMutakhir": "Minggu, 30 November 2025 ●\tGenangan air terpantau surut perlahan  Selasa, 02 Desember 2025 ●\tGenangan air terpantau surut perlahan",
+      "upaya": "●\tUpaya dan Penanganan yang dilakukan oleh Pemerintah Kab. Asahan ●\tPihak Pemerintah melalui BPBD Kab. Asahan telah berkoordinasi dengan Camat setempat untuk menginventarisir kerusakan dan kebutuhan. ●\tMelakukan assessment ke lokasi terdampak ●\tUpaya dan Penanganan yang dilakukan oleh BPBD Provinsi Sumatera Utara  ●\tMelakukan koordinasi kepada BPBD Asahan dalam hal penanganan bencana di lokasi terdampak"
+    }
+  },
+  {
+    "name": "Kab. Batu Bara",
+    "province": "Sumatera Utara",
+    "lat": 3.200863516200026,
+    "lng": 99.44506993607503,
+    "incidentType": "Banjir",
+    "date": "27-11-2025",
+    "deaths": 0,
+    "missing": 0,
+    "injured": 0,
+    "displaced": 0,
+    "affected": 55596,
+    "severity": "tinggi",
+    "details": {
+      "jumlahKejadian": 1,
+      "menderita": 55596,
+      "mengungsi": 0,
+      "rumahRusakBerat": 1,
+      "rumahRusakSedang": 0,
+      "rumahRusakRingan": 0,
+      "rumahTerendam": 13016,
+      "lahanRusakHektar": 1241.0,
+      "rumahRusakTotal": 1,
+      "kronologis": "●\tPada hari kamis Tanggal 27 November 2025 pukul 05.00 wib intensitas curah hujan yang cukup tinggi sampai dengan saat ini dan angin kencang di tambah lagi air kirim dari hulu pematang siangtar menyebabkan banjir hampir semua desa dan kecamatan di kabupaten batu bara dengan ketinggian air mencapai 60 cm sampai 120 cm",
+      "penyebab": "",
+      "kondisiMutakhir": "Minggu, 30 November 2025 -\tGenangan air terpantau masih bertahan dan kemungkinan akan semakin meningkat dikarenakan hujan terus menerus di Kab. Batubara  Senin, 01 Desember 2025 -\tGenangan air terpantau masih bertahan dan kemungkinan akan semakin meningkat dikarenakan hujan terus menerus di Kab. Batubara  Selasa, 02 Desember 2025 lINK ●\tGenangan air terpantau masih bertahan dan kemungkinan akan semakin meningkat dikarenakan hujan terus menerus di Kab. Batubara",
+      "upaya": "●\tKoordinasi Dengan Pemerintah Kecamatan  ●\tKoordinasi Dengan pihak Pemerintah Desa ●\tKoordinasi dengan Dinas pertanian.  ●\tKoordinasi dgn Dinas Sosial PPPA.  ●\tKoordinasi dengan dinas kesehatan ●\tKoordinasi dengan dinas PUTR ●\tKoordinasi dengan dinas PERKIM LH ●\tMelakukan asesmen ●\tBPBD mendirikan tenda pengungsian di 5 titik lokasi di beberapa desa"
+    }
+  },
+  {
+    "name": "Kab. Kota Medan",
+    "province": "Sumatera Utara",
+    "lat": 3.6168806966562776,
+    "lng": 98.67646471996878,
+    "incidentType": "Banjir",
+    "date": "27-11-2025",
+    "deaths": 12,
+    "missing": 0,
+    "injured": 0,
+    "displaced": 100,
+    "affected": 46687,
+    "severity": "tinggi",
+    "details": {
+      "jumlahKejadian": 1,
+      "menderita": 46587,
+      "mengungsi": 100,
+      "rumahRusakBerat": 0,
+      "rumahRusakSedang": 0,
+      "rumahRusakRingan": 0,
+      "rumahTerendam": 3098,
+      "lahanRusakHektar": 0.0,
+      "rumahRusakTotal": 0,
+      "kronologis": "●\tHujan Dengan Intensitas Sedang Hingga Lebat Serta Banjir Kiriman Dari Hulu",
+      "penyebab": "",
+      "kondisiMutakhir": "●\tJumat, 5 Desember 2025 -\tmasih dalam penanganan",
+      "upaya": "●\tTim BPBD Kota Medan melakukan asesmen ●\tTim BPBD Kota Medan melakukan Evakuasi Masyarakat terdampak ●\tTIM BPBD Kota Medan MEMBERIKAN KEBUTUHAN  BERUPA : NASI BUNGKUS, TIKAR, SELIMUT , AIR MINERAL DAN LAIN - LAIN"
+    }
+  },
+  {
+    "name": "Kab. Aceh Barat",
+    "province": "Aceh",
+    "lat": 4.46620825045949,
+    "lng": 96.24610064518923,
+    "incidentType": "Banjir",
+    "date": "26-11-2025",
+    "deaths": 0,
+    "missing": 0,
+    "injured": 0,
+    "displaced": 0,
+    "affected": 30884,
+    "severity": "tinggi",
+    "details": {
+      "jumlahKejadian": 1,
+      "menderita": 30884,
+      "mengungsi": 0,
+      "rumahRusakBerat": 261,
+      "rumahRusakSedang": 0,
+      "rumahRusakRingan": 0,
+      "rumahTerendam": 0,
+      "lahanRusakHektar": 697.0,
+      "rumahRusakTotal": 261,
+      "kronologis": "●\tDipicu hujan dengan intensitas tinggi sehingga menyebabkan DAS Krueng Woyla dan Meureubo mengalami peningkatan debit air dan meluap pada hari Rabu, 26 November 2025, Pkl. 10:00 WIB",
+      "penyebab": "",
+      "kondisiMutakhir": "Sabtu, 6 Desember  2025 ●\tDi wilayah Kabupaten Aceh Barat, satu kecamatan (Kec. Pante Ceureumen) dengan akses terbatas membutuhkan bantuan alat berat untuk membuka jalur, Untuk mendukung kelancaran komunikasi di area tersebut, diperlukan perangkat Starlink (2 buah) mengingat wilayah itu belum terlayani jaringan telekomunikasi dengan baik ●\tKondisi debit air Krueng Woyla berkurang ●\tWarga sudah mulai kembali ke rumah masing-masing untuk pembersihan. ●\tBeberapa sarpras umum masih tertutupi lumpur seperti rumah sekolah,rumah ibadah ,dan perkantoran di desa yang terdampak  ●\tTim Relawan melakukan pengecekan Kesehatan Masyarakat dan pembersihan sekolah serta fasilitas umum lainnya di beberapa Kecamatan. ●\t⁠BPBD Aceh Barat melakukan penerimaan relawan di pos Komando BPBD untuk melakukan penanganan pasca banjir. ●\tSebagian warga masih menggunakan fasilitas di pengungsian ●\tAir sudah surut di wilayah yang terdampak.",
+      "upaya": "●\tBPBD Kab. Aceh Barat berkoordinasi dengan instansi terkait serta pihak Kecamatan / Desa setempat guna melakukan pendataan dan pemantauan ●\tTim BPBD Kab. Aceh Barat ke lokasi Kec. Sungai Mas untuk evakuasi warga menggunakan rubber bot ●\tBPBD Kab. Aceh Barat bersama masyarakat Gp. Geudong dan Gp. Tungkop  membuka dapur umum ●\tTIM dari BASRANAS, BPBD, PT.MIFA AMM Mengantar Logistik dan evakuasi warga di lokasi Kec.Woyla Barat, Gp. Napai dan sekitarnya  ●\tBPBD Kab. Aceh Barat ●\tTNI ●\tPolri ●\tUKM PK UTU ●\tMasyarakat  Unsur yang terlibat:  ●\tBPBD Aceh Barat ●\tTNI  ●\tPolri dan POLAIRUD ●\tSeluruh Jajaran Sekretariat Daerah, OPD, Camat dan Aparatur Gampong di Lingkup Pemkab Aceh Barat ●\tUniversitas Teuku Umar ●\tUKM PK UTU ●\tBASARNAS ●\tDINSOS ●\tPUPR ●\tPERKIM ●\tDISKOMINSA ●\tTAGANA ●\tPT. MIFA / AMM ●\tPT. TBU ●\tBANK ACEH ●\tBANK BSI ●\tPT MGK ●\tRAPI ●\tORARI ●\tPKK Aceh Barat ●\tUKM PK UTU ●\tIOF ●\tMasyarakat"
+    }
+  },
+  {
+    "name": "Kab. Langkat",
+    "province": "Sumatera Utara",
+    "lat": 3.797509654022003,
+    "lng": 98.25912602085717,
+    "incidentType": "Banjir",
+    "date": "26-11-2025",
+    "deaths": 11,
+    "missing": 0,
+    "injured": 0,
+    "displaced": 11054,
+    "affected": 300486,
+    "severity": "kritis",
+    "details": {
+      "jumlahKejadian": 1,
+      "menderita": 289432,
+      "mengungsi": 11054,
+      "rumahRusakBerat": 146,
+      "rumahRusakSedang": 256,
+      "rumahRusakRingan": 3825,
+      "rumahTerendam": 0,
+      "lahanRusakHektar": 1623.0,
+      "rumahRusakTotal": 4227,
+      "kronologis": "●\tDipicu curah hujan yang tinggi mengakibatkan banjir di beberapa lokasi di wilayah Kab. langkat pada hari Rabu, 26 November 2025",
+      "penyebab": "",
+      "kondisiMutakhir": "Minggu, 30 November 2025 ●\tBanjir belum surut dengan TMA ± 20-100 cm  Senin, 01 Desember 2025 ●\tAir berangsur surut di Kec. Besitang, Kec. Berandan Barat, Kec. Sei Lepan, Kec. Babalan, Kec. Gebang, Kec. Setabat, Kec. Sawit Seberang, Kec. Batang Serangan, Kec. Wampu, Kec. Binjai, Kec. Pematang Jaya, Kec. Hinai. TMA ± 30 - 50 cm ●\tAir masih bertahan di Kec. Padang Tualang dan Kec. Tanjung Pura. TMA ± 100 s.d 150 cm ●\tAkses jalan Tanjungpura menuju Besitang sudah bisa dilalui, namun hanya bisa dilalui dengan kendaraan roda enam / truck / mobil besar ●\tListrik masih padam & jaringan komunikasi masih terputus / blankspot di Kec. Tanjungpura, Kec. Padang Tualang, Kec. Gebang dan Kec. Babalan  Selasa, 02 Desember 2025 ●\tMasih dalam penanganan oleh Pemerintah setempat",
+      "upaya": "●\tPendampingan Pemerintahan Kecamatan dan Pemerintahan Desa terkait warga yang terdampak. ●\tKoordinasi Lintas Sektor ●\tMelakukan evakuasi masyarakat terdampak dengan menggunakan perahu ●\tMemberikan bantuan berupa paket logistik/ sembako ●\tPendirian tenda pengungsi di 9 (sembilan) titik, diantaranya : 1.\tArea Toll Tanjung Pura 2.\tBasecamp Perairan Cempa 3.\tKantor Camat Sei Lepan 4.\tMasjid Ubudiyah Babalan 5.\tMasjid At Taqwa Besitang 6.\tSMPN Besitang 7.\tKecamatan Wampu,  Desa Stabat Lama Barat 8.\tMasjid Batu Melenggang 9.\tTebasan Desa Pantai Gemi  ●\tPendirian tenda pengungsi, pengungsian di area tol tanjung pura, base camp perairan cempa, kantor camat sei lepan, mesjid ubudiyah babalan, mesjid at taqwa Besitang, SMPN besitang. Tenda pengungsi di Kecamatan Wampu desa stabat lama barat. Mesjid Batu Melenggang Kec Hinai, tenda pengungsi di tebasan desa pantai gemi. ●\tMemantau peringatan dini atau prakiraan cuaca dari BMKG dan menginformasikan ke pihak kecamatan dan desa. ●\tMelaksanakan posko siaga bencana 24 jam di ruang Pusdalops PB BPBD Kab. Langkat  ●\tMenyalurkan bantuan logistik melalui jalur air dan darat bagi Desa dan Kecamatan yang dapat terjangkau, namun masih ada beberapa desa yang belum mendapat bantuan karena terkendala akses jalan yang belum bisa dilalui"
+    }
+  },
+  {
+    "name": "Kab. Deli Serdang",
+    "province": "Sumatera Utara",
+    "lat": 3.559121462302657,
+    "lng": 98.66107738914476,
+    "incidentType": "Banjir",
+    "date": "26-11-2025",
+    "deaths": 17,
+    "missing": 0,
+    "injured": 0,
+    "displaced": 230,
+    "affected": 268994,
+    "severity": "kritis",
+    "details": {
+      "jumlahKejadian": 1,
+      "menderita": 268764,
+      "mengungsi": 230,
+      "rumahRusakBerat": 0,
+      "rumahRusakSedang": 0,
+      "rumahRusakRingan": 0,
+      "rumahTerendam": 64626,
+      "lahanRusakHektar": 2609.0,
+      "rumahRusakTotal": 0,
+      "kronologis": "●\tDipicu akibat curah hujan yang tinggi dan terus menerus terjadi di wilayah Kab. Deli Serdang dan ditambah juga pasangnya air laut mengakibatkan terendamnya rumah warga dan area persawahan dengan ketinggian air sekitar ±20-60 cm pada hari Rabu, 26 November 2025 pukul 15.15 WIB",
+      "penyebab": "",
+      "kondisiMutakhir": "Minggu, 30 November 2025 Kec. Tanjung Morawa ●\tDs. Buntu Bedimbar sudah surut ●\tDs. Tanjung Mulia belum surut TMA 20-35 cm ●\tDs. Limau Manis sudah surut ●\tDs. Dalu X-B sudah surut ●\tDs. Bangun Sari Baru belum surut TMA 30-70 cm ●\tDs. Naga Timbul sudah surut ●\tDs. Punden Rejo belum surut TMA 20-65 cm ●\tDs. Tanjung Morawa B sudah surut ●\tDs. Perdamean sudah surut ●\tDs. Lengau Seprang sudah surut ●\tDs. Tanjung Baru belum surut TMA 15-25 cm ●\tDs. Penara Kebun belum surut TMA 20-30 cm ●\tDs. Telagasari sudah surut   Kec. Delitua ●\tDs. Suka Makmur sudah surut  Kec. Sunggal ●\tDs. Tanjung Selamat berangsur surut  Kec. Namorambe ●\tDs. Lau Mulgap sudah surut  Kec. Hamparan Perak ●\tDs. Kota Rantang belum surut TMA 10-20 cm ●\tDs. Klambir V Kebun sudah surut  Kec. Bangun Purba ●\tDs. Sibaganding sudah surut   Kec. Percut Sei Tuan ●\tDs. Cinta Rakyat belum surut TMA 20-40 cm ●\tDs. Sambirejo Timur belum surut TMA 20-40 cm ●\tDs. Saentis belum surut TMA 20-40 cm ●\tDs. Kenangan Baru sudah surut ●\tDs. Kolam sudah surut ●\tDs. Desa Laut Dendang sudah surut ●\tDs. Cinta Damai belum surut TMA 20-40 cm ●\tDs. Kenangan sudah surut ●\tDs. Sei Rotan sudah surut ●\tDs. Bandar Setia sudah surut ●\tDs. Sampali sudah surut ●\tDs. Bandar Klippa sudah surut ●\tDs. Medan Estate sudah surut ●\tDs. Tanjung Selamat belum surut TMA 20-40 cm ●\tDs. Tembung sudah surut  Kec. Lubuk Pakam ●\tDs. Lubuk Pakam Pekan sudah surut  Kec. Beringin ●\tSemua desa sudah surut  ________________________________________ Kec. Batang Kuis ●\tDs. Bintang Meriah belum surut (tanggul jebol) ●\tDs. Baru belum surut TMA 20-60 cm ●\tDs. Sena berangsur surut TMA 40-60 cm ●\tDs. Tumpatan Nibung sudah surut  Kec. Patumbak ●\tDs. Patumbak Kampung belum surut (tanggul jebol, kedalaman ± 3 m)  Kec. Galang ●\tDs. Baru Titi Besi sudah surut  Kec. Pancur Batu ●\tDs. Perumnas Simalingkar sudah surut  Kec. Pagar Merbau ●\tDs. Tanjung Mulia sudah surut  Selasa, 02 Desember 2025 ●\tMasih dalam penanganan oleh Pemerintah setempat",
+      "upaya": "●\tBPBD Kab. Deli Serdang berkoordinasi dengan aparat pemerintah daerah setempat ●\tBPBD Kab. Deli Serdang melakukan assessment dan pendataan korban dan lahan persawahan yang terdampak  ●\tPemerintah Kecamatan Hamparan Perak dan Desa Paluh Kurau telah membuka dapur umum di beberapa titik    Unsur Yang Terlibat: ●\tTRC BPBD Kab. Deli Serdang ●\tPemerintah Kec. Labuhan Deli ●\tPemerintah Kec. Hamparan Perak ●\tPemerintah Desa Paluh Kurau  ●\tPemerintah Desa Karang Gading"
+    }
+  },
+  {
+    "name": "Kab. Aceh Besar",
+    "province": "Aceh",
+    "lat": 5.444952968641053,
+    "lng": 95.36866068346157,
+    "incidentType": "Banjir",
+    "date": "26-11-2025",
+    "deaths": 0,
+    "missing": 0,
+    "injured": 0,
+    "displaced": 0,
+    "affected": 3054,
+    "severity": "rendah",
+    "details": {
+      "jumlahKejadian": 1,
+      "menderita": 3054,
+      "mengungsi": 0,
+      "rumahRusakBerat": 0,
+      "rumahRusakSedang": 0,
+      "rumahRusakRingan": 0,
+      "rumahTerendam": 0,
+      "lahanRusakHektar": 3316.0,
+      "rumahRusakTotal": 0,
+      "kronologis": "●\tHujan dengan  intensitas dan curah hujan yang tinggi yang melanda Wilayah Aceh Besar telah mengakibatkan terjadinya Banjir Luapan dan banjir genangan di beberapa lokasi dalam wilayah Aceh BesarNULL dan tingginya debit air krung aceh sehingga mulai meluap ke pemukiman yang berada dekat dengan aliran sungai.",
+      "penyebab": "",
+      "kondisiMutakhir": "Minggu, 30 November 2025 ●\tPada hari ini minggu tanggal 30 november 2025 dengan ini cuaca secara visual cerah tanpa hujan. BPBD Kab. Aceh Besar  ●\tSebagian besar titik lokasi banjir, air sudah surut dan aktivitas masyarakat sudah normal seperti biasanya. ●\tTitik pengungsi pada hari ini sudah ditutup dan masyarakat sudah di rumah masing masing. BPBD Kabupaten Aceh Besar pada hari menyalurkan bantuan Logistik ke kecamatan yang terdampak banjir.",
+      "upaya": "Upaya:  ●\tBPBD Aceh Besar melakukan assesment pendataan, pemantauan di beberapa titik rawan banjir, longsor dan koordinasi dengan unsur Muspika,TNI,POLRI dan aparatur Gampong."
+    }
+  },
+  {
+    "name": "Kab. Kota Binjai",
+    "province": "Sumatera Utara",
+    "lat": 3.595052551437526,
+    "lng": 98.48370799175002,
+    "incidentType": "Banjir",
+    "date": "26-11-2025",
+    "deaths": 0,
+    "missing": 0,
+    "injured": 0,
+    "displaced": 0,
+    "affected": 28739,
+    "severity": "sedang",
+    "details": {
+      "jumlahKejadian": 1,
+      "menderita": 28739,
+      "mengungsi": 0,
+      "rumahRusakBerat": 0,
+      "rumahRusakSedang": 0,
+      "rumahRusakRingan": 0,
+      "rumahTerendam": 7672,
+      "lahanRusakHektar": 0.0,
+      "rumahRusakTotal": 0,
+      "kronologis": "●\tHujan dengan intensitas deras yang terjadi pada Rabu malam (26/11)  mengakibatkan 3 sungai di Kota Binjai (Bingai, Mencirim dan Bangkatan) mengalami peningkatan, juga terjadi banjir genangan di beberapa wilayah.",
+      "penyebab": "",
+      "kondisiMutakhir": "Minggu, 30  November 2025 ●\tBanjir sudah surut ●\tAir sungai mengalami penurunan debit air ●\tWarga melakukan pembersihan material pasca banjir ●\tAktivitas warga kembali normal  Senin, 01  Desember 2025 ●\tBanjir telah surut total, masyarakat  sudah beraktivitas secara normal  Selasa, 02  Desember 2025 ●\tBanjir telah surut total, masyarakat  sudah beraktivitas secara normal",
+      "upaya": "Upaya:    BPBD Kota Binjai  ●\tBerkoordinasi dengan instansi terkait ●\tMelakukan asesmen ●\tBerkoordinasi dengan TNI dan POLRI untuk keamanan dan kenyamanan warga ●\tBerkoordinasi dengan Dinas Kesehatan Binjai untuk pelayanan kesehatan apabila warga membutuhkan bantuan dan obat-obatan. ●\tPusdalops memonitor prakiraan cuaca dan peringatan dini dari Web BMKG untuk menyampaikan ke Masyarakat ●\tSatgas BPBD Kota Binjai masih berada di Kelurahan terdampak banjir dan tetap standby di lokasi bencana banjir untuk membantu warga apabila membutuhkan dalam melakukan evakuasi  ●\tBPBD Kota Binjai mendirikan posko pengungsian serta dapur umum untuk konsumsi warga yang terdampak bencana banjir di jalan T.Imam Bonjol Kel.Setia"
+    }
+  },
+  {
+    "name": "Kab. Aceh Singkil",
+    "province": "Aceh",
+    "lat": 2.2202458871384887,
+    "lng": 97.46559968870773,
+    "incidentType": "Banjir",
+    "date": "26-11-2025",
+    "deaths": 0,
+    "missing": 0,
+    "injured": 0,
+    "displaced": 0,
+    "affected": 36702,
+    "severity": "tinggi",
+    "details": {
+      "jumlahKejadian": 1,
+      "menderita": 36702,
+      "mengungsi": 0,
+      "rumahRusakBerat": 1771,
+      "rumahRusakSedang": 0,
+      "rumahRusakRingan": 0,
+      "rumahTerendam": 0,
+      "lahanRusakHektar": 145.0,
+      "rumahRusakTotal": 1771,
+      "kronologis": "●\tRabu, 19 November 2025 pukul. 06.00 WIB dipicu hujan dengan intensitas tinggi mengakibatkan meluapnya sungai lae cinendang  sehingga banjir menggenangi pemukiman warga",
+      "penyebab": "",
+      "kondisiMutakhir": "Sabtu, 6 Desember 2025 ●\tKondisi cuaca di Kabupaten Aceh Singkil Hujan ●\tSeluruh kerusakan akibat banjir yang ada di Kabupaten Aceh Singkil belum ada perbaikan  ●\tPemerintah Daerah telah melakukan perbaikan jalan Mitigasi Bencana dari Kec. Singkil menuju Kec. Gunung Meriah menggunakan Alat Berat Backhoe Loader ●\tSaat ini di wilayah Kec. Singkil di 16 Desa kondisi banjir berangsur surut ketinggian air ± 20 cm ●\tSaat ini situasi sudah aman terkendali untuk di 8 wilayah kecamatan berikut: 1.\tKec. Gunung Meriah  2.\tKec. Suro 3.\tKec. Kuta Baharu  4.\tKec. Simpang Kanan 5.\tKec. Danau Paris 6.\tKec. Singkil Utara 7.\tKec. Singkohor 8.\tKec. Kuala baru  ●\tSaat ini listrik dan jaringan telkomsel sudah mulai kembali normal",
+      "upaya": "BPBD Kab. Aceh Singkil 1.\tBerkoordinasi dengan instansi terkait 2.\tMelakukan asesmen 3.\tMenurunkan Tim TRC ke lokasi banjir 4.\tBPBD Kab. Aceh Singkil menurunkan perahu polytelen ke Desa Kuta Simboling dan Desa Suka Makmur 5.\tBPBD Kab Aceh Singkil menurunkan TRC ke lokasi banjir 6.\tBPBD Kab Aceh Singkil menurunkan perahu polytelen ke Desa Kuta Simboling, Desa Suka Makmur, Desa  Ujung Bawang dan Desa Silatong  7.\tBPBD Kab Aceh Singkil melakukan evakuasi masyarakat Desa Cibubukan, Desa Tanjung Mas, Desa Ujung  Limus dan Desa Tugan Kec. Simpang Kanan dan Desa Pasar Kec. Singkil 8.\tBPBD Kab Aceh Singkil melakukan evakuasi masyarakat Desa di Kec. Simpang Kanan, Kec. Singkil Kec.  Singkil Utara  9.\tBupati Aceh Singkil, Kalaksa BPBD Kab Aceh Singkil serta unsur Muspika meninjau lokasi banjir  10.\tBupati Aceh singkil telah memberikan bantuan masa panik ke beberapa titik posko pengungsian di Kec. Singkil 11.\tBPBD menurunkan perahu polytelen ke Desa Kuta Simboling, Desa Suka Makmur, Desa Ujung Bawang dan Desa Silatong 12.\tBPBD melakukan evakuasi masyarakat Desa Cibubukan, Desa Tanjung Mas, Desa Ujung Limus dan Desa Tugan Kec. Simpang Kanan dan Desa Pasar Kec. Singkil 13.\tBPBD melakukan evakuasi masyarakat Desa di Kec. Simpang Kanan, Kec. Singkil Kec. Singkil Utara 14.\tBupati Aceh Singkil, Kalaksa BPBD serta unsur Forkopimda meninjau lokasi banjir 15.\tBupati Aceh singkil telah memberikan bantuan masa panik ke beberapa titik posko pengungsian di Kec. Singkil 16.\tPemerintah Daerah telah menyalurkan bantuan masa panik ke lokasi terdampak 17.\tPemerintah Daerah telah melakukan perbaikan jalan Mitigasi Bencana dari Kecm Singkil menujur Kec. Gunung Meriah menggunakan Alat Berat Backhoe Loader"
+    }
+  },
+  {
+    "name": "Kab. Pasaman Barat",
+    "province": "Sumatera Barat",
+    "lat": 0.23426026211767237,
+    "lng": 99.67228730229415,
+    "incidentType": "Banjir",
+    "date": "26-11-2025",
+    "deaths": 4,
+    "missing": 3,
+    "injured": 1,
+    "displaced": 4627,
+    "affected": 64586,
+    "severity": "tinggi",
+    "details": {
+      "jumlahKejadian": 1,
+      "menderita": 59959,
+      "mengungsi": 4627,
+      "rumahRusakBerat": 18,
+      "rumahRusakSedang": 12,
+      "rumahRusakRingan": 36,
+      "rumahTerendam": 2596,
+      "lahanRusakHektar": 2088.0,
+      "rumahRusakTotal": 66,
+      "kronologis": "",
+      "penyebab": "",
+      "kondisiMutakhir": "",
+      "upaya": ""
+    }
+  },
+  {
+    "name": "Kab. Nagan Raya",
+    "province": "Aceh",
+    "lat": 4.254038268384641,
+    "lng": 96.53393878000003,
+    "incidentType": "Banjir",
+    "date": "26-11-2025",
+    "deaths": 1,
+    "missing": 3,
+    "injured": 1476,
+    "displaced": 8059,
+    "affected": 33667,
+    "severity": "tinggi",
+    "details": {
+      "jumlahKejadian": 1,
+      "menderita": 25608,
+      "mengungsi": 8059,
+      "rumahRusakBerat": 2049,
+      "rumahRusakSedang": 0,
+      "rumahRusakRingan": 0,
+      "rumahTerendam": 0,
+      "lahanRusakHektar": 1995.0,
+      "rumahRusakTotal": 2049,
+      "kronologis": "●\tAkibat hujan deras dan angin kencang Yang melanda Kabupaten Nagan Raya, sejak tiga  hari terakhir menyebabkan debit air Krueng beutong  dan  Krueng  tripa meluap dan  menggenangi pemukiman masyarakat    Ketinggian air -+ 50 s/d 180 Cm di pekarangan rumah.",
+      "penyebab": "",
+      "kondisiMutakhir": "Jumat, 28 November 2025 ●\tKecamatan Beutong Ateuh Banggalan air sudah surut ●\tKecamatan Darul Makmur Air mulai Surut ●\tBanjir Masih menggenangi permukiman masyarakat",
+      "upaya": "●\tBPBD Nagan Raya sedang  melakukan asesmen terhadap dampak bencana banjir, ●\tMelakukan evaluasi korban banjir ●\tMenyalurkan bantuan masa panik , ●\tMenyalurkan air."
+    }
+  },
+  {
+    "name": "Kab. Aceh Tamiang",
+    "province": "Aceh",
+    "lat": 4.239498863227293,
+    "lng": 98.05405075434095,
+    "incidentType": "Banjir",
+    "date": "26-11-2025",
+    "deaths": 57,
+    "missing": 22,
+    "injured": 18,
+    "displaced": 262087,
+    "affected": 561012,
+    "severity": "kritis",
+    "details": {
+      "jumlahKejadian": 1,
+      "menderita": 298925,
+      "mengungsi": 262087,
+      "rumahRusakBerat": 2811,
+      "rumahRusakSedang": 0,
+      "rumahRusakRingan": 0,
+      "rumahTerendam": 0,
+      "lahanRusakHektar": 382.0,
+      "rumahRusakTotal": 2811,
+      "kronologis": "",
+      "penyebab": "",
+      "kondisiMutakhir": "",
+      "upaya": ""
+    }
+  },
+  {
+    "name": "Kab. Bener Meriah",
+    "province": "Aceh",
+    "lat": 4.765143553057162,
+    "lng": 96.99804487940003,
+    "incidentType": "Banjir",
+    "date": "26-11-2025",
+    "deaths": 34,
+    "missing": 28,
+    "injured": 22,
+    "displaced": 38650,
+    "affected": 207950,
+    "severity": "kritis",
+    "details": {
+      "jumlahKejadian": 1,
+      "menderita": 169300,
+      "mengungsi": 38650,
+      "rumahRusakBerat": 0,
+      "rumahRusakSedang": 0,
+      "rumahRusakRingan": 0,
+      "rumahTerendam": 0,
+      "lahanRusakHektar": 0.0,
+      "rumahRusakTotal": 0,
+      "kronologis": "●\tBencana banjir dan tanah longsor dipicu intensitas hujan yang terjadi sejak hari Selasa tanggal 25 November 2025 yang mengguyur wilayah Kab. Bener Meriah sampai dengan hari Kamis tanggal 27 November 2025, yang mengakibatkan meningkatnya debit sungai dan ketidakmampuan DAS di wilayah Kab. Bener Meriah untuk menampung debit air sehingga mengakibatkan terputusnya akses jalan ruas nasional yang menghubungkan Bener Meriah-Aceh Tengah, Bener Meriah-Bireun, Bener Meriah- Aceh Utara, serta terputusnya 26 jalan, dan terputusnya 46 jembatan, longsor 39 titik dan Banjir 27 titik.",
+      "penyebab": "",
+      "kondisiMutakhir": "Senin, 01 Desember 2025 ●\tSebagian wilayah terisolir sudah bisa dilakukan evakuasi dan distribusi logistic ●\t6 Kecamatan masih terputus (Seluruh Mesidah, Seluruh Syiah Utama, Seluruh Pintu Rime Gayo, Seluruh Gajah Putih, Permata, Timang Gajah ●\tListrik belum menyala di seluruh wilayah Kabupaten Bener Meriah ●\tKomunikasi belum seluruhnya lancar ●\tFasilitas Air Bersih masih Terkendala ●\tPasokan BBM Habis  Selasa, 02 Desember 2025 ●\tSebagian wilayah terisolir sudah bisa dilakukan evakuasi dan distribusi logistic ●\t6 Kecamatan masih terputus (Seluruh Mesidah, Seluruh Syiah Utama, Seluruh Pintu Rime Gayo, Seluruh Gajah Putih, Permata, Timang Gajah ●\tListrik belum menyala di seluruh wilayah Kabupaten Bener Meriah ●\tKomunikasi belum seluruhnya lancar ●\tFasilitas Air Bersih masih Terkendala ●\tPasokan BBM Habis",
+      "upaya": "BPBD Kab. Bener Meriah: ●\tmelakukan evakuasi dan mengirimkan bantuan logistik di Kecamatan terisolir.  ●\tmelakukan pencarian orang hilang di 10 Kecamatan (Kec. Pintu Rime Gayo, Kec. Timang Gajah, Kec. Gajah Putih, Kec. Wih Pesam, Kec. Bukit, Kec. Bandar, Kec. Bener kelipah, Kec. Permata, kec. Mesidah dan Kec. Syah Utama) ●\tkoordinasi di Posko Terpadu  bersama TNI, Polres, Basarnas, Orari, RAPI dan OPD terkait. Giat Tim BNPB :  ●\ttelah melakukan droping bantuan melalui jalur Udara pesawat carravan sortie 1, dengan rincian : family Foodh eprokal 20 dus, family Food naraga 20 dus, makanan siap saji / family food 100 dus, Starlink 1 unit dan genset 1 unit ●\tmelakukan koordinasi dengan BPBD Kab. Bener Meriah terkait situasi dan monitoring upaya PemKab dalam penanganan bencana banjir dan tanah longsor ●\tmelaksanakan pembersihan badan jalan dan material longsor, banjir."
+    }
+  },
+  {
+    "name": "Kab. Kota Padang Panjang",
+    "province": "Sumatera Barat",
+    "lat": -0.46765535033332145,
+    "lng": 100.40073491700002,
+    "incidentType": "Banjir",
+    "date": "26-11-2025",
+    "deaths": 19,
+    "missing": 32,
+    "injured": 4,
+    "displaced": 0,
+    "affected": 359,
+    "severity": "rendah",
+    "details": {
+      "jumlahKejadian": 1,
+      "menderita": 359,
+      "mengungsi": 0,
+      "rumahRusakBerat": 22,
+      "rumahRusakSedang": 16,
+      "rumahRusakRingan": 196,
+      "rumahTerendam": 0,
+      "lahanRusakHektar": 4.0,
+      "rumahRusakTotal": 234,
+      "kronologis": "",
+      "penyebab": "",
+      "kondisiMutakhir": "",
+      "upaya": ""
+    }
+  },
+  {
+    "name": "Kab. Kota Lhokseumawe",
+    "province": "Aceh",
+    "lat": 5.162857394937525,
+    "lng": 97.10495548343752,
+    "incidentType": "Banjir",
+    "date": "26-11-2025",
+    "deaths": 4,
+    "missing": 0,
+    "injured": 4,
+    "displaced": 19577,
+    "affected": 120096,
+    "severity": "kritis",
+    "details": {
+      "jumlahKejadian": 1,
+      "menderita": 100519,
+      "mengungsi": 19577,
+      "rumahRusakBerat": 0,
+      "rumahRusakSedang": 0,
+      "rumahRusakRingan": 0,
+      "rumahTerendam": 17900,
+      "lahanRusakHektar": 1105.0,
+      "rumahRusakTotal": 0,
+      "kronologis": "●\tAkibat hujan dengan intensitas tinggi disertai angin kencang yang berlangsung terus-menerus mulai dari tanggal 20-26 November 2025 hingga saat ini, menyebabkan genangan banjir pada Rabu, 26 November 2025 Pukul 08.40 WIB",
+      "penyebab": "",
+      "kondisiMutakhir": "Minggu, 30 November 2025 -\ttim berangkat melalui laut menggunakan KM Ekspress Bahari 2F, berangkat dari Banda Aceh pukul 10.15 WIB dan Tiba di Pelabuhan Krueng Geukeueh pada pukul 16.45 WIB -\tMelakukan penurunan logistik untuk Kab Aceh Utara dan Kota Lhoksumawe. -\tMasing-masing Kab/Kota Logpal yang diturunkan di Pelabuhan Krueng Geukeueh, Lhoksumawe. ●\tSenin, 1 Desember 2025 -\tSebagian besar wilayah terdampak banjir telah surut dan kembali dapat diakses. Namun, masih terdapat dua Desa yang belum dapat dijangkau, yaitu Desa Ujung Pacu dan Desa Cotring, karena adanya genangan lumpur. Saat ini, Pemerintah Daerah telah mengerahkan alat berat untuk membersihkan sisa lumpur tersebut.",
+      "upaya": "●\tBPBD Kota Lhokseumawe Melakukan Pendataan/kaji cepat ●\tBPBD Kota Lhokseumawe berkoordinasi dengan dinas/instansi terkait ●\tBPBD Kota Lhokseumawe Membangun posko siaga bencana dan Membuka dapur umum di beberapa desa  ●\tPemerintah Kota Lhokseumawe : Mendirikan posko komando utama di kantor Wali Kota dan Posko penanganan darurat di Kantor BPBD Kota Lhokseumawe ●\tMendistribusikan bantuan masa panik dari BPBD ●\tMendistribusikan bantuan dari instansi/lembaga yang menyumbang.  ●\tPemerintah Aceh : Memberikan bantuan logistik melalui dinas sosial yang telah didistribusikan.  Giat BNPB   Senin 1 Desember 2025 1.\tMelakukan koordinasi dengan BPBD Kota Lhoksemawe. 2.\tMelakukan pemantauan logistik BNPB yang disitribusikan melalui Bandara Malikulsaleh pada tanggal 29 November 2025 berdasarkan hasil koordinasi dengan Arhanud Batalion 11 Lhokseumawe terkait bantuan tersebut telah distribusikan ke kab. Aceh Utara dan  ke kota Lhokseumawe.  3.\tMelakukan koordinasi dengan Posko Komando di kantor walikota Lhokseumawe -\tKoordinasi langsung dengan pemerintah daerah (Sekda dan Asisten 1 pemerintahan)  -\tPemda berharap bantuan logistik sesuai dengan kebutuhan di Lhokseumawe. -\tPosko Komando Wilayah Kota Lhokseumawe telah menerima bantuan logistik yang didistribusikan via udara melalui Bandar Udara Malikul Shaleh yang diterima pada tanggal 30 Nov dengan rincian sbb, 360 Peralatan Sekolah, 3 Tandon air, 96 pcs masaji, 86 dus mie instan, dan 3 ruang MCK. -\tPemda telah menyalurkan bantuan logistik kepada masyarakat terdampak  melalui camat dan diberikan ke kepala desa. -\tPemda secara paralel melakukan pendataan kerusakan rumah dan infrastruktur (fasos dan fasum) melalui dinas PU.    Unsur yang terlibat:  ●\t BPBD Kota Lhokseumawe ●\tDamkar Kota Lhokseumawe ●\tTNI ●\tPolri ●\tRelawan ERPA ●\tMasyarakat"
+    }
+  },
+  {
+    "name": "Kab. Kota Subulussalam",
+    "province": "Aceh",
+    "lat": 2.782821993720031,
+    "lng": 97.95175089388003,
+    "incidentType": "Banjir",
+    "date": "26-11-2025",
+    "deaths": 5,
+    "missing": 1,
+    "injured": 0,
+    "displaced": 1854,
+    "affected": 14678,
+    "severity": "sedang",
+    "details": {
+      "jumlahKejadian": 1,
+      "menderita": 12824,
+      "mengungsi": 1854,
+      "rumahRusakBerat": 2205,
+      "rumahRusakSedang": 0,
+      "rumahRusakRingan": 0,
+      "rumahTerendam": 0,
+      "lahanRusakHektar": 81.0,
+      "rumahRusakTotal": 2205,
+      "kronologis": "●\tDipicu Curah Hujan dengan intensitas tinggi yang terus menerus melanda Kota Subulussalam, sehingga mengakibatkan meluapnya sungai Lae Soraya di Kec rundeng dan Kec. Longkib, dan meluapnya sungai Tambar Lihe di kec. Danau tras, serta meluapnya sungai Lae Kombih yang mengakibatkan banjir pada Rabu, 26 November 2025 pukul 11.22 WIB",
+      "penyebab": "",
+      "kondisiMutakhir": "Sabtu, 06  Desember 2025 ●\tGenangan air di beberapa titik sudah mulai surut. ●\tTransportasi sudah berangsur membaik, namun masih ditemukan beberapa titik yang mengalami kemacetan akibat antrian pengisian bahan bakar minyak. ●\tBeberapa warga sudah ada yang kembali ke rumahnya untuk membersihkan lumpur pascabencana banjir.",
+      "upaya": "●\tBPBD Kota Subulussalam  Melakukan Koordinasi dengan Pihak Perangkat Kampong dan Instansi Terkait ●\tBPBD Kota Subulussalam Melakukan monitoring dan pendataan warga  ●\tBPBD Kota Subulussalam Melakukan pemantauan terhadap debit air banjir ●\tBPBD Kota Subulussalam Menyiagakan Personil TRC tetap berada di lokasi."
+    }
+  },
+  {
+    "name": "Kab. Aceh Tenggara",
+    "province": "Aceh",
+    "lat": 3.339681197000025,
+    "lng": 97.71752297204446,
+    "incidentType": "Banjir",
+    "date": "26-11-2025",
+    "deaths": 14,
+    "missing": 2,
+    "injured": 3,
+    "displaced": 5633,
+    "affected": 19838,
+    "severity": "sedang",
+    "details": {
+      "jumlahKejadian": 1,
+      "menderita": 14205,
+      "mengungsi": 5633,
+      "rumahRusakBerat": 2833,
+      "rumahRusakSedang": 0,
+      "rumahRusakRingan": 0,
+      "rumahTerendam": 0,
+      "lahanRusakHektar": 1062.0,
+      "rumahRusakTotal": 2833,
+      "kronologis": "●\tDipicu intensitas hujan sedang – tinggi yang mengguyur sebagian besar wilayah Kabupaten Aceh Tenggara sehingga mengakibatkan banjir di beberapa Kecamatan pada hari Rabu, 26 November 2025",
+      "penyebab": "",
+      "kondisiMutakhir": "Minggu, 30 November 2025 ●\tAir sudah mulai surut ●\tDilakukan pengalihan dibelakang Lost (pasar Seldok) agar kendaraan roda dua dan empat bisa melintas untuk menghindari jalan Nasional Kutacane - Blangkejeren yang terputus  Selasa, 2 Desember 2025 ●\tPemasangan tenda pengungsian di desa buntul kendawi ●\tPerbaikan tanggul yang rusak dan normalisasi sungai lawe bulan desa kita buluh dengan menggunakan alat excavator ●\tPerbaikan tanggul yang rusak dan normalisasi sungai lawe kinga desa kuning I dan desa rikit dengan menggunakan alat excavator ●\tPembukaan dan perbaikan ruas jalan nasional kutacane - blangkejeren yang rusak dan putus di desa lawe mengkudu ,  desa lawe penanggalan , desa pemotongan., desa laklak dengan menggunakan 3 unit excavator dan 1 unit loader ●\tPembersihan fasilitas umum seperti masjid, sekolah kantor desa, jalan dan rumah-rumah warga dari lumpur banjir dengan menggunakan armada damkar dan 1 unit alat excavator mini  ●\tRuas jalan Kutacane - Blangkejeren pada titik Desa Kati Maju Kec Ketambe Aceh Tenggara, yang sempat terputus hari ini sudah bisa dilalui kendaraan roda 2 dan 4. ●\tRuas jalan Kutacane-Blangkejeren pada titik jembatan Lawe Penanggalan Desa Lawe Penanggalan Kec Ketambe Aceh Tenggara, hari ini sudah bisa dilalui kendaraan roda 2 dan 4",
+      "upaya": "●\tBPBD Kabupaten Aceh Tenggara melakukan kaji cepat ●\tAnggota TRC BPBD Kabupaten Aceh Tenggara menuju ke lokasi untuk melakukan pendataan ●\tBupati Aceh Tenggara dan Kepala Opd langsung meninjau ke lokasi ●\tBPBD Kabupaten Aceh Tenggara Melakukan rapat lintas sektor penanganan banjir ●\tBPBD Kabupaten Aceh Tenggara Melakukan penetapan status tanggap darurat bencana ●\tBPBD Kabupaten Aceh Tenggara Mendirikan posko komando  ●\tMemobilisasi 3 unit Excavator ( 2 BPBD, 1 Swasta) ●\tMelakukan Rapat Koordinasi Forkopimda dan OPD terkait ●\tMenerbitkan Surat Edaran ttg Himbauan Waspada Bencana Alam ●\tDinas Sosial membuka dapur umum ●\tPemasangan tenda pengungsian di desa lawe penanggalan kecamatan ketambe ●\t2 unit alat berat BPJN Aceh dikerahkan guna melakukan penanganan untuk badan jalan"
+    }
+  },
+  {
+    "name": "Kab. Gayo Lues",
+    "province": "Aceh",
+    "lat": 4.071120164444469,
+    "lng": 97.29325846197781,
+    "incidentType": "Banjir",
+    "date": "25-11-2025",
+    "deaths": 4,
+    "missing": 2,
+    "injured": 0,
+    "displaced": 14547,
+    "affected": 125510,
+    "severity": "kritis",
+    "details": {
+      "jumlahKejadian": 1,
+      "menderita": 110963,
+      "mengungsi": 14547,
+      "rumahRusakBerat": 1627,
+      "rumahRusakSedang": 0,
+      "rumahRusakRingan": 0,
+      "rumahTerendam": 0,
+      "lahanRusakHektar": 3454.0,
+      "rumahRusakTotal": 1627,
+      "kronologis": "●\tDipicu oleh hujan dengan intensitas tinggi selama tiga hari berturut-turut sejak tanggal 24 November 2025 mengakibatkan pemukiman, persawahan, perkebunan dan fasilitas umum terdampak banjir",
+      "penyebab": "",
+      "kondisiMutakhir": "Sabtu, 6 Desember 2025 ●\tSampai saat ini kabupaten Gayo Lues masih terisolir, terputusnya jaringan komunikasi, mengakibatkan susahnya komando di lapangan ●\tKantor pemerintahan lumpuh total Tidak ada Jaringan Internet Dan terancam mati total dikarenakan pasukan BBM Solar Menipis ●\tBeberapa warga masih di rumah masing-masing menunggu evakuasi, Lokasi Terisolir: i.\tKec. Putri Betung, Desa Marpunge j.\tKec. Tripe Jaya, Pulo gelime, Desa Uyem Beriring k.\tKec. Dabun Gelang, Desa pangur, Desa Badak dan Desa Pepalan l.\tKec. Terangun",
+      "upaya": "-\tBPBD Kab. Gayo Lues berkoordinasi dengan aparat desa dan kecamatan setempat guna melakukan pendataan -\tTim TRC-PB BPBD Kab. Gayo Lues melakukan Penanganan dan Evakuasi di Lapangan bekerja sama dengan Aparat terkait -\tTim TRC-PB Kabupaten Gayo Lues menyalurkan sembako, makanan siap saji, selimut dan matras  -\tPetugas Piket Pusdalops-PB BPBD Kab. Gayo Lues Siap Siaga pada Pos masing-masing -\tBPBD Kab. Aceh Gayo Lues melakukan evakuasi warga terdampak -\tTim TRC - PB Bersama Relawan, TNI dan Polri Kabupaten Gayo Lues Menyalurkan sembako makan siap saji, selimut dan Matras -\tBPBD Gayo Lues sedang berupaya melakukan terobos jalan menuju akses jalan antar kecamatan dan antar kabupaten untuk melancarkan sarana transports Giat BNPB Senin, 1 Desember 2025 -\tTim Pendamping BNPB sudah berkoordinasi dengan PPK3 gayo Lues - sampai Blangkejeren Bapak Irvan selaku PPK3 balai Nasional akan mengupayakan penanganan segera terkait putusnya jalan nasional Gayo lues - ise ise di beberapa titik  -\tMengupayakan jalan alternatif karena sampai hari ini sabtu tgl 29 Nov 2025 akses baik gayo lues - aceh tenggara, gayo lues - ise ise - Takengon putus total -\tTim pendampingan BNPB masih berada di gayo lues atas nama adhitiya dan Rachmad Fauzi. Untuk status komunikasi sangat terbatas untuk saat ini."
+    }
+  },
+  {
+    "name": "Kab. Aceh Tengah",
+    "province": "Aceh",
+    "lat": 4.555426604096799,
+    "lng": 96.79964863630647,
+    "incidentType": "Banjir",
+    "date": "25-11-2025",
+    "deaths": 23,
+    "missing": 24,
+    "injured": 58,
+    "displaced": 12978,
+    "affected": 247688,
+    "severity": "kritis",
+    "details": {
+      "jumlahKejadian": 1,
+      "menderita": 234710,
+      "mengungsi": 12978,
+      "rumahRusakBerat": 3148,
+      "rumahRusakSedang": 0,
+      "rumahRusakRingan": 0,
+      "rumahTerendam": 0,
+      "lahanRusakHektar": 9487.0,
+      "rumahRusakTotal": 3148,
+      "kronologis": "●\tDipicu intensitas hujan sedang – tinggi yang mengguyur sebagian besar wilayah Kabupaten Aceh Tengah sehingga mengakibatkan banjir dan longsor di beberapa Kecamatan pada hari Rabu, 26 November 2025 menyebabkan rumah dan sarana prasarana terdampak",
+      "penyebab": "",
+      "kondisiMutakhir": "Sabtu, 6 Desember 2025 ●\tJalur dari Ibukota (Takengon) ke Kec. yang terputus :  -\tTakengon - Kec. Bintang 24 (semua desa) belum bisa diakses -\tTakengon - Kec. Rusip Antara 16 (semua desa) belum bisa diakses  -\tTakengon - Kec. Celala 9 dari 17 desa belum bisa di akses  -\tTakengon - Kec. Kute Panang 3 desa belum bisa diakses  -\tTakengon - Kec. Silih Nara 3 desa belum bisa diakses  -\tTakengon - Kec. Linge 26 (semua desa) belum bisa diakses  -\tTakengon - Kec. Ketol 10 desa dari 25 desa belum bisa diakses -\tSebagian wilayah terisolir sudah bisa dilakukan evakuasi dan distribusi logistik baik darat maupun udara  -\t7 Kecamatan masih masih terisolir  -\tListrik belum sepenuhnya hidup (Prioritas Rumah Sakit Umum Daerah dan Kantor Bupati sebagai pusat komando penanganan)  -\tKomunikasi jaringan internet lumpuh total, hanya bisa menggunakan starlink dan jaringan telkomsel di lingkungan kantor utama Indihome Takengon  -\tFasilitas Air Bersih masih Terkendala - Pasokan BBM Habis total di semua SPBU Aceh Tengah  -\tSembako dan kebutuhan lainnya mulai langka karena pasokan dari luar daerah tidak bisa masuk  -\tMassa masih berkumpul dipusat kantor bupati untuk akses internet dan listrik  -\tHujan yang mengguyur Aceh Tengah dini hari kembali mengakibatkan banjir genangan di kecamatan kebayakan dibeberapa titik  -\tDi pasar terlihat masyarakat yang mengantri panjang untuk membeli beras di beberapa titik toko sembako (dimana hanya bisa membeli 2 kg beras/keluarga)  -\tPersedian beras sudah habis di gudang logistik  -\tTerjadi kebakaran di desa Pilar Jaya Kec. Rusip Antara dengan korban jiwa 2 orang. Mobil Pemadam Kebakaran tidak bisa keluar masuk karena akses jalan yang terputus  -\tUntuk Desa JAMAT Kec. LINGE, berdasarkan informasi sudah 10 hari belum ada logistik yang disalurkan",
+      "upaya": "Upaya: ●\tBPBD Kab. Aceh Tengah berkoordinasi dengan OPD terkait guna melakukan pendataan dan penanganan ●\tPemerintah Daerah Kabupaten Aceh Tengah menetapkan status tanggap darurat dan penunjukan tim tanggap darurat bencana hidrometeorologi"
+    }
+  },
+  {
+    "name": "Kab. Aceh Barat",
+    "province": "Aceh",
+    "lat": 4.46620825045949,
+    "lng": 96.24610064518923,
+    "incidentType": "Longsor",
+    "date": "25-11-2025",
+    "deaths": 0,
+    "missing": 0,
+    "injured": 0,
+    "displaced": 0,
+    "affected": 1705,
+    "severity": "rendah",
+    "details": {
+      "jumlahKejadian": 1,
+      "menderita": 1705,
+      "mengungsi": 0,
+      "rumahRusakBerat": 2,
+      "rumahRusakSedang": 0,
+      "rumahRusakRingan": 0,
+      "rumahTerendam": 0,
+      "lahanRusakHektar": 0.0,
+      "rumahRusakTotal": 2,
+      "kronologis": "●\tPada hari Selasa tanggal 25 November 2025 Pukul 11.30 WIB. Telah terjadi bencana Tanah Longsor yang diakibatkan oleh tingginya intensitas hujan yang turun dalam beberapa hari terakhir di Wilayah Kabupaten Pakpak Bharat.",
+      "penyebab": "",
+      "kondisiMutakhir": "Sabtu, 29 November 2025 ●\tDalam penanganan dan pendataan BPBD Kab. Pakpak Bharat  Selasa, 02 Desember 2025 ●\tMasih dalam penanganan oleh Pemerintah setempat",
+      "upaya": "●\tBPBD Kab. Pakpak Bharat melakukan evakuasi dan pendataan di lokasi terdampak    Kebutuhan Mendesak:  ●\tPersonil ●\tLogistik ●\tPeralatan ●\tAlat Komunikasi ●\tListrik"
+    }
+  },
+  {
+    "name": "Kab. Pidie Jaya",
+    "province": "Aceh",
+    "lat": 5.124330233478289,
+    "lng": 96.18636818734785,
+    "incidentType": "Banjir",
+    "date": "25-11-2025",
+    "deaths": 27,
+    "missing": 0,
+    "injured": 1823,
+    "displaced": 20114,
+    "affected": 42304,
+    "severity": "tinggi",
+    "details": {
+      "jumlahKejadian": 1,
+      "menderita": 22190,
+      "mengungsi": 20114,
+      "rumahRusakBerat": 10530,
+      "rumahRusakSedang": 0,
+      "rumahRusakRingan": 0,
+      "rumahTerendam": 0,
+      "lahanRusakHektar": 1635.0,
+      "rumahRusakTotal": 10530,
+      "kronologis": "●\tDipicu hujan dengan intensitas tinggi pada Selasa, 25 November 2025",
+      "penyebab": "",
+      "kondisiMutakhir": "Minggu, 30 November 2025 -\tEvakuasi masyarakat terdampak masih dilakukan, kondisi hujan sudah reda, listrik sudah menyala kembali dan komunikasi sudah mulai berjalan lancar. data ini bersifat sementara tertanggal 29 November 2025 Pukul 21.10 WIB",
+      "upaya": "●\tBPBD Kab. Pidie Jaya berkoordinasi dengan pihak terkait dan melakukan assesment  Kebutuhan Mendesak ●\tKebutuhan Pangan Pengungsi : 1.788KK untuk 14 hari, dg jenis sbb: Beras, Telur, Mie Instant, Air Mineral ●\tKebutuhan Balita: Susu Bayi Dan Pampers ●\tKebutuhan Perempuan: Pembalut ●\tTenda Pengungsi ●\tAir Bersih ●\tSelimut Dan Sarung ●\tObat-Obatan  ●\tMasker  ●\tHygiene Kit ●\tPerlengkapan Ibadah ●\tPerlengkapan Sekolah ●\tPerlengkapan Dapur: Kompor, Tabung Gas LPJ, Peralatan Masak ●\tPerlengkapan pembersihan dampak banjir ●\tChainsaw:  10 unit ●\tCangkul, Gerobak Toda 3, Sepatu booth, Sarung Tanggan : 10 unit per Desa (222 Desa) ●\tBantuan personil TNI untuk pemulihan pembersihan Lumpur Dan perbaikan rumah ●\tBantuan SAR DOG untuk pencarian korban jiwa yang tertimbun Lumpur akibat Banjir"
+    }
+  },
+  {
+    "name": "Kab. Kota Langsa",
+    "province": "Aceh",
+    "lat": 4.4940429496470795,
+    "lng": 97.9802233741765,
+    "incidentType": "Banjir",
+    "date": "25-11-2025",
+    "deaths": 5,
+    "missing": 0,
+    "injured": 0,
+    "displaced": 0,
+    "affected": 160812,
+    "severity": "kritis",
+    "details": {
+      "jumlahKejadian": 1,
+      "menderita": 160812,
+      "mengungsi": 0,
+      "rumahRusakBerat": 24,
+      "rumahRusakSedang": 0,
+      "rumahRusakRingan": 0,
+      "rumahTerendam": 0,
+      "lahanRusakHektar": 1007.0,
+      "rumahRusakTotal": 24,
+      "kronologis": "●\tAkibat di guyur hujan dengan intensitas tinggi selama 3 hari terakhir di Kota Langsa mengakibatkan banjir genangan, banjir genangan tersebut akibat air dari perkebunan kelapa sawit PTP-N 1 LANGSA.",
+      "penyebab": "",
+      "kondisiMutakhir": "Selasa, 25 November 2025 ●\tBeberapa titik masih terendam banjir ±20 - 40 cm.  Senin, 1 Desember 2025 ●\tBanjir sudah surut, masyarakat mulai membersihkan lumpur sisa ●\tKelangkaan BBM mulai menimbulkan kepanikan di masyarakat ●\tTidak ada pengungsian terpusat, pengungsian dilakukan mandiri dan mulai kembali ke rumah masing-masing",
+      "upaya": "●\tBPBD Kota Langsa Melakukan pendataan dan dokumentasi.   ●\tBPBD Kota Langsa berkoordinasi dengan instansi terkait dan melakukan pelaporan ●\tBPBD Kota Langsa bersama Walikota, Forkopimda serta perangkat daerah lainnya melaksanakan rapat koordinasi penanganan dan penetapan status darurat bencana Banjir, Tanah Longsor dan Angin Kencang ●\tPemda Kota Langsa mendirikan dapur darurat di tiap Kecamatan dan Mushola/Masjid yang menjadi pos pengungsian  Giat Tim BNPB:   1 Desember 2025 ●\tKoordinasi dengan Walikota Kota Langsa dan BPBD Kota Langsa untuk melakukan pendampingan ●\tMeninjau lokasi terdampak ●\tMelakukan penyerahan bantuan yang diterima oleh Wakil Walikota dan Sekda Kota Langsa, dengan rincian: -\tMakanan Siap Saji : 100 pcs -\tHygiene Kit : 100 pcs -\tPaket Sembako : 50 pcs -\tSelimut : 100 pcs -\tMatras : 100 pcs -\tAlat Kebersihan : 25 paket"
+    }
+  },
+  {
+    "name": "Kab. Tapanuli Utara",
+    "province": "Sumatera Utara",
+    "lat": 2.0414615136610395,
+    "lng": 99.04850912245766,
+    "incidentType": "Banjir",
+    "date": "25-11-2025",
+    "deaths": 36,
+    "missing": 11,
+    "injured": 3,
+    "displaced": 1379,
+    "affected": 17144,
+    "severity": "sedang",
+    "details": {
+      "jumlahKejadian": 1,
+      "menderita": 15765,
+      "mengungsi": 1379,
+      "rumahRusakBerat": 166,
+      "rumahRusakSedang": 106,
+      "rumahRusakRingan": 216,
+      "rumahTerendam": 0,
+      "lahanRusakHektar": 0.0,
+      "rumahRusakTotal": 488,
+      "kronologis": "●\tCuaca Ekstrim dan hujan berlebihan selama 2 hari berturut-turut mengakibatkan banjir serta struktur tanah menjadi labil sehingga membuat terjadinya pergerakan tanah di sekitar lokasi kejadian pada hari Selasa, 25 November 2025, pkl. 14:00 WIB",
+      "penyebab": "",
+      "kondisiMutakhir": "Minggu, 30 November 2025 ●\tAir sudah surut ●\tjalan longsor masih dalam perbaikan ●\tjaringan listrik sebagian desa mati total ●\tuntuk jaringan seluler masih blank spot  Senin, 01 Desember 2025 ●\tBanjir telah surut  Selasa, 02 Desember 2025 ●\tMasih dalam penanganan dan pendataan oleh Pemerintah setempat",
+      "upaya": "●\tBPBD Kab. Tapanuli Utara berkoordinasi dengan instansi terkait serta Pihak Kecamatan / Desa terdampak guna melakukan pendataan dan penanganan ●\tDinas Perhubungan Kab. Tapanuli Utara memberikan himbauan kepada masyarakat agar melewati jalur Pangaribuan - Silantom untuk jalur alternatif Tarutung Sipirok ●\tPihak Kecamatan sudah membuat dapur umum sementara untuk korban pengungsian ●\tTRC BPBD Kab. Tapanuli Utara sudah di lokasi kejadian dan menurunkan perahu fiber untuk evakuasi korban banjir  Status: ●\tSedang dalam proses pengkajian Unsur Yang Terlibat: ●\tBPBD Kab. Tapanuli Utara ●\tDinas PUTR ●\tDinas Perhubungan ●\tTNI ●\tPolri ●\tPihak Kecamatan / Desa setempat ●\tUnsur relawan"
+    }
+  },
+  {
+    "name": "Kab. Nias",
+    "province": "Sumatera Utara",
+    "lat": 1.1231736018182044,
+    "lng": 97.66202736327276,
+    "incidentType": "Banjir",
+    "date": "25-11-2025",
+    "deaths": 1,
+    "missing": 0,
+    "injured": 0,
+    "displaced": 0,
+    "affected": 0,
+    "severity": "rendah",
+    "details": {
+      "jumlahKejadian": 1,
+      "menderita": 0,
+      "mengungsi": 0,
+      "rumahRusakBerat": 0,
+      "rumahRusakSedang": 0,
+      "rumahRusakRingan": 0,
+      "rumahTerendam": 0,
+      "lahanRusakHektar": 0.0,
+      "rumahRusakTotal": 0,
+      "kronologis": "Akibat hujan yang terus menerus terjadi  dengan intensitas tinggi pada hari Senin, 24  November 2025 mengakibatkan Tanah longsor  dibeberapa titik Kab. Nias",
+      "penyebab": "",
+      "kondisiMutakhir": "Masih dalam penanganan pemerintah setempat",
+      "upaya": "Upaya dan Penanganan yang dilakukan oleh Pemerintah Kab. Asahan  ● Pihak Pemerintah melalui BPBD Kab. Nias telah berkoordinasi dengan PUTR  untuk  penanganan lebih lanjut.  ● Melakukan assessment ke lokasi terdampak  ● Memberikan himbauan kepada masyarakat agar lebih hati - hati.  Upaya dan Penanganan yang dilakukan oleh BPBD Provinsi Sumatera Utara   Kondisi Terkini ● Melakukan koordinasi kepada BPBD Nias dalam hal penanganan bencana di lokasi  terdampak"
+    }
+  },
+  {
+    "name": "Kab. Mandailing Natal",
+    "province": "Sumatera Utara",
+    "lat": 0.7788796531059073,
+    "lng": 99.36532109109415,
+    "incidentType": "Cuaca ekstrem",
+    "date": "25-11-2025",
+    "deaths": 0,
+    "missing": 0,
+    "injured": 0,
+    "displaced": 0,
+    "affected": 65,
+    "severity": "rendah",
+    "details": {
+      "jumlahKejadian": 1,
+      "menderita": 65,
+      "mengungsi": 0,
+      "rumahRusakBerat": 0,
+      "rumahRusakSedang": 0,
+      "rumahRusakRingan": 13,
+      "rumahTerendam": 0,
+      "lahanRusakHektar": 0.0,
+      "rumahRusakTotal": 13,
+      "kronologis": "●\tPada hari Selasa, 25 November 2025 Pukul 11.00 WIB. Telah terjadi Hujan dengan intensitas tinggi disertai Angin Kencang yang mengakibatkan belasan rumah warga mengalami kerusakan di Kecamatan Natal",
+      "penyebab": "",
+      "kondisiMutakhir": "Selasa, 25 November 2025 -\tDalam penanganan oleh Pemerintah setempat.",
+      "upaya": "●\tBPBD Kab. Mandailing Natal berkoordinasi dengan pihak terkait dan melakukan assesment"
+    }
+  },
+  {
+    "name": "Kab. Pakpak Bharat",
+    "province": "Sumatera Utara",
+    "lat": 2.540295004517269,
+    "lng": 98.2842392308621,
+    "incidentType": "Banjir",
+    "date": "25-11-2025",
+    "deaths": 2,
+    "missing": 0,
+    "injured": 0,
+    "displaced": 0,
+    "affected": 1835,
+    "severity": "rendah",
+    "details": {
+      "jumlahKejadian": 1,
+      "menderita": 1835,
+      "mengungsi": 0,
+      "rumahRusakBerat": 0,
+      "rumahRusakSedang": 0,
+      "rumahRusakRingan": 0,
+      "rumahTerendam": 0,
+      "lahanRusakHektar": 0.0,
+      "rumahRusakTotal": 0,
+      "kronologis": "",
+      "penyebab": "",
+      "kondisiMutakhir": "",
+      "upaya": ""
+    }
+  },
+  {
+    "name": "Kab. Humbang Hasundutan",
+    "province": "Sumatera Utara",
+    "lat": 2.284954877393967,
+    "lng": 98.6310679818182,
+    "incidentType": "Banjir",
+    "date": "25-11-2025",
+    "deaths": 9,
+    "missing": 1,
+    "injured": 9,
+    "displaced": 2200,
+    "affected": 8780,
+    "severity": "sedang",
+    "details": {
+      "jumlahKejadian": 1,
+      "menderita": 6580,
+      "mengungsi": 2200,
+      "rumahRusakBerat": 712,
+      "rumahRusakSedang": 41,
+      "rumahRusakRingan": 109,
+      "rumahTerendam": 0,
+      "lahanRusakHektar": 819.0,
+      "rumahRusakTotal": 862,
+      "kronologis": "●\tDipicu akibat curah hujan yang cukup tinggi disertai angin kencang menyebabkan terjadi beberapa bencana banjir bandang di wilayah Kec. Pakkat Desa Panggugunan yang mengakibatkan beberapa korban jiwa terdampak dan rumah rusak pada hari Selasa, 25 November 2025 sekitar pukul 18.00 WIB",
+      "penyebab": "",
+      "kondisiMutakhir": "Jumat, 5 Desember 2025 ●\tPembersihan material longsor untuk membuka akses jalan di desa sibokkare kecamatan tarabintang menggunakan bachoe loader BPBD ●\tPelebaran jalur sungai di desa panggugunan menggunakan excavator BPBD ●\tPembersihan material longsor dan banjir untuk membuka akses jalan di Desa Sanggaran II kecamatan onan ganjang dengan menyewa excavator oleh dinas PUTR ●\tPenerimaan bantuan dari BNPB berupa perlengkapan bayi dan starlink oleh BPBD ●\tPenyerahan bantuan logistik kepada korban pengungsi di Desa Manalu oleh Dinas Sosial",
+      "upaya": "●\tBPBD Kab. Humbang Hasundutan mengevakuasi korban bersama TNI Polri dan masyarakat dengan mengerahkan alat berat excavator ●\tBPBD Kab. Humbang Hasundutan dan Dinas Sosial mendirikan dapur umum mendirikan dapur umum dan menyiapkan tempat pengungsi di rumah masyarakat  ●\tTim gabungan melakukan pencarian dan evakuasi korban yang hilang  ●\tTim Gabungan melaksanakan pembukaan akses jalan ke Pulo Godang upaya pembukaan dan pembersihan jalan oleh pupr akibat tertutup material longsor: jalur telah dibuka, sudah bisa dilalui kendaraan roda dua, namun tetap berhati-hati ●\tTim Gabungan Telah dilakukan pendirian dapur umum di lokasi sejak tanggal 26/11/2025 tersedia ●\tBPBD Kab. Humbang Hasundutan melakukan apel tanggap darurat bersama tim gabungan Pemkab Humbang Hasundutan, TNI / POLRI, dan Basarnas yang dipimpin oleh bapak bupati Humbang Hasundutan. ●\tMelakukan pencarian, pertolongan dan evakuasi korban hilang oleh tim gabungan bpbd, satpol pp, damkar, basarnas, tni, polri yang dibagi dalam 5 tim dipimpin bapak bupati dan kapolres humbang hasundutan ( hari keempat hasil nihil) ●\tBPBD Kab. Humbang Hasundutan pertanian dan uptd pupr provsu melanjutkan pembersihan longsoran dan pembukaan akses jalan, menggunakan alat berat PUTR  ●\tDinas PKP melakukan pendataan rumah yang terdampak  ●\tPendataan infrastruktur jalan dan irigasi terdampak oleh dinas PUTR ●\tDinas Pertanian melakukan Pendataan lahan pertanian yang terdampak  ●\tDinas Kesehatan dan RSUD melakukan pelayanan kesehatan di posko pengungsi oleh tim Pemberian permakanan kepada pengungsi dan petugas di lapangan melalui dapur umum dinas sosial ●\tMenerima bantuan logistik dari bnpb, PT. inalum, PT. waskita, keluarga m18, serta menyalurkan bantuan kepada korban terdampak serta penambahan pemasangan jaringan internet (starlink) di pos pengungsi desa parbotihan ●\tMelakukan rapat koordinasi yang langsung dipimpin oleh bapak Bupati Humbang Hasundutan dan direktur fasilitasi Penanganan Korban dan Pengungsi dari BNPB (Ir. nelwan harahap, M.Tr., Ap) ●\tBPBD Kab. Humbang Hasundutan Melakukan zoom meeting dengan kepala BNPB yang diikuti oleh Kabupaten / Kota terdampak bencana ●\tDinas PU/PR telah berupaya membuka akses daerah yang terisolir ± 110 titik, sekitar 132 titik longsor yang masih dalam proses penanganan  Giat Tim BNPB Selasa, 2 Desember 2025 1.\tMelaksanakan Rapat Kordinasi tindaklanjut Bersama Bupati dan Perangkat Daerah terkait tindak-lanjut PDB Humbahas 2.\tMenyerahkan dukungan banlogpal tambahan dari BNPB kepada Pemda Humbahas dengan rincian :         A. Matras : 500 Lembar 3.\tTotal dukungan logistik dan peralatan BNPB ke Pemda dengan rincian : A. Selimut : 1.100 Lembar B. Sembako : 690 Unit C. Matras : 1.100 Lembar D. Starlink: 1 unit E. Makanan Siap Saji: 200 paket F. Velbed: 20 unit  4.\tMelakukan pemutakhiran data di titik pengungsian 5.\tMelakukan kunjungan ke Lokasi terdampak banjir dan longsor serta pendampingan penyelamatan dan evakuasi bersama Pemda. 6.\tMelakukan tindak lanjut pendampingan pendataan data terpilah 7.\tTelah menugaskan personil TNI dan Pemda untuk melakukan pendataan di wilayah terisolir 8.\tMelakukan pendampingan kegiatan belajar mengajar anak-anak di pengungsian bersama kemendikdasmen. 9.\tMelakukan rapat koordinasi bersama pihak Pemda dan kemendikdasmen dalam hal pemberian bantuan dukungan ruang kelas sementara (tenda) bagi anak-anak di pengungsian. 10.\tUpaya operasi pencarian korban dengan hasil kegiatan menemukan 1 korban dalam keadaan meninggal dunia atas nama Amelia Maharaja usia 9 tahun jenis kelamin perempuan 11.\tMelaksanakan Apel penutupan operasi SAR Saran Tindaklanjut 1. Memberikan penambahan bantuan starlink di titik – titik pengungsian 2. Memberikan bantuan tambahan Logistik dan peralatan sesuai kebutuhan 3. Melakukan kordinasi Tingkat Kementerian lembaga dalam mendukung kebutuhan mendesak dilokkasi bencana 4. Mempercepat dukungan bantuan logistik untuk bayi dan lansia"
+    }
+  },
+  {
+    "name": "Kab. Kota Padang Sidempuan",
+    "province": "Sumatera Utara",
+    "lat": 1.3686452984285975,
+    "lng": 99.29024784614288,
+    "incidentType": "Banjir",
+    "date": "25-11-2025",
+    "deaths": 1,
+    "missing": 0,
+    "injured": 0,
+    "displaced": 0,
+    "affected": 1702,
+    "severity": "rendah",
+    "details": {
+      "jumlahKejadian": 1,
+      "menderita": 1702,
+      "mengungsi": 0,
+      "rumahRusakBerat": 0,
+      "rumahRusakSedang": 0,
+      "rumahRusakRingan": 0,
+      "rumahTerendam": 472,
+      "lahanRusakHektar": 0.0,
+      "rumahRusakTotal": 0,
+      "kronologis": "●\tdipicu Hujan dengan intensitas lebat dan yang mengakibatkan banjir yang terjadi pada Selasa, 25 november 2025 pukul 08.00 WIB",
+      "penyebab": "",
+      "kondisiMutakhir": "Minggu, 30 November 2025 ●\tSaat ini air sudah surut total, warga yang mengungsi sudah pulang ke rumah masing-masing dan aktifitas kembali normal seperti biasanya. ●\tOperasi pencarian sudah dihentikan  Selasa, 2 Desember 2025 ●\tSaat ini air sudah surut total, warga yang mengungsi sudah pulang ke rumah masing-masing dan aktifitas kembali normal seperti biasanya",
+      "upaya": "●\tBPBD Kab. Padang Sidempuan berkoordinasi dengan instansi terkait melakukan asesmen ke lokasi terdampak ●\tBPBD Kab. Padang Sidempuan tetap siaga akan terjadinya banjir susulan, apalagi dengan intensitas hujan lebat secara terus menerus ●\tBPBD Kab. Padang Sidempuan menghimbau kepada masyarakat tentang peringatan dini BMKG ●\tPencarian orang hilang hanyut di sungai oleh Tim SAR ●\tPengaktifan Posko di Kantor Walikota  ●\tDapur umum dan titik pengungsi -\tKel. Hanopan -\tKel. Sabungan -\tKel. Ujung Padang -\tKel. Sidangkal -\tKel. Losung Unsur Yang Terlibat ●\tBPBD Kota Padangsidimpuan ●\tSATPOL-PP Kota Padangsidimpuan ●\tDinas Pemadam Kebakaran ●\tDinas Sosial Kota Padangsidimpuan dan TAGANA ●\tDinas Ketahanan Pangan Kota Padangsidimpuan ●\tDinas Perumahan Rakyat dan Kawasan Permukiman Kota ●\tPadangsidimpuan ●\tDinas PUTR Kota Padangsidimpuan ●\tDinas Lingkungan Hidup Kota Padangsimpuan ●\tDinas Kesehatan Kota padangsidimpuan ●\tDinas Perhubungan kota Padangsidimpuan ●\tKecamatan Se-Kota Padangsidimpuan ●\tTNI ●\tPOLRI ●\tMasyarakat dan relawan ●\tPalang Merah Indonesia ●\tPramuka ●\tBaznas   Kebutuhan Mendesak: ●\tMendirikan dapur umum  ●\tBeras 15 kg ●\ttelor 4 papan ●\tcabe 1 kg ●\ttomat  ●\tminyak goreng  ●\tgas ●\tsayur"
+    }
+  },
+  {
+    "name": "Kab. Nias Selatan",
+    "province": "Sumatera Utara",
+    "lat": 0.05166607597729811,
+    "lng": 98.24040850599245,
+    "incidentType": "Banjir",
+    "date": "24-11-2025",
+    "deaths": 1,
+    "missing": 0,
+    "injured": 0,
+    "displaced": 0,
+    "affected": 32467,
+    "severity": "tinggi",
+    "details": {
+      "jumlahKejadian": 1,
+      "menderita": 32467,
+      "mengungsi": 0,
+      "rumahRusakBerat": 2,
+      "rumahRusakSedang": 0,
+      "rumahRusakRingan": 0,
+      "rumahTerendam": 0,
+      "lahanRusakHektar": 0.0,
+      "rumahRusakTotal": 2,
+      "kronologis": "",
+      "penyebab": "",
+      "kondisiMutakhir": "",
+      "upaya": ""
+    }
+  },
+  {
+    "name": "Kab. Kota Pariaman",
+    "province": "Sumatera Barat",
+    "lat": -0.6031278234999675,
+    "lng": 100.14224676537503,
+    "incidentType": "Banjir",
+    "date": "24-11-2025",
+    "deaths": 0,
+    "missing": 0,
+    "injured": 0,
+    "displaced": 0,
+    "affected": 7662,
+    "severity": "sedang",
+    "details": {
+      "jumlahKejadian": 1,
+      "menderita": 7662,
+      "mengungsi": 0,
+      "rumahRusakBerat": 12,
+      "rumahRusakSedang": 2,
+      "rumahRusakRingan": 37,
+      "rumahTerendam": 1638,
+      "lahanRusakHektar": 1062.0,
+      "rumahRusakTotal": 51,
+      "kronologis": "●\tdipicu curah hujan dengan intensitas sedang hingga tinggi yang menyebabkan banjir yang terjadi pada Senin, 24 November 2025 pukul 06.19 WIB",
+      "penyebab": "",
+      "kondisiMutakhir": "Minggu, 30 November 2025 ●\tIntensitas hujan sudah berkurang ●\tKondisi Sungai Batang Mangor Sudah Mulai Surut ●\tUntuk Pengungsi sudah mulai balik ke rumah masing – masing dan tetap waspada.  Selasa, 2 Desember 2025 ●\tIntensitas hujan sudah berkurang ●\tKondisi Sungai Batang Mangor Sudah Mulai Surut ●\tUntuk Pengungsi sudah mulai balik ke rumah masing – masing dan tetap waspada",
+      "upaya": "●\tTim TRC BPBD Kota Pariaman melakukan monitoring lokasi banjir di Desa Pauh Barat"
+    }
+  },
+  {
+    "name": "Kab. Pesisir Selatan",
+    "province": "Sumatera Barat",
+    "lat": -1.4388450660240732,
+    "lng": 100.67971900212052,
+    "incidentType": "Banjir",
+    "date": "24-11-2025",
+    "deaths": 0,
+    "missing": 1,
+    "injured": 0,
+    "displaced": 2700,
+    "affected": 70575,
+    "severity": "tinggi",
+    "details": {
+      "jumlahKejadian": 1,
+      "menderita": 67875,
+      "mengungsi": 2700,
+      "rumahRusakBerat": 0,
+      "rumahRusakSedang": 0,
+      "rumahRusakRingan": 0,
+      "rumahTerendam": 0,
+      "lahanRusakHektar": 1190.0,
+      "rumahRusakTotal": 0,
+      "kronologis": "●\tDipicu intensitas hujan yang tinggi pada tanggal 23 November 2025 yang mengguyur wilayah Kab.Pesisir Selatan sejak pukul 06.00 WIB dan meningkatnya debit air di sungai Batang Tarusan, sungai Batang Bayang, Sungai Batang Lumpo, Sungai Batang Kapas, Sungai Batang Kambang dan meluap sehingga menyebabkan terjadinya banjir yang merendam rumah warga di beberapa kecamatan dengan ketinggian air ± 30-40 cm.",
+      "penyebab": "",
+      "kondisiMutakhir": "Kamis, 27 November 2025 ●\tSeluruh wilayah terdampak di Kabupaten Pesisir Selatan dalam kondisi aman terkendali dan seluruh aktivitas masyarakat belum kembali normal Senin, 01 Desember 2025 ●\tKhususnya di Kecamatan IV Nagari Bayang Utara, bahwa terdapat tiga nagari yang  jalur darat yang tidak dapat diakses/dilalui kendaraan, yaitu: 1. Nagari Pancung Taba 2. Nagari Muaro Aie 3. Nagari Limau Gadang Pancung Taba.   Selasa, 02 Desember 2025 ●\tPengungsi Sudah Kembali Kerumah masing-masing  ●\t1 orang hilang tidak dinyatakan korban bencana karena beliau hilang pergi mencari ikan pasca bencana banjir terjadi",
+      "upaya": "Upaya:  ●\tBPBD Kabupaten Pesisir Selatan melalui PUSDALOPS PB terus memantau perkembangan dan situasi terkini pasca Kejadian di Nagari terdampak  ●\tBPBD Kabupaten Pesisir Selatan  melakukan koordinasi dengan Nagari untuk tindakan lanjutan pasca kejadian ●\tBPBD Kabupaten Pesisir Selatan Berkoordinasi dengan BMKG Sumatera Barat tentang update perkembangan kondisi cuaca Provinsi Sumatera Barat ●\tBPBD Kabupaten Pesisir Selatan  melakukan diseminasi informasi kejadian dan peringatan dini kepada masyarakat melalui saluran media sosial ●\tBupati dan Bu Lisda  anggota DPR komisi VIII  meninjau lokasi jalan/jembatan yang putus/amblas akibat bencana banjir dan longsor di Kabupaten Pesisir Selatan. ●\tBPBD Kab. Pesisir Selatan mendistribusikan bantuan logistik dan kebutuhan dasar ●\tBPBD Kab. Pesisir Selatan memberikan layanan kesehatan bagi masyarakat dan akses jalan ●\tPendirian dapur umum, 4 unit (fasilitasi Dinsos & PPRA), ditambah dapur mandiri yang didirikan ormas, Pemnag dan komunitas masyarakat lainnya.  Giat Senin, 1 Desember 2025 1.\tBupati Hendrajoni, didampingi Wabup Risnaldi memimpin rapat evaluasi penanggulangan bencana daerah dengan OPD dan instansi terkait. 2.\tWakil Bupati Risnaldi Ibrahim melakukan peninjauan sekaligus penyerahan bantuan didampingi pihak terkait. 3.\tTim gabungan TNI/Polri/BPBD/BNPB/relawan terus melakukan upaya distribusi ke lokasi terdampak. 4.\tRapat koordinasi dengan Tim BNPB terkait pendampingan input dan verifikasi data tanggap darurat.  Rencana Giat Selasa, 2 Desember 2025 1.\tMelanjutkan agenda distribusi logistik. 2.\tPemasangan internet dari Kementerian Pertahanan melalui Kodim 0311/Pessel lokasi Bayang Utara. 3.\tPemasangan internet VSAT Bakti RI 1 unit + Genset dipasang pada Kantor Wali Nagari Muaro Aia, bantuan Kementerian Komdigi."
+    }
+  },
+  {
+    "name": "Kab. Lima Puluh Kota",
+    "province": "Sumatera Barat",
+    "lat": -0.0077379025526078905,
+    "lng": 100.6058286357895,
+    "incidentType": "Banjir",
+    "date": "24-11-2025",
+    "deaths": 0,
+    "missing": 0,
+    "injured": 0,
+    "displaced": 554,
+    "affected": 1923,
+    "severity": "rendah",
+    "details": {
+      "jumlahKejadian": 1,
+      "menderita": 1369,
+      "mengungsi": 554,
+      "rumahRusakBerat": 257,
+      "rumahRusakSedang": 16,
+      "rumahRusakRingan": 48,
+      "rumahTerendam": 0,
+      "lahanRusakHektar": 157.0,
+      "rumahRusakTotal": 321,
+      "kronologis": "●\tDipicu hujan dengan durasi yang cukup lama mengakibatkan terjadinya banjir yang menggenangi pemukiman warga",
+      "penyebab": "",
+      "kondisiMutakhir": "Jumat, 5 Desember 2025 ●\tPembersihan material longsor dan penyumbatan batang air di Jorong Ikan Banyak di Nagari Pandam.  ●\tPemasangan tenda keluarga 4 unit di Jorong Padang Tongah Nagari Baruah Gunuang.  ●\tDistribusi logistik ke Kec. Bukik Barisan.  ●\tMelakukan oleh BAPENAS didampingi oleh Wabub di lokasi terdampak.",
+      "upaya": "Upaya:    BPBD Kab. Lima Puluh Kota ●\tKoordinasi Dengan Pemerintah Kecamatan dan Pemerintah Nagari dalam Informasi Lanjutan Lokasi Kejadian Bencana Alam  ●\tKoordinasi dengan OPD terkait dalam peninjauan dampak bencana  ●\tPendataan Kaji Cepat terhadap cangkupan dampak bencana ●\tMengadakan Rapat Darurat sementara bersama Pemerintah Kecamatan  ●\tPembersihan material longsor yang menutup bahu dan badan jalan secara manual  ●\tPendirian Pos Pengungsian di Kecamatan Gunuang Omeh Nagari Koto Tinggi ●\tPemberian bantuan sementara oleh Wakil Bupati berupa beras dan hygiene kids kepada korban terdampak di Pos Pengungsian  Giat BNPB: 2 Desember 2025 ●\tMelakukan koordinasi bersama Sekda dan Kalak BPBD Kab. Lima Puluh Kota ●\tMengidentifikasi kebutuhan-kebutuhan dukungan upaya penangan bencana Mengidentifikasi kendala-kendala yang dihadapi dalam upaya percepatan penangan bencana. Rencana Tindak Lanjut ●\tMelakukan rapat evaluasi bersama SKP terkait ●\tMelakukan kunjungan lapangan ●\tMemastikan pemenuhan kebutuhan dasar pengungsian terpenuhi"
+    }
+  },
+  {
+    "name": "Kab. Tapanuli Selatan",
+    "province": "Sumatera Utara",
+    "lat": 1.532329594344469,
+    "lng": 99.27740689588892,
+    "incidentType": "Banjir",
+    "date": "24-11-2025",
+    "deaths": 85,
+    "missing": 31,
+    "injured": 69,
+    "displaced": 7248,
+    "affected": 287222,
+    "severity": "kritis",
+    "details": {
+      "jumlahKejadian": 1,
+      "menderita": 279974,
+      "mengungsi": 7248,
+      "rumahRusakBerat": 790,
+      "rumahRusakSedang": 298,
+      "rumahRusakRingan": 803,
+      "rumahTerendam": 0,
+      "lahanRusakHektar": 577.0,
+      "rumahRusakTotal": 1891,
+      "kronologis": "●\tDipicu Curah hujan dengan intensitas tinggi mengakibatkan terjadinya banjir Pada hari Senin tanggal 24 November 2025 pukul 21.00 Wib",
+      "penyebab": "",
+      "kondisiMutakhir": "Minggu, 30  November 2025 ●\tcuaca saat ini hujan dengan intensitas sedang-tinggi  Selasa 02 Desember 2025 ●\tBanjir di beberapa wilayah cakupan lokasi terdampak masih dalam penanganan oleh Pemerintah setempat",
+      "upaya": "●\tBPBD Kab tapanuli Selatan Berkoordinasi dengan Pemerintah setempat dan melakukan assessment ke lokasi terdampak ●\tBupati Tapanuli Selatan memohon bantuan kepada Kepala BNPB sbb: -\t20 unit perahu karet -\t50 unit tenda pengungsi -\t30 unit set alat dapur umum -\t30 unit gergaji mesin -\t5.000 unit tools kit bencana untuk masyarakat"
+    }
+  },
+  {
+    "name": "Kab. Kota Padang",
+    "province": "Sumatera Barat",
+    "lat": -0.9417015019999743,
+    "lng": 100.43546997490003,
+    "incidentType": "Banjir",
+    "date": "24-11-2025",
+    "deaths": 11,
+    "missing": 0,
+    "injured": 2,
+    "displaced": 1939,
+    "affected": 29092,
+    "severity": "tinggi",
+    "details": {
+      "jumlahKejadian": 1,
+      "menderita": 27153,
+      "mengungsi": 1939,
+      "rumahRusakBerat": 265,
+      "rumahRusakSedang": 72,
+      "rumahRusakRingan": 992,
+      "rumahTerendam": 0,
+      "lahanRusakHektar": 981.0,
+      "rumahRusakTotal": 1329,
+      "kronologis": "●\tDipicu hujan dengan intensitas tinggi dan berangsur lama menyebabkan banjir pada hari Senin, 24 November 2025, Pkl. 04:35 WIB",
+      "penyebab": "",
+      "kondisiMutakhir": "Senin, 01 Desember 2025 ●\tBanjir berangsur surut  Selasa, 02 Desember 2025 ●\tSudah surut total dan tidak ada genangan satupun lagi di kota padang, yang ada sekarang suplai air bersih dan pembersihan lumpur bekas banjir",
+      "upaya": "●\tBPBD Kota Padang berkoordinasi dengan aparat kelurahan setempat guna melakukan pendataan"
+    }
+  },
+  {
+    "name": "Kab. Kota Bukittinggi",
+    "province": "Sumatera Barat",
+    "lat": -0.2934193613332923,
+    "lng": 100.36693087833335,
+    "incidentType": "Longsor",
+    "date": "24-11-2025",
+    "deaths": 0,
+    "missing": 3,
+    "injured": 0,
+    "displaced": 0,
+    "affected": 68,
+    "severity": "rendah",
+    "details": {
+      "jumlahKejadian": 1,
+      "menderita": 68,
+      "mengungsi": 0,
+      "rumahRusakBerat": 0,
+      "rumahRusakSedang": 0,
+      "rumahRusakRingan": 0,
+      "rumahTerendam": 0,
+      "lahanRusakHektar": 27.0,
+      "rumahRusakTotal": 0,
+      "kronologis": "tinggi dan kondisi tanah yang labil",
+      "penyebab": "",
+      "kondisiMutakhir": "Senin, 24 November 2025 ●\tWarga sudah dievakuasi ke tempat yang lebih aman di Mess KPPN dan kantor Lurah",
+      "upaya": "Upaya:  ●\tBPBD Kota Bukit tinggi berkoordinasi dengan lurah setempat guna melakukan pendataan. ●\tEvakuasi ke tempat yang lebih aman"
+    }
+  },
+  {
+    "name": "Kab. Aceh Selatan",
+    "province": "Aceh",
+    "lat": 3.1734389099333575,
+    "lng": 97.49608617780004,
+    "incidentType": "Banjir",
+    "date": "24-11-2025",
+    "deaths": 0,
+    "missing": 0,
+    "injured": 0,
+    "displaced": 611,
+    "affected": 6551,
+    "severity": "sedang",
+    "details": {
+      "jumlahKejadian": 1,
+      "menderita": 5940,
+      "mengungsi": 611,
+      "rumahRusakBerat": 750,
+      "rumahRusakSedang": 0,
+      "rumahRusakRingan": 0,
+      "rumahTerendam": 0,
+      "lahanRusakHektar": 481.0,
+      "rumahRusakTotal": 750,
+      "kronologis": "●\tAkibat hujan deras dan disertai angin kencang yang terjadi di Kabupaten Aceh Timur sejak tanggal 20 November 2025  telah menyebabkan banjir, ketinggian air 10 - 40 cm",
+      "penyebab": "",
+      "kondisiMutakhir": "Minggu, 30 November 2025 ●\t Kec. Trumon Timur Kondisi air banjir di Gp. Seunebok Pusaka sudah surut di permukiman warga, Warga sudah bisa kembali ke rumah masing-masingc.  ●\tKec. Trumon -\tpersonil gabungan di gampong Padang harapan terus melakukan evakuasi warga keluar dari gampong yang terendam banjir air bervariasi antara 100 s/d 250 cm -\tBadan jalan di Gp. Sigling masih tergenang air setinggi 50-80cm, untuk kendaraan roda 2 dan 4 belum bisa melalui akses jalan. -\tpersonil gabungan di gampong Ujong Tanoh terus melakukan evakuasi warga keluar dari gampong yang terendam banjir Ketinggian air +_ 50 s/d 120 cm roda 2 dan 4 tidak bisa dilalui -\tpersonil gabungan di gampong Sigleng terus melakukan evakuasi warga keluar dari gampong yang terendam banjir air bervariasi antara 100 s/d 250 cm ●\tKec. Trumon Tengah -\tPersonil gabungan di gampong Cot Bayu terus melakukan evakuasi warga keluar dari gampong yang terendam banjir ketinggian air +_ 50 s/d 170 cm -\tPersonil gabungan di gampong Lhok Raya masih melakukan evakuasi warga dan Air Berangsur surut ketinggian +- 20 s/d 110 cm  -\t Jalan lintas Nasional di gampong Ladang Rimba masih tergenangi banjir akibat luapan air sungai le soraya dengan ketinggian +_ 80 cm s/d 100 cm dan belum bisa dilalui roda 2 dan 4 -\twilayah terisolir karna jembatan akses penghubung ke 3 desa putus akibat banjir di pemukiman bulusseuma tiga gampong tersebut antara lain gampong raket, gampong kuta padang dan gampong tengoh, untuk sementara sudah dibuat jembatan darurat untuk bisa dilalui membawa logistik. -\tUntuk saat ini hujan sedang mengguyur wilayah trumon raya  Senin, 01 Desember 2025  - Kec. Trumon Timur ●\tPersonil gabungan melakukan pembersihan fasilitas umum seperti Mesjid dan Rumah Sekolah yang berdampak pada sisa material pasir akibat pasca banjir ●\tUntuk genangan air sudah surut total, masyarakat sudah beraktifitas seperti semula - Kec. Trumon ●\tPersonil gabungan di gampong Padang harapan terus melakukan evakuasi warga keluar dari gampong yang terendam banjir air bervariasi antara 80 s/d 200 cm ●\tGampong Sigleng Air sudah surut total dan masyarakat sudah beraktifitas seperti semula. ●\tJalan lintas ujong tanoh menuju gampong sigleng masih digenangi banjir dengan ketinggian air 10 s/d 40cm ●\tGampong Ujong Tanoh Air sudah surut total dan masyarakat sudah beraktifitas seperti semula.  ●\tPengungsi yang ada di ujong tanoh di lokasi Gedung pajak mingguan dan mesjid lama Al Rhidah sudah pulang ke rumah masing-masing karna rumah yang digenangi air banjir sudah kering - Kec. Trumon Tengah ●\tPersonil gabungan di gampong Cot Bayu terus melakukan asesment di lokasi banjir dan ketinggian air +_ 50 s/d 200 cm, masih mengenangi jalan lintas gampong dan pemukiman ●\tPersonil gabungan di gampong Lhok Raya masih melakukan asesment di lokasi banjir dan ketinggian air +- 20 s/d 60 cm, masih mengenangi jalan lintas gampong dan pemukiman  ●\tJalan lintas Nasional di gampong Ladang Rimba masih tergenangi banjir dengan ketinggian +- 40 cm s/d 60 cm dan sudah bisa dilalui roda 2 dan 4 ●\tWilayah terisolir karna jembatan akses penghubung ke 3 desa putus akibat banjir di pemukiman bulusseuma tiga gampong tersebut antara lain gampong raket, gampong kuta padang dan gampong teungoh, untuk sementara sudah dibuat jembatan darurat untuk bisa dilalui membawa logistik. ●\tUntuk saat ini cuaca wilayah Trumon Raya Cerah Berawan",
+      "upaya": "Upaya:  ●\tBPBD Kabupaten Aceh Selatan berkoordinasi dengan instansi terkait, melakukan pendataan, dokumentasi dan pelaporan ●\tBPBD Kab. Aceh Selatan bersama Bupati, Forkopimda serta perangkat daerah lainnya melaksanakan rapat koordinasi penanganan dan penetapan status darurat bencana Banjir, Tanah Longsor dan Angin Kencang"
+    }
+  },
+  {
+    "name": "Kab. Kota Sibolga",
+    "province": "Sumatera Utara",
+    "lat": 1.74408653160001,
+    "lng": 98.79561099280004,
+    "incidentType": "Banjir",
+    "date": "24-11-2025",
+    "deaths": 53,
+    "missing": 2,
+    "injured": 45,
+    "displaced": 4259,
+    "affected": 96006,
+    "severity": "kritis",
+    "details": {
+      "jumlahKejadian": 1,
+      "menderita": 91747,
+      "mengungsi": 4259,
+      "rumahRusakBerat": 712,
+      "rumahRusakSedang": 156,
+      "rumahRusakRingan": 300,
+      "rumahTerendam": 0,
+      "lahanRusakHektar": 0.0,
+      "rumahRusakTotal": 1168,
+      "kronologis": "●\tPada hari Senin tanggal 24 November 2025 . Hujan dengan intensitas tinggi menyebabkan terjadinya banjir di 4 Kecamatan Kota Sibolga",
+      "penyebab": "",
+      "kondisiMutakhir": "Minggu, 30 November 2025 ●\tKondisi akses jalan provinsi di Kota Sibolga per tanggal 30 November 2025 Pukul 18.00 WIB, sebagai berikut :  a. Akses yang sudah dapat dilewati kendaraan b. Akses yang belum dapat dilewati ●\tAkses di jalur pandan masih terputus hanya bisa dilalui kendaraan roda 2 ●\tKondisi Akses Lainnya :- -\tJumlah alat berat yang digunakan: 2 excavator dari Dinas PUPR Kota 1 excavator PLTA Labuan Angin ●\tMasih dalam penanganan dan pendataan oleh Pemerintah setempat.  Selasa, 2 Desember 2025 ●\tMasih dalam penanganan dan pendataan oleh Pemerintah setempat",
+      "upaya": "Upaya: BPBD Kota Sibolga ●\tBPBD Kota Sibolga berkoordinasi dengan instansi terkait guna melakukan pendataan dan evakuasi korban"
+    }
+  },
+  {
+    "name": "Kab. Tapanuli Tengah",
+    "province": "Sumatera Utara",
+    "lat": 1.765244690123616,
+    "lng": 98.66309444464049,
+    "incidentType": "Banjir",
+    "date": "23-11-2025",
+    "deaths": 102,
+    "missing": 33,
+    "injured": 521,
+    "displaced": 18331,
+    "affected": 314784,
+    "severity": "kritis",
+    "details": {
+      "jumlahKejadian": 1,
+      "menderita": 296453,
+      "mengungsi": 18331,
+      "rumahRusakBerat": 933,
+      "rumahRusakSedang": 730,
+      "rumahRusakRingan": 856,
+      "rumahTerendam": 0,
+      "lahanRusakHektar": 0.0,
+      "rumahRusakTotal": 2519,
+      "kronologis": "●\tHujan dengan intensitas Tinggi yang terjadi pada 17 November 2025 hingga 24 November 2025  menyebabkan banjir  dan Longsor di wilayah kabupaten Tapanuli Tengah.",
+      "penyebab": "* Jumlah pengungsi : 1659 orang  Kecamatan Pandan (Gedung Olahraga Tapanuli Tengah) : 875 orang Kecamatan Tukka  Rumah Umak Nuardi Simbolong : 78 orang Pondok opung Siregar : 39 orang Rumah Bes Rosul : 18 orang Rumah Bapak Jesika Tambunan : 58 orang Rumah Lisna Sitompul : 81 orang Rumah Kepling Benni : 93 orang Rumah Bapak Video Waruwu : 124 orang Bes Pos Irwan : 18 orang Rumah Andi Sihotang : 13 orang Basecamp Linggom : 16 orang Basecamp ulok : 52 orang Basecamp CN (Bapak Mambor) : 19 orang Tinggal di mobil : 15 orang  Rumah warga (NN) : 56 orang Rumah Bes Alfin : 51 orang Rumah warga (Satpol PP): 19 orang Rumah warga (Endang Zendrato) : 42 orang",
+      "kondisiMutakhir": "Minggu, 30 November 2025, Kondisi akses jalan di Kabupaten Tapanuli Tengah per tanggal 29 November 2025  1.\tSibolga - Padang Sidempuan Status jalan : Jalan nasional, Ket : Jembatan Pandan terputus dan titik longsor kurang lebih 5 titik , Kondisi terkini : Proses pengerjaan 2.\tJalan Sibolga - Tarutung, Status jalan : Jalan nasional, Ket : Longsor kurang lebih 20 titik ke badan jalan, Kondisi terkini : Proses pengerjaan 3.\tJalan Sibolga - Manduamas, Status jalan : Jalan nasional, Ket : Jembatan terputus di Kecamatan Sorkam Kondisi terkini : Belum pengerjaan 4.\tJalan Fransiskus, Status jalan : Jalan kabupaten , Ket : Jembatan Fransiskus terputus , Kondisi terkini : Belum pengerjaan 5.\tJalan Tukka - Saurmanggita, Status jalan : Jalan kabupaten, Ket : Terputus amblas, terkini : Belum pengerjaan 6.\tJalan Hutabalang - Pagaran honas , Status jalan : Jalan kabupaten, Ket : Terputus amblas, Kondisi terkini : Belum pengerjaan  Selasa, 2 Desember 2025, ●\tMasih dalam penanganan oleh Pemerintah setempat",
+      "upaya": "-\tBPBD Kab. Tapanuli Tengah Turun ke lokasi Bencana melakukan pemantauan situasi bencana -\tMembantu Warga mengamankan Barang2 perabotan Rumah tangga dan membantu warga ketempat yg lebih aman.  -\tMengamankan Arus lalu Lintas kendaraan di lokasi banjir. -\tMelaksanakan kegiatan  Koordinasi ke setiap kecamatan,Desa/Kelurahan pada lokasi yg rawan bencana.  -\tMelakukan Pembersihan Material Longsor menggunakan Alat Berat. -\tMendirikan Tenda Pengungsi. -\tBersama dinas Sosial memberikan bantuan sembako kepada warga terdampak banjir"
+    }
+  },
+  {
+    "name": "Kab. Bireuen",
+    "province": "Aceh",
+    "lat": 5.097969990750026,
+    "lng": 96.62435356110718,
+    "incidentType": "Banjir",
+    "date": "23-11-2025",
+    "deaths": 20,
+    "missing": 0,
+    "injured": 2,
+    "displaced": 1597,
+    "affected": 5466,
+    "severity": "rendah",
+    "details": {
+      "jumlahKejadian": 1,
+      "menderita": 3869,
+      "mengungsi": 1597,
+      "rumahRusakBerat": 1232,
+      "rumahRusakSedang": 0,
+      "rumahRusakRingan": 0,
+      "rumahTerendam": 0,
+      "lahanRusakHektar": 784.0,
+      "rumahRusakTotal": 1232,
+      "kronologis": "●\tHujan deras yang melanda Kecamatan Makmur mengakibatkan terjadinya banjir luapan.",
+      "penyebab": "",
+      "kondisiMutakhir": "Sabtu, 6 Desember 2025 ●\tSebagian wilayah terisolir sudah bisa dilakukan evakuasi dan distribusi logistik ●\tListrik sudah menyala di beberapa wilayah sekitar Kota  ●\tTim masih berupaya melakukan pencarian orang hilang di 2 (dua) Kecamatan, yaitu : -\tKec. Jeumpa : 1 jiwa -\tKec. Peudada : 3 jiwa ●\tSebagian wilayah terisolir sudah bisa dilakukan evakuasi dan distribusi logistik ●\tListrik sudah menyala di beberapa wilayah sekitar Kota",
+      "upaya": "●\tBPBD Kab. Bireun berkoordinasi dengan instansi terkait guna melakukan evakuasi, pendataan dan penanganan ●\tBPBD bersama tim gabungan melaksanakan pencarian terhadap korban yang hilang ●\tBPBD Kab. Bireun melakukan evakuasi dan mengirimkan bantuan logistik di Kecamatan terisolir.  ●\tBPBD Kab. Bireun melakukan koordinasi di Posko Terpadu Kantor Bupati Bireun bersama TNI, Polres, Basarnas, Orari, RAPI dan OPD terkait.   Giat BNPB ●\tGiat Tim BNPB melakukan koordinasi di Posko Terpadu dengan BPBD Kab. Bireun terkait situasi dan monitoring upaya PemKab dalam penanganan bencana banjir dan tanah longsor.   Unsur Yang Terlibat: ●\tBPBA Prov. Aceh ●\tBPBD Kab. Bireuen ●\tBASARNAS ●\tTNI ●\tPolri ●\tMasyarakat"
+    }
+  },
+  {
+    "name": "Kab. Tanah Datar",
+    "province": "Sumatera Barat",
+    "lat": -0.4622394593953239,
+    "lng": 100.57265921497678,
+    "incidentType": "Banjir",
+    "date": "23-11-2025",
+    "deaths": 0,
+    "missing": 0,
+    "injured": 4,
+    "displaced": 4809,
+    "affected": 10938,
+    "severity": "sedang",
+    "details": {
+      "jumlahKejadian": 1,
+      "menderita": 6129,
+      "mengungsi": 4809,
+      "rumahRusakBerat": 131,
+      "rumahRusakSedang": 60,
+      "rumahRusakRingan": 170,
+      "rumahTerendam": 3347,
+      "lahanRusakHektar": 261.0,
+      "rumahRusakTotal": 361,
+      "kronologis": "-\tDipicu curah hujan yang tinggi mengakibatkan aliran sungai menjadi deras sehingga berdampak pada beberapa rumah sekitaran sungai.",
+      "penyebab": "",
+      "kondisiMutakhir": "Minggu, 30 November 2025 ●\tMasih dalam penanganan dan pendataan Senin, 01 Desember 2025 -\tMasih dalam penanganan dan pendataan  Selasa, 02 Desember 2025 -\tMasih dalam penanganan dan pendataan",
+      "upaya": "-\tBPBD Kabupaten Tanah Datar melaporkan kejadian kepada BPBD Provinsi Sumatera Barat. -\tBerkoordinasi dengan unsur terkait seperti PU dan LH untuk penanganan lebih lanjut."
+    }
+  },
+  {
+    "name": "Kab. Agam",
+    "province": "Sumatera Barat",
+    "lat": -0.2614954559564983,
+    "lng": 100.19175345297829,
+    "incidentType": "Banjir",
+    "date": "23-11-2025",
+    "deaths": 179,
+    "missing": 55,
+    "injured": 0,
+    "displaced": 1619,
+    "affected": 2307,
+    "severity": "rendah",
+    "details": {
+      "jumlahKejadian": 1,
+      "menderita": 688,
+      "mengungsi": 1619,
+      "rumahRusakBerat": 383,
+      "rumahRusakSedang": 243,
+      "rumahRusakRingan": 377,
+      "rumahTerendam": 534,
+      "lahanRusakHektar": 2551.0,
+      "rumahRusakTotal": 1003,
+      "kronologis": "●\tDipicu intensitas hujan tinggi menyebabkan banjir bandang di beberapa wilayah Kabupaten Agam",
+      "penyebab": "",
+      "kondisiMutakhir": "Minggu, 30 November 2025 ●\tMasih terdapat banyak korban untuk di evakuasi ●\tSangat membutuhkan Tim Medis di lapangan ●\tMembutuhkan personil untuk evakuasi",
+      "upaya": "Upaya:  ●\tBPBD Kab. Agam melakukan asesmen dan koordinasi dengan unsur terkait"
+    }
+  },
+  {
+    "name": "Kab. Aceh Timur",
+    "province": "Aceh",
+    "lat": 4.738957001170026,
+    "lng": 97.59611467615002,
+    "incidentType": "Banjir",
+    "date": "22-11-2025",
+    "deaths": 48,
+    "missing": 0,
+    "injured": 0,
+    "displaced": 238500,
+    "affected": 506214,
+    "severity": "kritis",
+    "details": {
+      "jumlahKejadian": 1,
+      "menderita": 267714,
+      "mengungsi": 238500,
+      "rumahRusakBerat": 10715,
+      "rumahRusakSedang": 0,
+      "rumahRusakRingan": 0,
+      "rumahTerendam": 0,
+      "lahanRusakHektar": 11380.0,
+      "rumahRusakTotal": 10715,
+      "kronologis": "●\tAkibat hujan deras dan disertai angin kencang yang terjadi di Kabupaten Aceh Timur sejak tanggal 20 November 2025  telah menyebabkan banjir, ketinggian air 10 - 40 cm",
+      "penyebab": "",
+      "kondisiMutakhir": "Minggu , 30 November 2025 ●\tdalam penanganan  Senin, 1 Desember 2025 ●\tTelah dilakukan Evaluasi PDB Kab Aceh Timur yang dipimpin oleh Bupati dengan poin pembahasan sebagai berikut,  -\tAkan dilakukan pengiriman bantuan logistik di Wilayah Ds Lokop, Kecamatan Serbajadi  dengan koordinat 04°26'19.76\\\" N - 97°31'06.21\\\" E. Dimohon untuk BNPB dapat mengirimkan pesawat heli berkapasitas besar dengan bantuan logistik untuk masyarakat yang masih terisolir utamanya berupa Bahan Makanan (beras, mie instant, sarden, dan makanan siap saji), Air Bersih, Baju layak pakai, dan pembalut wanita serta pampers untuk balita secepatnya karena sudah berhari-hari masyarakat terisolir.  -\tDiperlukan perbaikan darurat pada Tanggul DAS Arakundo di Kecamatan Julok, Kecamatan Simpang Ulim, Kecamatan Pante Bidari. -\t2 warga sudah ditemukan untuk kejadian longsor di syahraja dan sijudo dan meminta SAR untuk evakuasinya -\tdi penarun, jika bantuan bisa diantar ke perbatasan daerah maka camat bisa untuk dapat mengerahkan warga mengangkut logistiknya -\tpada wilayah simpang jernih, ada 3 org turun ke langsa untuk bertemu camat dan akan dibawa ke aceh timur posisinya di simpang jernih rumah hancur, jembatan hancur dan getek terbawa air.  -\tlokop : stok makanan menipis, tidak ada akses masuk, harus dilakukan pembersihan lumpur di ruas jalan, tidak dapat menaikan alat berat, namun ada 1 unit milik warga, dengan kendala tidak ada bbm dan perlu ada asuransi untuk pelaksanaannya -\theli bisa mendarat di lokop untuk evakuasi namun belum membawa bantuan -\tWilayah blang balok sudah ditembus dengan ketinggian air masih kurleb 1 m, payalipah dusun minje jembatan putus, panjangnya 50 meter, bisa diarahkan bailey untuk dibangun disana -\tFokus utama penanganan darurat di syahraja, sijudo, penaron, lokop, simpang jernih -\tRencana hari Selasa, 2 Desember 2025 akan dibagi tim untuk arah syahraja sijudo (dipimpin Dandim) dan penaron (dipimpin Bupati) sementara Tim BNPB akan ikut ke penarun -\tBBM akan berangkat dari lhokseumawe, dan akan masuk 10 truk untuk kebutuhan gas -\tLumbung sosial Kemensos ada di Idie Tunong, Bireum Bayeun, Pantee Bidari, Ranto Perlak, Lumbung Sosial dari Kabupaten Julok, Indra makmue, Penaron dan Gudang Induk di Alubue namun stok sudah kosong dan perlu pasokan barang logistik.",
+      "upaya": "●\tBPBD Kabupaten Aceh Timur berkoordinasi dengan instansi terkait, melakukan pendataan, dokumentasi dan pelaporan ●\tBPBD Kab. Aceh Timur bersama Bupati, Forkopimda serta perangkat daerah lainnya melaksanakan rapat koordinasi penanganan dan penetapan status darurat bencana Banjir, Tanah Longsor dan Angin Kencang ●\tDilakukan penunjukan Kalaksa BPBD Aceh Timur yaitu Bapak Afifullah, S.Sos, M.A.P  Giat BNPB: 1 Desember 2025 ●\tTim BNPB Wilayah Kabupaten Aceh Timur telah sampai di lokasi pada Senin 1 Desember 2025 pukul 12.00 WIB melalui jalur laut dengan membawa logistik berupa hygiene kit, sembako, makanan saji, matras, selimut, dan alat kebersihan serta genset dan starlink, namun logistik ini masih dirasa kurang untuk memenuhi kebutuhan korban.   Unsur Yang Terlibat: ●\tBPBD Kab. Aceh Timur ●\tBPBA ●\tMasyarakat"
+    }
+  },
+  {
+    "name": "Kab. Padang Pariaman",
+    "province": "Sumatera Barat",
+    "lat": -0.5255299389117404,
+    "lng": 100.2227916629118,
+    "incidentType": "Banjir",
+    "date": "22-11-2025",
+    "deaths": 21,
+    "missing": 1,
+    "injured": 5,
+    "displaced": 1634,
+    "affected": 26331,
+    "severity": "sedang",
+    "details": {
+      "jumlahKejadian": 1,
+      "menderita": 24697,
+      "mengungsi": 1634,
+      "rumahRusakBerat": 155,
+      "rumahRusakSedang": 223,
+      "rumahRusakRingan": 2660,
+      "rumahTerendam": 4716,
+      "lahanRusakHektar": 3708.0,
+      "rumahRusakTotal": 3038,
+      "kronologis": "●\tDipicu  disebabkan oleh cuaca ekstrim hujan lebat dari pagi pukul 08.00 WIB Sabtu, 22 November 2025 sampai pagi hari Minggu, 23 November 2025 di Kabupaten Padang Pariaman. Sehingga debit air beberapa sungai di Kabupaten Padang Pariaman meluap, diantaranya Sungai Batang Anai, Sungai Batang Ulakan, Sungai Batang Tapakih dan sungai Batang Kamumuan. BMKG mengeluarkan Peringatan Dini cuaca di Padang Pariaman.",
+      "penyebab": "",
+      "kondisiMutakhir": "Sabtu, 29 November 2025,  ●\tIntensitas hujan sudah berkurang ●\tKondisi Sungai Batang Ulakan Sudah Mulai Surut ●\tUntuk Pengungsi sudah mulai balik kerumah masing – masing dan tetap waspada mengingat cuaca masih mendung. ●\tSungai Batang Mangoe debit air meningkat dari hulu Jumat, 28 Nov Pukul 18.00 WIB.  Minggu, 30 November 2025 ●\tIntensitas hujan sudah berkurang ●\tKondisi Sungai Batang Mangor Sudah Mulai Surut  Selasa, 2 Desember 2025  ●\tCuaca Sudah cerah ●\tKondisi semua Sungai Sudah Surut. ●\tUntuk beberapa titik Pengungsi sudah mulai balik kerumah masing-masing dan tetap waspada ●\tMelakukan pendistribusian logistik ●\tAlat berat masih melakukan pembersihan material tanah longsor ●\tWarga masih melakukan pembersihan lumpur ●\tTim SAR Gabungan masih melakukan pencarian orang hanyut disekitaran Sungai Batang Anai IX. Satpol PP Damkar melakukan pembersihan lumpur dari material longsor ●\tPengungsi: 549 Jiwa/159 kk terdiri dari : 1. Kec. 2 x 11 Kayu Tanam - Nagari Anduriang: a) Korong balah aia: 22 KK/55 jiwa (lokasi: Masjid dan rumah warga) b) Korong sipisang sipinang: 22 KK/50 Jiwa (Lokasi: Surau Sipinang) c) Korong Kampuang Tangah 20KK/50 Jiwa (Lokasi : Rumah warga) 2. Kec. VII Koto - Nagari Bisati Sungai Sariak a) Korong Pasie Laweh 15 KK/60 jiwa (Lokasi : Rumah Warga) 3. Kec. Lubuak Aluang - Nagari Pasie Laweh: a) Korong tanah taban: 70 KK/ 246 jiwa (lokasi: Korong kp pondok surau tanjuang) b) Korong kp pondok: 36 KK/164 jiwa (Lokasi: surau koto) c) Korong Sakayan 9 KK/28 Jiwa (Lokasi : Rumah Warga) 4. Kec. Batang Anai - Nagari Kasang: a) Korong Kasai (Tongblau) 11 KK/ 40 jiwa (lokasi: Tenda BPBD) - Nagari Katapiang: a) Korong Talao Mundam : 85 KK/ 21 jiwa (Lokasi : Tenda di Korong Kampuang Tangah) b)Korong Banda Cino 8 KK/25 Jiwa. (Lokasi : Tenda di Korong Kampuang Tangah)",
+      "upaya": "●\tBPBD Kab. Padang Pariaman melaporkan kejadian kepada BPBD Prov. Sumatera Barat ●\tPemerintah Daerah Kab. Padang Pariaman langsung meninjau ke lapangan melihat kondisi banjir, tanah longsor dan korban yang terdampak ●\tPemerintah Daerah Kab. Padang Pariaman memberikan nasi bungkus untuk para pengungsi ●\tBPBD Kab. Padang Pariaman melakukan Rapat Koordinasi dengan stakeholder terkait ●\tSatgas TRC PB BPBD Kab. Padang Pariaman melakukan evakuasi terhadap korban terdampak dan koordinasi dengan Pemerintah Kecamatan / Nagari setempat serta melakukan pendataan ●\tPemerintah Kecamatan dan Nagari melakukan pemantauan di masing- masing daerah terdampak dan melaporkan ke Pusdalops PB ●\tMembuka pos layanan kesehatan ●\tMendirikan Lokasi pengungsian -\tNagari Kampuang Galapuang Ulakan 1. Tenda Posko di Halaman Mushala surau kalapaian Pasar Kampuang Galapuang Ulakan  2. Lokasi pengungsian surau Palak Pisang  3. Lokasi Pengungsian surau Parik  4. Lokasi Pengungsian di Pasa rumah  -\tNagari Seulayat Ulakan  1. Lokasi Pengungsian Di Rumah warga yang tidak terdampak banjir  -\tNagari Ulakan 1. Padang Pauh  2. Kabun Bungo Pasang  3. Kampuang Koto  -\tNagari Manggopoh Palak Gadang Lokasi Pengungsian di rumah warga yang tidak terendam banjir  -\tNagari Sandi Ulakan Lokasi Pengungsian di rumah warga yang tidak terendam banjir  -\tNagari Kasang Kec. Batang Anai 1.\tTPA Mesjid Mujahiddin Korong Kasai  2.\tKorong Sungai Pinang, Perumahan Abi  -\tNagari Kasang Kec. 2x11 Kayu Tanam 1. Posko Masjid Taqwa Banda dan Surau Katimaha Nagari Anduring 2. Posko Masjid Nurul Huda Korong Rimbo Kalam ●\tPemerintah Nagari mendirikan Dapur Umum di 6 (enam) titik, sbb : ●\tNagari Kampuang Galapuang Ulakan di Halaman Surau kalapaian ●\tManggopoh Palak Gadang Ulakan di Halaman Kantor Wali Nagari mulai besok ●\tKorong Koto Panjang Timur Nagari Sandi Ulakan di rumah ibuk Neli ●\tKorong Kasai Nagari Tapakih di Surau Kasai ●\tKorong Pasa Ulakan Nagari Ulakan, di Lapau sebelum kantor Wali Nagari Ulakan ●\tPos Pemuda Kasai Permai Korong Kasai di Nagari Kasang Kec. Batang Anai ●\tBantuan Masuk:  1. Pemerintah Daerah Kabupaten Padang Pariaman 2. TP- PKK Kabupaten Padang Pariaman 3. Baznas Kab. Padang Pariaman 4. Bank Nagari Cabang Pariaman 5. Kementerian Sosial  ●\tSudah dilakukan pengevakuasian warga terjebak banjir untuk diantarkan ke lokasi pengungsian ●\tTim Gabungan melakukan pembersihan lumpur bekas banjir ●\tPemerintah daerah menetapkan Status Tanggap Darurat selama 14 Hari terhitung mulai tanggal 23 November 2025 sampai dengan 6 Desember 2025 dengan nomor 357/KEP/BPP/2025.  Unsur Yang Terlibat ●\tPemerintah Daerah Kabupaten Padang Pariaman ●\tSekretaris Daerah ●\tBPBD Prov. Sumatera Barat ●\tBPBD Kab. Padang Pariaman ●\tBasarnas Padang ●\tInspektorat ●\tDinas BPKD ●\tDinas PUPR ●\tDinas Kominfo ●\tDinas Satpol PP Damkar ●\tDinas BKPSDM ●\tDinas Kesehatan ●\tKabag Hukum ●\tPuskesmas ●\tPolri ●\tTNI ●\tPemerintah Kecamatan ●\tPemerintah Nagari ●\tMasyarakat ●\tRelawan Bencana ●\tTP-PKK Padang Pariaman ●\tDPMD ●\tDinas Sosial P3A / TAGANA ●\tLA Rafting ●\tBareska ●\tPLN  Giat BNPB   Senin, 1 Desember 2025 Rekap Agenda Hari Ini -\tMelakukan Persiapan kunjungan Presiden RI ke Pengungsian Kabupaten Padang Pariaman. -\tMenghadiri rapat penanganan bencana Aceh, Sumut, dan Sumbar oleh Kemenko PMK. -\tMelakukan pendampingan BPBD Kota Padang terkait Pascabencana meliputi pengkoordinasian antara BPBD dengan OPD teknis terkait mengenai Jitupasna yang berdasarkan Perban BNPB No. 5 Tahun 2017 sebagai lampiran R3P dan pengoordinasian data terbaru. -\tRapat koordinasi dengan OPD di Kabupaten Pesisir Selatan terkait dengan penyinkronan data -\tMeninjau jalan rusak di PLTA di Kabupaten Padang Pariaman. -\tMendampingi BPBD Kabupaten Padang Pariaman terkait akuntabilitas prosedur syarat pengajuan DSP dan Permohonan Logistik. -\tMendapatkan data Rumah Rusak dan terdampak di Kabupaten Padang Pariaman. -\tAkses jalan di Pasia Laweh tertutup longsor sudah dibuka oelh dinas PU  Giat Tim Untuk Selasa, 2 Desember 2025 -\tMelanjutkan pendampingan administrasi posko utama. -\tKoordinasi ke Kab Kota terkait pemenuhan kebutuhan logistik mendesak dan inisiasi awal penyusunan Jitupasna. -\tMelanjutkan pendampingan administrasi posko utama. -\tKoordinasi lanjutan terkait pemenuhan kebutuhan alat berat untuk pembukaan akses jalan yang tertutup longsor. -\tKoordinasi terkait Penerimaan Bantuan Logistik dan Relawan dari BPBD Jawa Tengah -\tPendampingan pencatatan rekap logistik  Tindak Lanjut : -\tPemda telah melakukan pemantauan masing- masing di daerah terdampak dan melaporkan ke Pusdalops PB. -\tMembuka pos layanan kesehatan. -\tMendirikan dapur umum. -\tMendirikan Lokasi Pengungsian. -\tSudah dilakukan pengevakuasian warga terjebak banjir untuk diantarkan ke lokasi pengungsian dan evakuasi pohon tumbang menimpa rumah warga. -\tTim Gabungan melakukan pembersihan lumpur bekas banjir dan pembersihan material tanah longsor.  -\tPemerintah daerah menetapkan Status Tanggap Darurat selama 14 Hari terhitung mulai tanggal 23 November 2025 sampai dengan 6 Desember 2025 dengan nomor 357/KEP/BPP/2025. -\tBPBD Kabupaten Padang Pariaman mengirimkan surat bantuan logistik dengan nomor Surat 300.2/ 457  /BPBD/XI/2025, Permohonan Bantuan Logistik dan Peralatan untuk Penanganan Darurat Bencana di Kabupaten Padang Pariaman sedang dalam proses pengiriman."
+    }
+  },
+  {
+    "name": "Kab. Aceh Selatan",
+    "province": "Aceh",
+    "lat": 3.1734389099333575,
+    "lng": 97.49608617780004,
+    "incidentType": "Banjir",
+    "date": "22-11-2025",
+    "deaths": 0,
+    "missing": 0,
+    "injured": 0,
+    "displaced": 611,
+    "affected": 6551,
+    "severity": "sedang",
+    "details": {
+      "jumlahKejadian": 1,
+      "menderita": 5940,
+      "mengungsi": 611,
+      "rumahRusakBerat": 0,
+      "rumahRusakSedang": 0,
+      "rumahRusakRingan": 0,
+      "rumahTerendam": 750,
+      "lahanRusakHektar": 481.0,
+      "rumahRusakTotal": 0,
+      "kronologis": "●\tDipicu akibat hujan dengan intensitas sedang sampai dengan lebat mengguyur wilayah Aceh Selatan dari hari Jum'at 21 November sampai hari ini Sabtu 22 November 2025, membuat ketinggian air sungai sehingga meluap ke area pemukiman dan area perkebunan warga dengan ketinggian air bervariasi 40 sampai dengan 60 cm",
+      "penyebab": "",
+      "kondisiMutakhir": "Sabtu, 22 November 2025 ●\tBanjir sudah surut perlahan-lahan. Tetapi debit air sungai masih tinggi mengingat hujan masih mengguyur wilayah ●\tAkses jalan masih terganggu untuk saat ini untuk di lalui roda dua dan roda empat karena air masih menggenang permukaan badan jalan, ●\tCuaca masih mendung dan hujan ringan hingga hujan lebat seluruh wilayah aceh Selatan termasuk Kota Bahagia, ●\tPetugas pemadam kebakaran dan TIM TRC disiagakan untuk melakukan pemantauan di lokasi rawan bencana banjir.",
+      "upaya": "●\tTRC PB BPBD dan Damkar -PB BPBD ke lokasi kejadian untuk melakukan pendataan dan penanganan di lokasi kejadian ●\tPetugas Damkar PB 05 Bakongan untuk melakukan Assesment dan Pemantauan di lokasi Banjir, ●\tTim Damkar PB 05 Bakongan Kabupaten Aceh Selatan Melakukan Penanganan Awal dan Mengecek Ke rumah-rumah warga dan melakukan Asesmen. ●\tTim Damkar PB 05 Bakongan melakukan pemantauan debit air sungai sampai saat ini dan melaporkan perkembangannya.  ●\tPetugas Pusdalops PB BPBD Mengkoordinir Tim di Lapangan memantau, menerima informasi dan membuat laporan terkait kejadian tersebut.  Unsur Yang Terlibat: ●\tPetugas TRC PB BPBD Damkar Kabupaten Aceh Selatan ●\tMuspika Setempat ●\tTNI ●\tPOLRI ●\tMasyarakat ●\tPetugas PUSDALOPS PB BPBD Kab. Aceh Selatan"
+    }
+  },
+  {
+    "name": "Kab. Aceh Utara",
+    "province": "Aceh",
+    "lat": 4.989627715148674,
+    "lng": 97.27628821406759,
+    "incidentType": "Banjir",
+    "date": "22-11-2025",
+    "deaths": 138,
+    "missing": 14,
+    "injured": 865,
+    "displaced": 299506,
+    "affected": 684266,
+    "severity": "kritis",
+    "details": {
+      "jumlahKejadian": 1,
+      "menderita": 384760,
+      "mengungsi": 299506,
+      "rumahRusakBerat": 84196,
+      "rumahRusakSedang": 0,
+      "rumahRusakRingan": 0,
+      "rumahTerendam": 0,
+      "lahanRusakHektar": 40211.0,
+      "rumahRusakTotal": 84196,
+      "kronologis": "-\tSejak tanggal 19 November 2025, hujan mulai turun merata di sebagian besar Kecamatan di Kabupaten Aceh Utara. Pada tanggal 20 November 2025, hujan intensitas sedang–lebat berlangsung terus-menerus selama lebih dari 3–10 jam, sehingga terjadi peningkatan volume air permukaan di kawasan permukiman, jalan Gampong, fasilitas umum, tambak, Perkebunan dan area pertanian. Beberapa titik mengalami drainase tersumbat, kapasitas saluran tidak memadai, serta limpasan air dari kawasan perbukitan menyebabkan air menggenang dengan cepat.",
+      "penyebab": "",
+      "kondisiMutakhir": "Sabtu, 6 Desember 2025 ●\tJalan nasional sudah terhubung arah bireuen dan aceh timur ●\tListrik dan sinyal masih belum ada di sebagian besar Lokasi terdampak, beberapa desa terisolir",
+      "upaya": "-\tPetugas Piket Pusdalops-PB BPBD Kab. Aceh Utara Siap Siaga pada Pos masing-masing ●\tBPBD Kab. Aceh Utara melakukan pendataan terhadap korban terdampak, kerusakan rumah, kerusakan lahan pertanian/perikanan, dan infrastruktur. ●\tBPBD Kab. Aceh Utara melakukan koordinasi lintas sektor dengan Gabungan Petugas TRC SAR BPBD Aceh Utara, Kodim Aceh Utara, POLRI, LANAL, PMI, Tim Dinas Sosial, Muspika Kecamatan, TKSK dan Tagana dan aparatur gampong untuk penanganan darurat.   Giat Tim Pendampingan BNPB:   1 Desember 2025 ●\tMelakukan pendampingan BPBD Kab. Aceh Utara dalam konsolidasi dan verifikasi mekanisme pendataan  terdampak (korban jiwa, pengungsi, kerusakan rumah, dan infrastruktur) dari kecamatan/gampong. ●\tMemberikan rekomendasi teknis terkait: penguatan komando tanggap darurat, prioritas distribusi logistik, dan penyiapan usulan dukungan Pendanaan Siap Pakai. ●\tMengidentifikasi kebutuhan dukungan logistik dan peralatan dari BNPB (pusat) untuk mengisi gap kebutuhan di lapangan (tenda, makanan siap saji, perahu karet, genset, dll.). Unsur Yang Terlibat: ●\tBPBD Kab. Aceh Utara ●\tKecamatan ●\tMasyarakat"
+    }
+  },
+  {
+    "name": "Kab. Mandailing Natal",
+    "province": "Sumatera Utara",
+    "lat": 0.7788796531059073,
+    "lng": 99.36532109109415,
+    "incidentType": "Banjir",
+    "date": "22-11-2025",
+    "deaths": 0,
+    "missing": 0,
+    "injured": 0,
+    "displaced": 0,
+    "affected": 15368,
+    "severity": "sedang",
+    "details": {
+      "jumlahKejadian": 1,
+      "menderita": 15368,
+      "mengungsi": 0,
+      "rumahRusakBerat": 3,
+      "rumahRusakSedang": 0,
+      "rumahRusakRingan": 0,
+      "rumahTerendam": 0,
+      "lahanRusakHektar": 119.0,
+      "rumahRusakTotal": 3,
+      "kronologis": "●\tPada hari Sabtu, 22 November 2025 terjadi curah hujan dengan intensitas tinggi mengakibatkan anak Sungai Aek Dolok dan Desa Sayurmaincat meluap dan menggenangi persawahan dan pemukiman warga di beberapa wilayah Kecamatan Hutabargot dan Kecamatan Muara Batang Gadis",
+      "penyebab": "- Jaringan listrik di sebagian wilayah 7 kecamatan yang sebelumnya terisolir sudah kembali menyala. - Petugas PLN terus melaksanakan perbaikan arus listrik di wilayah terdampak. - Pemkab Madina bersama dengan Dinas Perdagangan dan Polres Madina berupaya melakukan percepatan penanganan kelangkaan BBM dengan penyaluran BBM (Pertalite dan Biosolar) yang didistribusikan secara serentak pada pukul 07.00 WIB tanggal 30 Nov 2025. - Dukungan psikososial (Trauma Healing) telah dilakukan oleh Polsek, Polres dan Mahasiswa STAIN untuk para pengungsi di titik pengungsian SD 037 Tangga Bosi, Kec. Siabu.",
+      "kondisiMutakhir": "Minggu, 30 November 2025 ●\tJaringan listrik di sebagian wilayah 7 kecamatan yang sebelumnya terisolir sudah kembali menyala ●\tPetugas PLN terus melaksanakan perbaikan arus listrik di wilayah terdampak. ●\tAkses yang sudah dapat dilewati kendaraan 1.\tSumbar - Madina melalui Pasaman Barat - Rantau Baek - Linggabayu - Batahan Natal - Panyabungan (Ibu kota Kab. Madina) sudah dapat dilewati. 2.\tTapanuli Selatan - Madina melalui Padang Sidempuan - Panyabungan (Ibu kota kab. Madina) sudah dapat dilewati. 3.\tPanyabungan - Batahan (via Natal) sudah dapat dilewati. 4.\tPanyabungan - Sinunukan sudah dapat dilewati. 5.\tPanyabungan - Rantobaek sudah dapat dilewati. ●\tAkses yang belum dapat dilewati : 1.\tTapanuli Selatan - Madina melalui Muara Batang Gadis (belum bisa dilewati) 2.\tPoros desa ruas jalan Banjar Aur - Bintungan Bejangkar Kec. Batahan 3.\tPoros desa Simpang Duhu Lombang - Simpang Pining Kec. Ulu Pungkut 4.\tPoros desa Pagar Gunung - Batahan Kec. Kotanopan 5.\tSimpang Jl. Provinsi - Desa Batu Mundom ●\tKondisi Akses Lainnya : 1.\tDukungan logistik ke kawasan Sulang Aling (Desa Hutaimbaru, Desa Lubuk Kapundung 1, Desa Lubuk Kapundung 2 dan Ranto Panjang) di Kec. Muara Batang Gadis sudah dapat dilewati (hanya melalui jalur air). 2.\tAkses antar kecamatan di wilayah Kab. Madina sudah dapat dilewati. Senin, 01 Desember 2025 ●\tJaringan listrik sudah pulih dari arah kayu laut (Kec. Panyabungan Selatan) hingga ke desa Rao Rao (Kec. Batang Natal). ●\tPetugas PLN terus melaksanakan perbaikan arus listrik di wilayah terdampak. ●\tKomunikasi menggunakan telpon seluler masih terbatas dikarenakan aliran listrik belum pulih sepenuhnya di beberapa wilayah. Namun, masyarakat memanfaatkan Starlink yang ada di wilayahnya. ●\t1 unit Excavator dikerahkan untuk membersihkan material longsoran pada akses jalan  Pagar Gunung - Batahan dan 1 unit lainnya dikerahkan untuk memperbaiki tanggul jebol di Tangga Bosi Kec. Siabu ●\tTagana Dinsos P3A bersama Kementerian Sosial RI mendirikan tenda dan sarpras untuk pelaksanaan kegiatan dukungan psikososial pada anak2, wanita dan lansia serta pemenuhan  sembako untuk dapur umum di pengungsian Tangga Bosi ●\tDukungan logistik dari BNPB telah sampai di Bandara A.H. Nasution pada Pukul 13.00 WIB berupa Biskuit 60 kardus, Makanan siap saji 6 kotak, Indomie 81 kotak, Velbed 21 buah, Genset 1 buah, Pompa air 1 buah yang kemudian akan diterima oleh Pemerintah setempat. ●\tPemkab Madina bersama dengan Dinas Perdagangan dan Polres Madina akan melakukan penyaluran kembali untuk BBM (Pertalite 8.000 L dan Biosolar 8.000 L) yang dikirim dari Dumai melalui Padang Sidempuan yang akan sampai pada malam ini dan akan didistribusikan secara serentak pada pukul 07.00 WIB tanggal 2 Desember 2025 dan akan dibuat Surat Edaran terkait pembatasan jumlah pembelian BBM.",
+      "upaya": "●\tBPBD Kab. Mandailing Natal berkoordinasi dengan instansi terkait dan melakukan asesmen ●\tPLN berupaya melakukan perbaikan listrik di wilayah Panyabungan Selatan dan wilayah lainnya yang terputus jaringan listrik ●\tJalur komunikasi secara swadaya masyarakat menggunakan Starlink untuk sebagian wilayah yang terisolir ●\tDukungan excavator 3 unit dari Dinas PUPR Provinsi ●\tLayanan kesehatan di dirikan di tiap-tiap kecamatan ●\tTNI, POLRI, Basarnas dan Mapala membantu mengevakuasi masyarakat terdampak ●\tDinas sosial melakukan distribusi bantuan kepada masyarakat terdampak (tangga bosi dan Panyabungan Selatan) ●\tDukungan logistik telah didistribusikan dari pemerintah daerah ke lokasi yaitu Muara Batang Angkola di Kec.Siabu. Dan pada hari ini dilakukan distribusi logistik di 2 lokasi yaitu Sopotinjak, dan Kec. Muara Batang Gadis ●\tPosko PDB Kab. Mandailing Natal pada periode (26 Nov - 29 Nov 2025) telah mendistribusikan Logistik berupa : -\tBeras : 30.050 kg ( 30,0 ton) -\tMie Instan : 1.460 kardus  -\tGula : 1.337 kg  -\tMinyak Goreng : 2.006 bungkus -\tTelur : 655 papan -\tTerpal : 4 buah -\tTenda : 1 unit -\tFamily Kit : 19 buah -\tMakanan Anak : 2 dus -\tMakanan Siap Saji : 5 dus -\tMakanan Siap Saji Dus Kecil : 1b dus -\tSelimut : 120 lbr -\tMatras : 200 lbr ●\tDinas PUPR mengoperasionalkan 4 Excavator guna pembersihan dan pembukaan akses jalan Banlogpal   ●\tBanlogpal yang telah didistribusikan oleh posko PDB Kab. Madina Tgl 1 Desember 2025 ke Kec. Sinunukan dan Kec. Batahan, masing2 sbb : - Beras 2.5 ton - Mie instan 50 dus - Telor 5 papan - Minyak goreng 2 dus - Biskuit 2 dus - Sarden 2 dus - Energen 5 dus"
+    }
+  }
+];
 
     // =========================
     // KONFIGURASI POLIGON KAB/KOTA
@@ -1557,6 +2383,21 @@
       { name: "BUKITTINGGI", province: "Sumatera Barat", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1375.geojson" },
       { name: "PAYAKUMBUH", province: "Sumatera Barat", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1376.geojson" },
       { name: "PARIAMAN", province: "Sumatera Barat", color: "#c9c9c9", url: "https://raw.githubusercontent.com/yusufsyaifudin/wilayah-indonesia/refs/heads/master/data/geojson/regency/1377.geojson" }
+    ];
+
+    const districtPolygonConfigs = [
+      {
+        province: "Aceh",
+        url: "https://raw.githubusercontent.com/adtya93/maptdb/refs/heads/main/districts/id11_aceh_district.geojson"
+      },
+      {
+        province: "Sumatera Utara",
+        url: "https://raw.githubusercontent.com/adtya93/maptdb/refs/heads/main/districts/id12_sumatera_utara_district.geojson"
+      },
+      {
+        province: "Sumatera Barat",
+        url: "https://raw.githubusercontent.com/adtya93/maptdb/refs/heads/main/districts/id13_sumatera_barat_district.geojson"
+      }
     ];
 
     // =========================
@@ -1638,7 +2479,7 @@
           "POLITEKNIK NEGERI MEDAN": 1
         }
       },
-      "HUMBANG HASUDUTAN": {
+      "HUMBANG HASUNDUTAN": {
         total: 1,
         universities: {
           "UNIVERSITAS PRIMA INDONESIA": 1
@@ -1661,7 +2502,7 @@
         }
       },
       "LHOKSEUMAWE": {
-        total: 7,
+        total: 10,
         universities: {
           "UNIVERSITAS MALIKUSSALEH": 7,
           "POLITEKNIK NEGERI LHOKSEUMAWE": 3
@@ -1702,7 +2543,7 @@
         }
       },
       "PADANG PARIAMAN": {
-        total: 3,
+        total: 4,
         universities: {
           "UNIVERSITAS ANDALAS": 3,
           "UNIVERSITAS BAITURRAHMAH": 1
@@ -1836,22 +2677,6 @@
         };
     }
 
-    function getCampusCountByRegion(regionName) {
-        if (!regionName) return 0;
-        const key = regionName.toUpperCase().trim();
-
-        if (campusContribution.hasOwnProperty(key)) {
-            return campusContribution[key];
-        }
-
-        const keyNoKota = key.replace(/^KOTA\s+/, '');
-        if (campusContribution.hasOwnProperty(keyNoKota)) {
-            return campusContribution[keyNoKota];
-        }
-
-        return 0;
-    }
-
     function getCampusCircleStyle(count) {
         if (!count || count <= 0) return null;
 
@@ -1908,7 +2733,7 @@
         { name: "Universitas Pembangunan Panca Budi", province: "Sumatera Utara", city: "Kota Medan", status: "PTS", lat: 3.58999, lng: 98.64472 },
         { name: "Universitas Prima Indonesia", province: "Sumatera Utara", city: "Kota Medan", status: "PTS", lat: 3.5984746, lng: 98.6524197240786 },
 
-        // JAMBI (ikut, walau di luar 3 provinsi utama)
+        // JAMBI (di luar 3 provinsi utama)
         { name: "Univeritas Jambi", province: "Jambi", city: "Kota Jambi", status: "PTN", lat: -1.610761595641745, lng: 103.51691506902127 }
     ];
 
@@ -1919,62 +2744,13 @@
     const campusCirclesProvince = [];  // { province, circle }
     const infraMarkers = [];           // { province, marker }
     const campusMarkers = [];          // { campus, marker }
+    const districtMarkers = [];        // { province, district, marker }
+    const districtPolygonLayers = [];  // { province, layer }
+    const districtPolygonGroup = L.layerGroup();
 
-    // =========================
-    // INISIALISASI PETA
-    // =========================
-    const map = L.map('map', {
-        center: [2.5, 98.5],
-        zoom: 7,
-        minZoom: 1,
-        maxZoom: 10000,
-        zoomSnap: 0.5,
-        zoomDelta: 0.5,
-        scrollWheelZoom: true
-    });
-
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-        attribution: '&copy; OpenStreetMap contributors & CARTO',
-        maxZoom: 10000,
-        minZoom: 1
-    }).addTo(map);
-
-    const campusCirclesLayer = L.layerGroup().addTo(map);
-    const infraLayer = L.layerGroup().addTo(map);
-    const shelterLayer = L.layerGroup().addTo(map);
-
-    // =========================
-    // HELPER SEVERITY
-    // =========================
-    function getSeverityColor(severity) {
-        switch (severity) {
-            case 'kritis': return '#dc2626';
-            case 'tinggi': return '#f97316';
-            case 'sedang': return '#fbbf24';
-            case 'rendah': return '#42bd3e';
-            default:       return '#6b7280';
-        }
-    }
-
-    function getSeverityLabel(severity) {
-        switch (severity) {
-            case 'kritis': return 'Kritis';
-            case 'tinggi': return 'Tinggi';
-            case 'sedang': return 'Sedang';
-            case 'rendah': return 'Rendah';
-            default:       return 'Tidak diketahui';
-        }
-    }
-
-    function findDisasterForConfig(cfg) {
-        const targetName = (cfg.name || '').toLowerCase();
-        if (!targetName) return null;
-
-        return disasterLocations.find(d => {
-            const dn = d.name.toLowerCase();
-            return dn.includes(targetName) || targetName.includes(dn);
-        }) || null;
-    }
+    let districtsVisible = false;
+    let currentProvinceFilter = 'All';
+    let districtsPolygonsLoaded = false;
 
     // =========================
     // ICON DEFINITIONS
@@ -2021,6 +2797,176 @@
         iconSize: [16, 16],
         iconAnchor: [8, 8]
     });
+
+    const districtIcon = L.divIcon({
+        className: 'district-marker-icon-wrapper',
+        html: '<div class="district-marker-icon"></div>',
+        iconSize: [18, 18],
+        iconAnchor: [9, 9]
+    });
+
+    // =========================
+    // INISIALISASI PETA
+    // =========================
+    const map = L.map('map', {
+        center: [2.5, 98.5],
+        zoom: 7,
+        minZoom: 1,
+        maxZoom: 18,
+        zoomSnap: 0.5,
+        zoomDelta: 0.5,
+        scrollWheelZoom: true
+    });
+
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; OpenStreetMap contributors & CARTO',
+        maxZoom: 18,
+        minZoom: 1
+    }).addTo(map);
+
+    const campusCirclesLayer = L.layerGroup().addTo(map);
+    const infraLayer = L.layerGroup().addTo(map);
+    const shelterLayer = L.layerGroup().addTo(map);
+    districtPolygonGroup.addTo(map);
+
+    // =========================
+    // HELPER SEVERITY
+    // =========================
+    function getSeverityColor(severity) {
+        switch (severity) {
+            case 'kritis': return '#dc2626';
+            case 'tinggi': return '#f97316';
+            case 'sedang': return '#fbbf24';
+            case 'rendah': return '#42bd3e';
+            default:       return '#6b7280';
+        }
+    }
+
+    function getSeverityLabel(severity) {
+        switch (severity) {
+            case 'kritis': return 'Kritis';
+            case 'tinggi': return 'Tinggi';
+            case 'sedang': return 'Sedang';
+            case 'rendah': return 'Rendah';
+            default:       return 'Tidak diketahui';
+        }
+    }
+
+    function findDisasterForConfig(cfg) {
+        const targetName = (cfg.name || '').toLowerCase();
+        if (!targetName) return null;
+
+        return disasterLocations.find(d => {
+            const dn = d.name.toLowerCase();
+            return dn.includes(targetName) || targetName.includes(dn);
+        }) || null;
+    }
+
+    // =========================
+    // LOAD POLYGON & MARKER KECAMATAN (DARI POLYGON)
+    // =========================
+    async function loadDistrictPolygons() {
+        if (districtsPolygonsLoaded) {
+            return;
+        }
+
+        const tasks = districtPolygonConfigs.map(cfg =>
+            fetch(cfg.url)
+              .then(resp => resp.json())
+              .then(geojson => {
+                  const layer = L.geoJSON(geojson, {
+                      style: function (feature) {
+                          return {
+                              color: "#1e3a8a",
+                              weight: 1,
+                              fillOpacity: 0
+                          };
+                      },
+                      onEachFeature: function (feature, lyr) {
+                          const p = feature.properties || {};
+                          const rawName =
+                              p.NAME_2 ||
+                              p.Kecamatan ||
+                              p.kecamatan ||
+                              p.DISTRICT ||
+                              p.district ||
+                              p.name ||
+                              "Kecamatan";
+
+                          const regencyName =
+                              p.NAME_1 ||
+                              p.kabupaten ||
+                              p.Kabupaten ||
+                              "-";
+
+                          const popupHtml = `
+                              <div class="popup-title">${rawName}</div>
+                              <div class="popup-detail">
+                                  <span class="popup-label">Provinsi:</span>
+                                  <span class="popup-value">${cfg.province}</span>
+                              </div>
+                              <div class="popup-detail">
+                                  <span class="popup-label">Kab/Kota:</span>
+                                  <span class="popup-value">${regencyName}</span>
+                              </div>
+                          `;
+                          lyr.bindPopup(popupHtml);
+
+                          // Buat marker centroid untuk pencarian & icon lokasi
+                          const bounds = lyr.getBounds();
+                          if (!bounds.isValid()) return;
+                          const center = bounds.getCenter();
+
+                          const marker = L.marker([center.lat, center.lng], { icon: districtIcon });
+
+                          const markerPopup = `
+                              <div class="popup-title">${rawName}</div>
+                              <div class="popup-detail">
+                                  <span class="popup-label">Provinsi:</span>
+                                  <span class="popup-value">${cfg.province}</span>
+                              </div>
+                              <div class="popup-detail">
+                                  <span class="popup-label">Kab/Kota:</span>
+                                  <span class="popup-value">${regencyName}</span>
+                              </div>
+                          `;
+                          marker.bindPopup(markerPopup);
+
+                          districtMarkers.push({
+                              province: cfg.province,
+                              district: {
+                                  name: rawName,
+                                  regency: regencyName,
+                                  lat: center.lat,
+                                  lng: center.lng
+                              },
+                              marker: marker
+                          });
+                      }
+                  }).addTo(districtPolygonGroup);
+
+                  districtPolygonLayers.push({
+                      province: cfg.province,
+                      layer: layer
+                  });
+              })
+        );
+
+        return Promise.all(tasks)
+            .then(() => {
+                districtsPolygonsLoaded = true;
+                console.log("✅ Polygon & marker kecamatan loaded:", districtMarkers.length);
+            })
+            .catch(err => {
+                console.error("❌ Gagal memuat polygon kecamatan:", err);
+            });
+    }
+
+    async function ensureDistrictDataLoaded() {
+        if (!districtsPolygonsLoaded) {
+            await loadDistrictPolygons();
+        }
+    }
 
     // =========================
     // POLIGON KAB/KOTA + CIRCLE KAMPUS
@@ -2164,113 +3110,109 @@
             });
     });
 
-// =========================
-// DATA JALAN / JEMBATAN PUTUS (PU - GEOJSON)
-// =========================
-const JALAN_JEMBATAN_GEOJSON =
-  "https://raw.githubusercontent.com/adtya93/maptdb/refs/heads/main/Jalan%20Jembatan%20Putus%20Akses%20(Map%20Service%20PU).geojson";
+    // =========================
+    // DATA JALAN / JEMBATAN PUTUS (PU - GEOJSON)
+    // =========================
+    const JALAN_JEMBATAN_GEOJSON =
+      "https://raw.githubusercontent.com/adtya93/maptdb/refs/heads/main/Jalan%20Jembatan%20Putus%20Akses%20(Map%20Service%20PU).geojson";
 
-fetch(JALAN_JEMBATAN_GEOJSON)
-  .then(resp => resp.json())
-  .then(geo => {
-    const features = geo.features || [];
+    fetch(JALAN_JEMBATAN_GEOJSON)
+      .then(resp => resp.json())
+      .then(geo => {
+        const features = geo.features || [];
 
-    features.forEach(f => {
-      const g = f.geometry || {};
-      if (g.type !== "Point" || !Array.isArray(g.coordinates)) return;
+        features.forEach(f => {
+          const g = f.geometry || {};
+          if (g.type !== "Point" || !Array.isArray(g.coordinates)) return;
 
-      const [lon, lat] = g.coordinates;
-      if (!Number.isFinite(lat) || !Number.isFinite(lon)) return;
+          const [lon, lat] = g.coordinates;
+          if (!Number.isFinite(lat) || !Number.isFinite(lon)) return;
 
-      const p = f.properties || {};
+          const p = f.properties || {};
 
-      const prov       = p.provinsi  || p.province  || "-";
-      const kab        = p.kabupaten || p.kab_kota  || p.kab || "-";
-      const nama       = p.nama_ruas || p.nama      || p.lokasi || "Jalan / jembatan putus";
-      const infraType  = p.jenis     || p.statusjln || p.infrastruktur || "-";
-      const status1Raw = (p.status1  || p.Status1   || "").trim();
-      const dampak     = p.dampak    || p.keterangan || "-";
-      const penanganan = p.penanganan || "-";
-      const target     = p.target    || p.dt || p.tanggal || "-";
+          const prov       = p.provinsi  || p.province  || "-";
+          const kab        = p.kabupaten || p.kab_kota  || p.kab || "-";
+          const nama       = p.nama_ruas || p.nama      || p.lokasi || "Jalan / jembatan putus";
+          const infraType  = p.jenis     || p.statusjln || p.infrastruktur || "-";
+          const status1Raw = (p.status1  || p.Status1   || "").trim();
+          const dampak     = p.dampak    || p.keterangan || "-";
+          const penanganan = p.penanganan || "-";
+          const target     = p.target    || p.dt || p.tanggal || "-";
 
-      const sLower = status1Raw.toLowerCase();
+          const sLower = status1Raw.toLowerCase();
+          const isLimited = /pengecekan/i.test(status1Raw) || sLower === "terputus sebagian";
 
-      // fokus hanya 3 kategori: Akses Terputus, Terputus Sebagian, dan Pengecekan
-      const isLimited = /pengecekan/i.test(status1Raw) || sLower === "terputus sebagian";
+          if (
+            sLower !== "akses terputus" &&
+            sLower !== "terputus sebagian" &&
+            !/pengecekan/i.test(status1Raw)
+          ) {
+            return;
+          }
 
-      if (
-        sLower !== "akses terputus" &&
-        sLower !== "terputus sebagian" &&
-        !/pengecekan/i.test(status1Raw)
-      ) {
-        return; // di luar tiga kategori ini, skip
-      }
+          const isFlood = /banjir/i.test(`${nama} ${dampak}`);
 
-      // penanda "banjir" di nama/dampak → ikon biru
-      const isFlood = /banjir/i.test(`${nama} ${dampak}`);
+          let icon;
+          if (isFlood) {
+            icon = roadFloodedIcon;
+          } else if (isLimited) {
+            icon = roadLimitedIcon;
+          } else {
+            icon = roadClosedIcon;
+          }
 
-      let icon;
-      if (isFlood) {
-        icon = roadFloodedIcon;
-      } else if (isLimited) {
-        icon = roadLimitedIcon;
-      } else {
-        icon = roadClosedIcon;
-      }
+          const marker = L.marker([lat, lon], { icon }).addTo(infraLayer);
 
-      const marker = L.marker([lat, lon], { icon }).addTo(infraLayer);
+          const popupHtml = `
+            <div class="popup-title">${nama}</div>
+            <div class="popup-detail">
+              <span class="popup-label">Provinsi:</span>
+              <span class="popup-value">${prov}</span>
+            </div>
+            <div class="popup-detail">
+              <span class="popup-label">Kab/Kota:</span>
+              <span class="popup-value">${kab}</span>
+            </div>
+            <div class="popup-detail">
+              <span class="popup-label">Status 1:</span>
+              <span class="popup-value">${status1Raw || "-"}</span>
+            </div>
+            <div class="popup-detail">
+              <span class="popup-label">Jenis Infrastruktur:</span>
+              <span class="popup-value">${infraType}</span>
+            </div>
+            <div class="popup-detail">
+              <span class="popup-label">Dampak:</span>
+              <span class="popup-value">${dampak}</span>
+            </div>
+            <div class="popup-detail">
+              <span class="popup-label">Penanganan:</span>
+              <span class="popup-value">${penanganan}</span>
+            </div>
+            <div class="popup-detail">
+              <span class="popup-label">Target/Tanggal:</span>
+              <span class="popup-value">${target}</span>
+            </div>
+          `;
 
-      const popupHtml = `
-        <div class="popup-title">${nama}</div>
-        <div class="popup-detail">
-          <span class="popup-label">Provinsi:</span>
-          <span class="popup-value">${prov}</span>
-        </div>
-        <div class="popup-detail">
-          <span class="popup-label">Kab/Kota:</span>
-          <span class="popup-value">${kab}</span>
-        </div>
-        <div class="popup-detail">
-          <span class="popup-label">Status 1:</span>
-          <span class="popup-value">${status1Raw || "-"}</span>
-        </div>
-        <div class="popup-detail">
-          <span class="popup-label">Jenis Infrastruktur:</span>
-          <span class="popup-value">${infraType}</span>
-        </div>
-        <div class="popup-detail">
-          <span class="popup-label">Dampak:</span>
-          <span class="popup-value">${dampak}</span>
-        </div>
-        <div class="popup-detail">
-          <span class="popup-label">Penanganan:</span>
-          <span class="popup-value">${penanganan}</span>
-        </div>
-        <div class="popup-detail">
-          <span class="popup-label">Target/Tanggal:</span>
-          <span class="popup-value">${target}</span>
-        </div>
-      `;
+          marker.bindPopup(popupHtml);
 
-      marker.bindPopup(popupHtml);
+          marker.bindTooltip(
+            `<div><strong>${kab}</strong><br>${nama}</div>`,
+            { direction: "top", offset: [0, -4], permanent: false }
+          );
 
-      marker.bindTooltip(
-        `<div><strong>${kab}</strong><br>${nama}</div>`,
-        { direction: "top", offset: [0, -4], permanent: false }
-      );
+          infraMarkers.push({
+            province: prov,
+            marker: marker
+          });
+        });
 
-      // untuk filter provinsi
-      infraMarkers.push({
-        province: prov,
-        marker: marker
+        console.log("✅ Data jalan/jembatan putus PU (geojson) ter-load:", features.length, "feature");
+      })
+      .catch(err => {
+        console.error("❌ Gagal memuat GEOJSON jalan/jembatan putus:", err);
       });
-    });
-
-    console.log("✅ Data jalan/jembatan putus PU (geojson) ter-load:", features.length, "feature");
-  })
-  .catch(err => {
-    console.error("❌ Gagal memuat GEOJSON jalan/jembatan putus:", err);
-  });
 
     // =========================
     // MARKER KAMPUS POSKO
@@ -2303,36 +3245,100 @@ fetch(JALAN_JEMBATAN_GEOJSON)
     });
 
     // =========================
-    // PENCARIAN KAMPUS POSKO
+    // DOM UNTUK SEARCH & FILTER
     // =========================
     const searchInput = document.getElementById('campus-search-input');
     const searchResultsContainer = document.getElementById('campus-search-results');
+    const provinceSelect = document.getElementById('province-filter-select');
+    const districtsCheckbox = document.getElementById('toggle-districts');
 
     function clearSearchResults() {
-        searchResultsContainer.innerHTML = '';
+        if (searchResultsContainer) {
+            searchResultsContainer.innerHTML = '';
+        }
     }
 
     function renderSearchResults(results) {
+        if (!searchResultsContainer) return;
+
         if (!results.length) {
             searchResultsContainer.innerHTML =
                 '<div class="search-result-item search-result-empty">Tidak ada hasil</div>';
             return;
         }
 
-        const html = results.slice(0, 30).map(({ campus, index }) => `
-            <div class="search-result-item" data-index="${index}">
-                <div class="search-result-name">${campus.name}</div>
-                <div class="search-result-meta">
-                    ${campus.city} • ${campus.province} • ${campus.status}
-                </div>
-            </div>
-        `).join('');
+        const html = results.slice(0, 40).map(item => {
+            if (item.type === 'district') {
+                const d = item.district;
+                return `
+                    <div class="search-result-item"
+                         data-type="district"
+                         data-index="${item.index}">
+                        <div class="search-result-name">${toTitleCase(d.name)}</div>
+                        <div class="search-result-meta">
+                            Kecamatan • ${d.regency || '-'} • ${item.province || '-'}
+                        </div>
+                    </div>
+                `;
+            } else {
+                const c = item.campus;
+                return `
+                    <div class="search-result-item"
+                         data-type="campus"
+                         data-index="${item.index}">
+                        <div class="search-result-name">${c.name}</div>
+                        <div class="search-result-meta">
+                            ${c.city} • ${c.province} • ${c.status}
+                        </div>
+                    </div>
+                `;
+            }
+        }).join('');
 
         searchResultsContainer.innerHTML = html;
     }
 
+    // =========================
+    // HANDLE SEARCH SELECTION
+    // =========================
+    async function handleSearchSelection(type, index, districtsCheckboxEl) {
+        if (type === 'district') {
+            await ensureDistrictDataLoaded();
+            districtsVisible = true;
+
+            if (districtsCheckboxEl && !districtsCheckboxEl.checked) {
+                districtsCheckboxEl.checked = true;
+            }
+
+            // pastikan filter provinsi tetap berlaku pada layer/marker lain
+            setProvinceFilter(currentProvinceFilter);
+
+            const item = districtMarkers[index];
+            if (!item) return;
+
+            const { marker, district, province } = item;
+
+            if (!map.hasLayer(marker)) {
+                map.addLayer(marker);
+            }
+
+            map.setView([district.lat, district.lng], 10);
+            marker.openPopup();
+        } else {
+            const item = campusMarkers[index];
+            if (!item) return;
+            const { campus, marker } = item;
+
+            map.setView([campus.lat, campus.lng], 9);
+            marker.openPopup();
+        }
+    }
+
+    // =========================
+    // PENCARIAN KAMPUS POSKO & KECAMATAN
+    // =========================
     if (searchInput && searchResultsContainer) {
-        searchInput.addEventListener('input', (e) => {
+        searchInput.addEventListener('input', async (e) => {
             const q = e.target.value.trim().toLowerCase();
 
             if (!q) {
@@ -2340,83 +3346,57 @@ fetch(JALAN_JEMBATAN_GEOJSON)
                 return;
             }
 
-            const results = campusMarkers
-                .map((item, index) => ({ ...item, index }))
+            await ensureDistrictDataLoaded();
+
+            const campusResults = campusMarkers
+                .map((item, index) => ({ ...item, index, type: 'campus' }))
                 .filter(({ campus }) =>
                     (campus.name && campus.name.toLowerCase().includes(q)) ||
                     (campus.city && campus.city.toLowerCase().includes(q)) ||
                     (campus.province && campus.province.toLowerCase().includes(q))
                 );
 
+            const districtResults = districtMarkers
+                .map((item, index) => ({ ...item, index, type: 'district' }))
+                .filter(({ district }) =>
+                    (district.name && district.name.toLowerCase().includes(q))
+                );
+
+            const results = campusResults.concat(districtResults);
             renderSearchResults(results);
         });
 
-        searchResultsContainer.addEventListener('click', (e) => {
+        searchResultsContainer.addEventListener('click', async (e) => {
             const itemEl = e.target.closest('.search-result-item');
             if (!itemEl || itemEl.classList.contains('search-result-empty')) return;
 
+            const type = itemEl.dataset.type || 'campus';
             const index = parseInt(itemEl.dataset.index, 10);
-            const { campus, marker } = campusMarkers[index];
 
-            map.setView([campus.lat, campus.lng], 9);
-            marker.openPopup();
+            await handleSearchSelection(type, index, districtsCheckbox);
             clearSearchResults();
         });
 
-        searchInput.addEventListener('keydown', (e) => {
+        searchInput.addEventListener('keydown', async (e) => {
             if (e.key === 'Enter') {
                 const firstResult = searchResultsContainer.querySelector('.search-result-item:not(.search-result-empty)');
                 if (!firstResult) return;
 
+                const type = firstResult.dataset.type || 'campus';
                 const index = parseInt(firstResult.dataset.index, 10);
-                const { campus, marker } = campusMarkers[index];
 
-                map.setView([campus.lat, campus.lng], 9);
-                marker.openPopup();
+                await handleSearchSelection(type, index, districtsCheckbox);
                 clearSearchResults();
             }
         });
     }
 
     // =========================
-    // TITIK PENGUNGSIAN
-    // =========================
-    fetch('Titik-Pengungsian.geojson')
-      .then(resp => resp.json())
-      .then(geojson => {
-          L.geoJSON(geojson, {
-              pointToLayer: function(feature, latlng) {
-                  return L.marker(latlng, { icon: shelterIcon });
-              },
-              onEachFeature: function (feature, layer) {
-                  const p = feature.properties || {};
-                  const popupHtml = `
-                      <div class="popup-title">${p.titik_pengungsian || 'Titik Pengungsian'}</div>
-                      <div class="popup-detail">
-                          <span class="popup-label">Provinsi:</span>
-                          <span class="popup-value">${p.provinsi || '-'}</span>
-                      </div>
-                      <div class="popup-detail">
-                          <span class="popup-label">Kab/Kota:</span>
-                          <span class="popup-value">${p.kabupaten || '-'}</span>
-                      </div>
-                      <div class="popup-detail">
-                          <span class="popup-label">Kecamatan:</span>
-                          <span class="popup-value">${p.kecamatan || '-'}</span>
-                      </div>
-                  `;
-                  layer.bindPopup(popupHtml);
-              }
-          }).addTo(shelterLayer);
-      })
-      .catch(err => {
-          console.error('❌ Gagal memuat Titik-Pengungsian.geojson', err);
-      });
-
-    // =========================
     // FILTER PROVINSI
     // =========================
     function setProvinceFilter(province) {
+        currentProvinceFilter = province;
+
         // 1) Poligon kab/kota
         regencyLayers.forEach(({ province: p, layer }) => {
             if (province === 'All' || p === province) {
@@ -2453,7 +3433,33 @@ fetch(JALAN_JEMBATAN_GEOJSON)
             }
         });
 
-        // 5) Sesuaikan viewport jika bukan All
+        // 5) Marker kecamatan (districts)
+        districtMarkers.forEach(({ province: p, marker }) => {
+            if (!districtsVisible) {
+                if (map.hasLayer(marker)) map.removeLayer(marker);
+                return;
+            }
+            if (province === 'All' || p === province) {
+                if (!map.hasLayer(marker)) map.addLayer(marker);
+            } else {
+                if (map.hasLayer(marker)) map.removeLayer(marker);
+            }
+        });
+
+        // 6) Polygon kecamatan
+        districtPolygonLayers.forEach(({ province: p, layer }) => {
+            if (!districtsVisible) {
+                if (map.hasLayer(layer)) map.removeLayer(layer);
+                return;
+            }
+            if (province === 'All' || p === province) {
+                if (!map.hasLayer(layer)) map.addLayer(layer);
+            } else {
+                if (map.hasLayer(layer)) map.removeLayer(layer);
+            }
+        });
+
+        // 7) Sesuaikan viewport jika bukan All
         if (province !== 'All') {
             const layersForProvince = regencyLayers
                 .filter(item => item.province === province)
@@ -2478,11 +3484,22 @@ fetch(JALAN_JEMBATAN_GEOJSON)
         }
     }
 
-    const provinceSelect = document.getElementById('province-filter-select');
     if (provinceSelect) {
         provinceSelect.addEventListener('change', (e) => {
             const value = e.target.value;
             setProvinceFilter(value);
+        });
+    }
+
+    if (districtsCheckbox) {
+        districtsCheckbox.addEventListener('change', async (e) => {
+            districtsVisible = e.target.checked;
+
+            if (districtsVisible) {
+                await ensureDistrictDataLoaded();
+            }
+
+            setProvinceFilter(currentProvinceFilter);
         });
     }
 
