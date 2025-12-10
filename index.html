@@ -2907,7 +2907,6 @@ const disasterLocations = [
                                   <span class="popup-value">${regencyName}</span>
                               </div>
                           `;
-                          marker.bindPopup(markerPopup);
 
                           districtMarkers.push({
                               province: cfg.province,
@@ -3006,7 +3005,18 @@ const disasterLocations = [
                                     ${getSeverityLabel(disaster.severity)}
                                 </div>
                             `;
+                            
+                            layer.on('mouseover', function () {
+                                this.openPopup();
+                            });
+
+                            layer.on('mouseout', function () {
+                                this.closePopup();
+                            });
+                            
                             layer.bindPopup(popupHtml);
+                            
+                            
                         } else {
                             const props = feature.properties || {};
                             const name = props.name || cfg.name || 'Kabupaten/Kota';
